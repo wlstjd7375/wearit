@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WEARIT</string>
+    <string name="logo_text">옷도 직접 입어보고 구매하세요</string>
+    <string name="title_activity_item_list">ItemListActivity</string>
+</resources>
