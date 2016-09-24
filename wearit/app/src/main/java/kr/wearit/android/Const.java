@@ -33,4 +33,8 @@ public class Const {
     public static final String ROOT_NICKNAME = SHOP_STYLEMAP;
 
     public static final String LOG_DATE = "2015.02.06 14:00";
+
+    public static final int BEST_ITEM = 1;
+    public static final int NEW_ITEM = 2;
+    public static final int SALE_ITEM = 3;
 }

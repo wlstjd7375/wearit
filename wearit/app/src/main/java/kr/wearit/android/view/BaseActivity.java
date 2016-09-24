@@ -52,7 +52,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void setToolbar(int resID) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_base);
+        Toolbar toolbar = (Toolbar) findViewById(resID);
         setSupportActionBar(toolbar);
     }
 

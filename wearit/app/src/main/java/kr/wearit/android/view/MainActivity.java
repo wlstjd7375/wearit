@@ -36,6 +36,7 @@ import kr.wearit.android.ui.ScrollListener;
 import kr.wearit.android.util.ImageUtil;
 import kr.wearit.android.view.main.MainFragment;
 import kr.wearit.android.view.main.MyPageFragment;
+import kr.wearit.android.view.main.MyPageGuestFragment;
 
 import com.etsy.android.grid.util.DynamicHeightImageView;
 
@@ -102,7 +103,7 @@ public class MainActivity extends BaseActivity {
                 break;
 
             case FRAGMENT_MY:
-                MyPageFragment mpf = new MyPageFragment();
+                MyPageGuestFragment mpf = new MyPageGuestFragment();
                 fragmentTransaction.replace(R.id.fragment_content, mpf);
                 fragmentTransaction.commit();
                 break;

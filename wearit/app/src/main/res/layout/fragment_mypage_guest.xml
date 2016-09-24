@@ -4,15 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <include
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:background="@color/white_gray">
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/toolbar_base" />
-    </LinearLayout>
+        android:layout_height="@dimen/toolbar_height_border"
+        layout="@layout/toolbar_base" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,6 +20,7 @@
         android:paddingBottom="90dp">
         
         <Button
+            android:id="@+id/btSignUp"
             android:layout_width="255dp"
             android:layout_height="56dp"
             android:background="@color/white_gray"
@@ -32,6 +28,7 @@
             android:text="SIGN UP"/>
 
         <Button
+            android:id="@+id/btLogin"
             android:layout_width="255dp"
             android:layout_height="56dp"
             android:layout_marginTop="10dp"
@@ -46,6 +43,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white_gray">
         <TextView
+            android:id="@+id/tvSetting"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="1dp"
@@ -63,6 +61,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white_gray">
         <TextView
+            android:id="@+id/tvCustomService"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="1dp"

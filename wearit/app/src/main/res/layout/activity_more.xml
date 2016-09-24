@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kr.wearit.android.view.MoreActivity">
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height_border"
+        layout="@layout/toolbar_with_back" />
+
+    <ListView
+        android:id="@+id/lvItemList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+</LinearLayout>

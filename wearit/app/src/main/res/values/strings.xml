@@ -2,4 +2,5 @@
     <string name="app_name">WEARIT</string>
     <string name="logo_text">옷도 직접 입어보고 구매하세요</string>
     <string name="title_activity_item_list">ItemListActivity</string>
+    <string name="signup_information">키와 몸무게는 배달 시에 고객님의 사이즈를 보다 정확하게 배달하기 위해 사용됩니다.</string>
 </resources>
