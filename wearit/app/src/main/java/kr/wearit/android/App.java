@@ -10,8 +10,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-
 import com.google.android.gcm.GCMRegistrar;
+import com.tsengvn.typekit.Typekit;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
@@ -48,36 +48,6 @@ import kr.wearit.android.util.ImageUtil;
  * Created by KimJS on 2016-09-02.
  */
 public class App extends Application {
-
-    private void setDefaultFont() { //called onCreate
-        // set app font
-        setDefaultFont(this, "DEFAULT", "NotoSansCJKkr-Medium.otf");
-        setDefaultFont(this, "SANS_SERIF", "NotoSansCJKkr-Medium.otf");
-        setDefaultFont(this, "SERIF", "NotoSansCJKkr-Medium.otf");
-        // !set app font
-    }
-
-    // set app font
-    public static void setDefaultFont(Context ctx, String staticTypefaceFieldName, String fontAssetName) {
-        final Typeface regular = Typeface.createFromAsset(ctx.getAssets(), fontAssetName);
-        replaceFont(staticTypefaceFieldName, regular);
-    }
-
-    protected static void replaceFont(String staticTypefaceFieldName, final Typeface newTypeface) {
-        try {
-            final Field StaticField = Typeface.class.getDeclaredField(staticTypefaceFieldName);
-            StaticField.setAccessible(true);
-            StaticField.set(null, newTypeface);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-    // !set app font
-
-
-
     //@#!@#
     private static final String TAG = App.class.getSimpleName();
     private static final boolean LOG = Config.LOG;
@@ -130,10 +100,14 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        setDefaultFont();
+//        setDefaultFont();
 
         if (LOG)
             Log.d(TAG, "onCreate // 2014-12-29");
+
+        Typekit.getInstance()
+                .addNormal(Typekit.createFromAsset(this, "NotoSansCJKkr-Regular.otf"))
+                .addBold(Typekit.createFromAsset(this, "NotoSansCJKkr-Medium.otf"));
 
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 

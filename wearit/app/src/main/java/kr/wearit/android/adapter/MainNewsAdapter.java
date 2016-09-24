@@ -32,8 +32,8 @@ public class MainNewsAdapter extends ArrayAdapter<NewsPair> {
 
     // View lookup cache
     private static class ViewHolder {
-        DynamicHeightImageView ivNewstLeft;
-        DynamicHeightImageView ivNewsRight;
+        ImageView ivNewstLeft;
+        ImageView ivNewsRight;
         TextView tvTitleLeft;
         TextView tvTitleRight;
     }
@@ -56,8 +56,8 @@ public class MainNewsAdapter extends ArrayAdapter<NewsPair> {
             view = inflater.inflate(R.layout.listrow_main_news, parent, false);
             //viewHolder.tvTitleLeft = (TextView)view.findViewById(R.id.tvNewsTitleLeft);
             //viewHolder.tvTitleRight = (TextView)view.findViewById(R.id.tvNewsTitleRight);
-            viewHolder.ivNewstLeft = (DynamicHeightImageView)view.findViewById(R.id.ivMainNewsLeft);
-            viewHolder.ivNewsRight = (DynamicHeightImageView)view.findViewById(R.id.ivMainNewsRight);
+            viewHolder.ivNewstLeft = (ImageView)view.findViewById(R.id.ivMainNewsLeft);
+            viewHolder.ivNewsRight = (ImageView)view.findViewById(R.id.ivMainNewsRight);
 
             //fix height
             view.getLayoutParams().height = mScreenWidth/2;

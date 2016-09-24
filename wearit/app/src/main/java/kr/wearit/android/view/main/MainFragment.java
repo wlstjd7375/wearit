@@ -190,9 +190,6 @@ public class MainFragment extends Fragment {
 
             tvBrand.setText(product.getBrandName());
             tvName.setText(product.getName());
-            /*
-            Typeface font = Typeface.createFromAsset(getActivity().getAssets(),"NotoSansCJKkr-Regular.otf");
-            tvName.setTypeface(font);*/
 
             tvPrice1.setText(product.getPrice() + "");
             if(product.isSale()) {

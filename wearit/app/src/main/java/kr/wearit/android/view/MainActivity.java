@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -69,6 +70,8 @@ public class MainActivity extends BaseActivity {
     private LinearLayout llBtnK;
     private LinearLayout llBtnMy;
 
+    private RelativeLayout rlWating;
+
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -77,6 +80,7 @@ public class MainActivity extends BaseActivity {
                 if(LOG) {
                     Log.d(TAG, "in mHandler");
                 }
+                rlWating.setVisibility(View.GONE);
                 changeFragment(1, makeBundle());
             }
         }
@@ -118,7 +122,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
-
+        rlWating = (RelativeLayout) findViewById(R.id.rl_waiting);
+        rlWating.setVisibility(View.VISIBLE);
         initView();
         getData();
     }
