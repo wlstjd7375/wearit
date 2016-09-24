@@ -3,48 +3,31 @@ package kr.wearit.android.view;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 import kr.wearit.android.Config;
-import kr.wearit.android.Const;
 import kr.wearit.android.R;
-import kr.wearit.android.adapter.MainNewsAdapter;
 import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.NewsApi;
 import kr.wearit.android.controller.ProductApi;
 import kr.wearit.android.model.News;
 import kr.wearit.android.model.NewsCategory;
-import kr.wearit.android.model.NewsPair;
 import kr.wearit.android.model.Pagination;
 import kr.wearit.android.model.Product;
-import kr.wearit.android.ui.ScrollListener;
-import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.view.main.ItemListFragment;
 import kr.wearit.android.view.main.MainFragment;
-import kr.wearit.android.view.main.MyPageFragment;
 import kr.wearit.android.view.main.MyPageGuestFragment;
-
-import com.etsy.android.grid.util.DynamicHeightImageView;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends BaseActivity {
 
@@ -109,6 +92,12 @@ public class MainActivity extends BaseActivity {
                 fragmentTransaction.commit();
                 break;
 
+            case FRAGMENT_SEARCH:
+                ItemListFragment af = new ItemListFragment();
+                fragmentTransaction.replace(R.id.fragment_content, af);
+                fragmentTransaction.commit();
+                break;
+
             case FRAGMENT_MY:
                 MyPageGuestFragment mpf = new MyPageGuestFragment();
                 fragmentTransaction.replace(R.id.fragment_content, mpf);
@@ -140,6 +129,12 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 changeFragment(FRAGMENT_MAIN, makeBundle());
+            }
+        });
+        llBtnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeFragment(FRAGMENT_SEARCH, null);
             }
         });
         llBtnMy.setOnClickListener(new View.OnClickListener() {
@@ -180,5 +175,4 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-
 }

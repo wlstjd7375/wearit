@@ -2,20 +2,19 @@ package kr.wearit.android.adapter;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.etsy.android.grid.util.DynamicHeightImageView;
 
 import java.util.ArrayList;
 
 import kr.wearit.android.R;
-import kr.wearit.android.model.News;
-import kr.wearit.android.model.NewsPair;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.util.ImageUtil;
 
@@ -30,11 +29,6 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
 
     // View lookup cache
     private static class ViewHolder {
-        DynamicHeightImageView ivNewstLeft;
-        DynamicHeightImageView ivNewsRight;
-        TextView tvTitleLeft;
-        TextView tvTitleRight;
-
         LinearLayout llProductLeft;
         LinearLayout llProductRight;
     }
@@ -59,15 +53,22 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
             viewHolder.llProductLeft = (LinearLayout)view.findViewById(R.id.llProductLeft);
             viewHolder.llProductRight = (LinearLayout)view.findViewById(R.id.llProductRight);
 
-
-            //fix height
-            view.getLayoutParams().height = mScreenWidth/2;
-            view.requestLayout();
-
             view.setTag(viewHolder);
         }
         else{
             viewHolder = (ViewHolder) view.getTag();
+        }
+
+        int idx = position * 2;
+        viewHolder.llProductLeft.removeAllViews();
+        viewHolder.llProductLeft.addView(getProductLayout(idx));
+
+        if((idx+1) < mDataList.size() ) {
+            viewHolder.llProductRight.removeAllViews();
+            viewHolder.llProductRight.addView(getProductLayout(idx+1));
+        }
+        else {
+            viewHolder.llProductRight.removeAllViews();
         }
 
         return view;
@@ -77,5 +78,32 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
     public int getCount() {
         int size = mDataList.size();
         return (size / 2) + (size % 2);
+    }
+
+    private View getProductLayout(int idx) {
+        //Layout inflate
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View itemLayout = inflater.inflate(R.layout.layout_item_big, null);
+        RelativeLayout llProduct = (RelativeLayout) itemLayout.findViewById(R.id.rlProduct);
+        ImageView ivProduct = (ImageView) itemLayout.findViewById(R.id.ivProduct);
+        TextView tvProductBrand = (TextView) itemLayout.findViewById(R.id.tvProductBrand);
+        TextView tvProductName = (TextView) itemLayout.findViewById(R.id.tvProductName);
+        TextView tvProductPriceFinal = (TextView) itemLayout.findViewById(R.id.tvProductPriceFinal);
+
+        // 1 x 1
+        llProduct.getLayoutParams().height = mScreenWidth/2;
+        llProduct.requestLayout();
+
+        // set values
+        Product productLeft = getItem(idx);
+        ImageUtil.display(ivProduct, productLeft.getImagePath());
+
+        tvProductBrand.setText(productLeft.getBrandName());
+        tvProductName.setText(productLeft.getName());
+        tvProductPriceFinal.setText(productLeft.getPrice() + "");
+
+        //TODO sale price
+
+        return itemLayout;
     }
 }

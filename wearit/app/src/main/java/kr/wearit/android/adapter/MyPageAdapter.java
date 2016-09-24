@@ -46,7 +46,6 @@ public class MyPageAdapter  extends ArrayAdapter<String> {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-
         viewHolder.tvMyPageItem.setText(getItem(position));
 
 

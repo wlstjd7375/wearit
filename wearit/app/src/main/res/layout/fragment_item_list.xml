@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height_border"
+        layout="@layout/toolbar_base" />
+
+    <!-- Contents -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/filter"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height_border"
+            android:background="@color/white_gray">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:background="@color/white"
+                android:layout_weight="1"
+                android:text="CATEGORY"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1dp"
+                android:background="@color/white"
+                android:layout_weight="1"
+                android:text="BRAND"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/lvItemList"
+            android:layout_below="@+id/filter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin_bottom"
+            app:backgroundTint="@color/white_gray"
+            app:backgroundTintMode="src_over"
+            android:src="@drawable/ic_searchbt"
+            app:useCompatPadding="true"/> <!-- 시발.... marginBottom 이랑 backgroundTintMode -->
+    </RelativeLayout>
+
+</LinearLayout>
