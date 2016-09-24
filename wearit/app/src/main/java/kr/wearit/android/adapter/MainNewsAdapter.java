@@ -48,6 +48,7 @@ public class MainNewsAdapter extends ArrayAdapter<NewsPair> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.d(TAG, "position = " + position +  " size = " + mNewsList.size());
         View view = convertView;
         ViewHolder viewHolder;
         if(view == null) {

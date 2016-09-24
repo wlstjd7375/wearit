@@ -23,6 +23,7 @@
         android:textColor="@color/black"
         android:singleLine="true"
         android:layout_gravity="center"
+        android:textStyle="bold"
         android:includeFontPadding="false"/>
 
     <TextView

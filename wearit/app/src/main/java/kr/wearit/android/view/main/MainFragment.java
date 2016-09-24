@@ -63,8 +63,6 @@ public class MainFragment extends Fragment {
     private TextView tvMoreNew;
     private TextView tvMoreSale;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
