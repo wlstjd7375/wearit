@@ -3,6 +3,7 @@ package kr.wearit.android.view;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.util.Log;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 import kr.wearit.android.Config;
+import kr.wearit.android.Const;
 import kr.wearit.android.R;
 import kr.wearit.android.adapter.MainNewsAdapter;
 import kr.wearit.android.controller.Api;
@@ -44,8 +47,8 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends BaseActivity {
 
-    private static final String TAG = "MainActivity##";
-    private static final boolean LOG = Config.LOG;
+    private final String TAG = "MainActivity##";
+    private final boolean LOG = Config.LOG;
     private Context mContext;
 
     private ArrayList<News> mNewsList;
@@ -53,11 +56,11 @@ public class MainActivity extends BaseActivity {
     private ArrayList<Product> mNewItemList;
     private ArrayList<Product> mSaleItemList;
 
-    private static final int FRAGMENT_MAIN = 1;
-    private static final int FRAGMENT_SEARCH = 2;
-    private static final int FRAGMENT_CART = 3;
-    private static final int FRAGMENT_K = 4;
-    private static final int FRAGMENT_MY = 5;
+    private final int FRAGMENT_MAIN = 1;
+    private final int FRAGMENT_SEARCH = 2;
+    private final int FRAGMENT_CART = 3;
+    private final int FRAGMENT_K = 4;
+    private final int FRAGMENT_MY = 5;
 
     //BottomBar
     private LinearLayout llBtnMain;
@@ -134,7 +137,6 @@ public class MainActivity extends BaseActivity {
                 changeFragment(FRAGMENT_MAIN, makeBundle());
             }
         });
-
         llBtnMy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,12 +168,10 @@ public class MainActivity extends BaseActivity {
                                         mHandler.sendEmptyMessage(1);
                                     }
                                 });
-
                             }
                         });
                     }
                 });
-
             }
         });
     }

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import kr.wearit.android.R;
 import kr.wearit.android.view.account.SignupActivity;
 
-public class MoreActivity extends AppCompatActivity {
+public class MoreActivity extends BaseActivity {
 
     private String LOG = "LoginActivity##";
     private Context mContext;
@@ -21,15 +21,21 @@ public class MoreActivity extends AppCompatActivity {
 
     private ListView lvItemList;
 
+    private int itemType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more);
 
-        //TODO get argument, best_item, new_item, sale_item
+        Intent intent = getIntent();
+        itemType = intent.getIntExtra("item_type", 0);
 
         init();
-        setListView();
+
+        if(itemType != 0) {
+            setListView();
+        }
     }
 
     private void init() {
@@ -50,6 +56,10 @@ public class MoreActivity extends AppCompatActivity {
 
     private void setListView() {
         //TODO
+        switch (itemType) {
+
+        }
+
         //switch( ) item category
         //API CALL;
         //setAdapter in onSuccess;

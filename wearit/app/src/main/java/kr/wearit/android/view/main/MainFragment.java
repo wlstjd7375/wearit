@@ -2,6 +2,7 @@ package kr.wearit.android.view.main;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -20,12 +21,14 @@ import com.etsy.android.grid.util.DynamicHeightImageView;
 import java.util.ArrayList;
 
 import kr.wearit.android.Config;
+import kr.wearit.android.Const;
 import kr.wearit.android.R;
 import kr.wearit.android.adapter.MainNewsAdapter;
 import kr.wearit.android.model.News;
 import kr.wearit.android.model.NewsPair;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.view.MoreActivity;
 
 /**
  * Created by KimJS on 2016-09-16.
@@ -43,14 +46,22 @@ public class MainFragment extends Fragment {
     private View header;
     private View footer;
     private LinearLayout llHorizontalView;
-    private static final int BEST_ITEM = 0;
-    private static final int NEW_ITEM = 1;
-    private static final int SALE_ITEM = 2;
+
+    private final int BEST_ITEM = Const.BEST_ITEM;
+    private final int NEW_ITEM = Const.NEW_ITEM;
+    private final int SALE_ITEM = Const.SALE_ITEM;
 
     private ArrayList<News> mNewsList;
     private ArrayList<Product> mBestItemList;
     private ArrayList<Product> mNewItemList;
     private ArrayList<Product> mSaleItemList;
+
+    //Footer more button
+    private TextView tvMoreBest;
+    private TextView tvMoreNew;
+    private TextView tvMoreSale;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +86,32 @@ public class MainFragment extends Fragment {
         lvMainNews = (ListView)view.findViewById(R.id.lvMainNews);
         header = getActivity().getLayoutInflater().inflate(R.layout.header_main, null);
         footer = getActivity().getLayoutInflater().inflate(R.layout.footer_main, null);
+
+        //More Button click listener
+        tvMoreBest = (TextView)footer.findViewById(R.id.tvMoreBest);
+        tvMoreNew = (TextView)footer.findViewById(R.id.tvMoreNew);
+        tvMoreSale = (TextView)footer.findViewById(R.id.tvMoreSale);
+
+        tvMoreBest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startMoreActivity(BEST_ITEM);
+            }
+        });
+        tvMoreNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startMoreActivity(NEW_ITEM);
+            }
+        });
+        tvMoreSale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startMoreActivity(SALE_ITEM);
+            }
+        });
+
+
         screenWidth = getScreenWidth();
 
         addProductList(mBestItemList, BEST_ITEM);
@@ -131,7 +168,6 @@ public class MainFragment extends Fragment {
             case NEW_ITEM:
                 llHorizontalView = (LinearLayout) footer.findViewById(R.id.llMainNewItem);
                 break;
-
             case SALE_ITEM:
                 llHorizontalView = (LinearLayout) footer.findViewById(R.id.llMainSaleItem);
                 break;
@@ -167,5 +203,11 @@ public class MainFragment extends Fragment {
 
             llHorizontalView.addView(llProductItem);
         }
+    }
+
+    private void startMoreActivity(int itemType) {
+        Intent intent = new Intent(mContext, MoreActivity.class);
+        intent.putExtra("item_type", itemType);
+        startActivity(intent);
     }
 }

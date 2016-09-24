@@ -57,7 +57,7 @@
             <ImageView
                 android:layout_width="38dp"
                 android:layout_height="34dp"
-                android:src="@drawable/rectangle_3"/>
+                android:src="@drawable/keep"/>
         </LinearLayout>
 
         <LinearLayout
