@@ -2,15 +2,20 @@ package kr.wearit.android.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import kr.wearit.android.Const;
 import kr.wearit.android.R;
-import kr.wearit.android.view.account.SignupActivity;
+import kr.wearit.android.controller.Api;
+import kr.wearit.android.controller.ProductApi;
+import kr.wearit.android.model.Pagination;
+import kr.wearit.android.model.Product;
 
 public class MoreActivity extends BaseActivity {
 
@@ -22,6 +27,12 @@ public class MoreActivity extends BaseActivity {
     private ListView lvItemList;
 
     private int itemType;
+
+    private final int BEST_ITEM = Const.BEST_ITEM;
+    private final int NEW_ITEM = Const.NEW_ITEM;
+    private final int SALE_ITEM = Const.SALE_ITEM;
+
+    private ArrayList<Product> mDataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +52,6 @@ public class MoreActivity extends BaseActivity {
     private void init() {
         mContext = this;
         tvToolbarTitle = (TextView)findViewById(R.id.tvToolbarTitle);
-        //TODO
-        tvToolbarTitle.setText("TITLE");
         ivToolbarBack = (ImageView)findViewById(R.id.ivToolbarBack);
         ivToolbarBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,16 +61,45 @@ public class MoreActivity extends BaseActivity {
         });
 
         lvItemList = (ListView)findViewById(R.id.lvItemList);
+        mDataList = new ArrayList<>();
     }
 
     private void setListView() {
-        //TODO
         switch (itemType) {
-
+            case BEST_ITEM:
+                tvToolbarTitle.setText("BEST ITEM");
+                ProductApi.getListOrder(1, "bestorder", new Api.OnDefaultListener<Pagination<Product>>() {
+                    @Override
+                    public void onSuccess(Pagination<Product> data) {
+                        mDataList = data.getList();
+                        setListAdapter();
+                    }
+                });
+                break;
+            case NEW_ITEM:
+                tvToolbarTitle.setText("NEW ITEM");
+                ProductApi.getListOrder(1, "neworder", new Api.OnDefaultListener<Pagination<Product>>() {
+                    @Override
+                    public void onSuccess(Pagination<Product> data) {
+                        mDataList = data.getList();
+                        setListAdapter();
+                    }
+                });
+                break;
+            case SALE_ITEM:
+                tvToolbarTitle.setText("SALE ITEM");
+                ProductApi.getListSale(1, new Api.OnDefaultListener<Pagination<Product>>() {
+                    @Override
+                    public void onSuccess(Pagination<Product> data) {
+                        mDataList = data.getList();
+                        setListAdapter();
+                    }
+                });
+                break;
         }
+    }
 
-        //switch( ) item category
-        //API CALL;
-        //setAdapter in onSuccess;
+    private void setListAdapter() {
+
     }
 }
