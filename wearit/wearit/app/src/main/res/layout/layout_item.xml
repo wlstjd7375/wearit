@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="12dp"
+    android:paddingRight="11dp"
+    android:gravity="center_horizontal">
+
+    <com.etsy.android.grid.util.DynamicHeightImageView
+        android:id="@+id/ivProduct"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        tools:ignore="ContentDescription"/>
+
+    <TextView
+        android:id="@+id/tvProductBrand"
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="120dp"
+        android:textColor="@color/black"
+        android:singleLine="true"
+        android:layout_gravity="center"
+        android:includeFontPadding="false"/>
+
+    <TextView
+        android:id="@+id/tvProductName"
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="120dp"
+        android:textColor="@color/gray"
+        android:singleLine="true"
+        android:layout_gravity="center"
+        android:includeFontPadding="false"/>
+
+    <TextView
+        android:id="@+id/tvProductPrice1"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="120dp"
+        android:textColor="@color/black"
+        android:layout_gravity="right"
+        android:includeFontPadding="false"/>
+
+    <TextView
+        android:id="@+id/tvProductPrice2"
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="120dp"
+        android:textColor="@color/black"
+        android:layout_gravity="right"
+        android:includeFontPadding="false"/>
+
+</LinearLayout>

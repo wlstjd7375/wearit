@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kr.wearit.android.view.account.LoginActivity"
+    android:orientation="vertical">
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height_border"
+        layout="@layout/toolbar_with_back" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+            <ImageView
+                android:layout_width="178dp"
+                android:layout_height="49dp"
+                android:layout_marginTop="75dp"
+                android:src="@drawable/logo"/>
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="63dp"
+                android:hint="ID"
+                android:textSize="13sp"
+                android:textColorHint="@color/edittext_hint_color"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/edittext_color"
+                android:inputType="textNoSuggestions"/>
+
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="PASSWORD"
+                android:textSize="13sp"
+                android:textColorHint="@color/edittext_hint_color"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/edittext_color"
+                android:inputType="textPassword"/>
+
+
+            <Button
+                android:layout_width="255dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="63dp"
+                android:background="@color/white_gray"
+                android:gravity="center"
+                android:text="LOGIN"
+                android:textColor="@color/black"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="FIND PASSWORD?"
+                android:textColor="@color/black"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tvSignupToday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="84dp"
+                android:layout_marginBottom="37dp"
+                android:text="SIGN UP TODAY."
+                android:textColor="@color/black"
+                android:textSize="13sp"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
