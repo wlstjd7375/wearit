@@ -37,7 +37,8 @@
     </RelativeLayout>
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
         <LinearLayout
             android:id="@+id/llMainBestItem"
             android:layout_width="wrap_content"
@@ -80,7 +81,8 @@
     </RelativeLayout>
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
         <LinearLayout
             android:id="@+id/llMainNewItem"
             android:layout_width="wrap_content"
@@ -124,7 +126,8 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="12dp"
+        android:scrollbars="none">
         <LinearLayout
             android:id="@+id/llMainSaleItem"
             android:layout_width="wrap_content"

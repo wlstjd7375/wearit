@@ -1,6 +1,7 @@
 
 package kr.wearit.android.view;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -17,6 +18,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import kr.wearit.android.R;
 
@@ -62,5 +65,12 @@ public class BaseActivity extends AppCompatActivity {
 
     public static int getScreenHeight() {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+
     }
 }
