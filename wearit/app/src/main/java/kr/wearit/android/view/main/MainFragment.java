@@ -28,7 +28,9 @@ import kr.wearit.android.model.News;
 import kr.wearit.android.model.NewsPair;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.view.MainActivity;
 import kr.wearit.android.view.MoreActivity;
+import kr.wearit.android.view.product.ProductActivity;
 
 /**
  * Created by KimJS on 2016-09-16.
@@ -174,7 +176,7 @@ public class MainFragment extends Fragment {
         }
 
         int i = 0;
-        for(Product product : mProductList) {
+        for(final Product product : mProductList) {
             if(i++ > 5) {
                 break;
             }
@@ -197,6 +199,14 @@ public class MainFragment extends Fragment {
                 tvPrice1.setTextColor(Color.parseColor("#e33131"));
                 tvPrice2.setText(product.getSalePrice() + "");
             }
+            llProductItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), ProductActivity.class);
+                    intent.putExtra("key",product.getKey());
+                    startActivity(intent);
+                }
+            });
 
             llHorizontalView.addView(llProductItem);
         }
