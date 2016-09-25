@@ -11,11 +11,30 @@
         android:layout_height="@dimen/toolbar_height_border"
         layout="@layout/toolbar_with_back" />
 
-    <ListView
-        android:id="@+id/lvItemList"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lvItemList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </ListView>
+        </ListView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rl_waiting"
+            android:visibility="gone">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pb_wait"
+                style="?android:attr/progressBarStyle"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="visible"/>
+        </RelativeLayout>
+    </RelativeLayout>
 
 </LinearLayout>

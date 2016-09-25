@@ -29,6 +29,7 @@
         android:layout_height="match_parent"
         android:id="@+id/rl_waiting"
         android:background="#FFFFFF"
+        android:layout_marginBottom="@dimen/bottombar_height_border"
         android:visibility="gone">
         <ProgressBar
             android:layout_width="wrap_content"
