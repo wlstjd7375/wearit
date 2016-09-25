@@ -1,6 +1,7 @@
 
 package kr.wearit.android.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -57,6 +58,10 @@ public class BaseActivity extends AppCompatActivity {
     public void setToolbar(int resID) {
         Toolbar toolbar = (Toolbar) findViewById(resID);
         setSupportActionBar(toolbar);
+    }
+
+    protected Activity getActivity() {
+        return this;
     }
 
     public static int getScreenWidth() {

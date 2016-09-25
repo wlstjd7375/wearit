@@ -89,19 +89,19 @@ public class MainActivity extends BaseActivity {
                 MainFragment mf = new MainFragment();
                 mf.setArguments(args);
                 fragmentTransaction.replace(R.id.fragment_content, mf);
-                fragmentTransaction.commit();
+                fragmentTransaction.commitAllowingStateLoss();
                 break;
 
             case FRAGMENT_SEARCH:
                 ItemListFragment af = new ItemListFragment();
                 fragmentTransaction.replace(R.id.fragment_content, af);
-                fragmentTransaction.commit();
+                fragmentTransaction.commitAllowingStateLoss();
                 break;
 
             case FRAGMENT_MY:
                 MyPageGuestFragment mpf = new MyPageGuestFragment();
                 fragmentTransaction.replace(R.id.fragment_content, mpf);
-                fragmentTransaction.commit();
+                fragmentTransaction.commitAllowingStateLoss();
                 break;
         }
     }

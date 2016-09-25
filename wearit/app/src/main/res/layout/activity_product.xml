@@ -7,7 +7,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/relativeLayout">
+        android:id="@+id/sv_product"
+        android:layout_above="@+id/rl_bottom">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -362,11 +363,12 @@
                 />
         </LinearLayout>
     </ScrollView>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:id="@+id/relativeLayout">
+        android:id="@+id/rl_bottom">
 
         <ImageButton
             android:layout_width="51dp"
@@ -401,6 +403,146 @@
             android:layout_marginRight="20dp"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ll_selector"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/round_angle_bababa"
+            android:padding="1dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rl_size_sel"
+                android:background="@drawable/round_angle_ffffff">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_sel_size"
+                    android:text="옵션"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/round_angle_bababa"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="20dp"
+            android:padding="1dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/round_angle_ffffff">
+
+                <RelativeLayout
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/rl_minus"
+                    android:paddingLeft="17dp"
+                    android:paddingRight="17dp"
+                    android:layout_alignParentLeft="true">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#808080"
+                        android:layout_centerVertical="true"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_count"
+                    android:text="1"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+
+                <RelativeLayout
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/rl_plus"
+                    android:paddingTop="17dp"
+                    android:paddingLeft="17dp"
+                    android:paddingRight="17dp"
+                    android:paddingBottom="17dp"
+                    android:layout_alignParentRight="true">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="#808080"
+                        android:layout_centerVertical="true"/>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="#808080"
+                        android:layout_centerHorizontal="true"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true">
+
+            <ImageButton
+                android:layout_width="51dp"
+                android:layout_height="40dp"
+                android:id="@+id/bt_insel_itbag"
+                android:background="@drawable/bt_itbag_black"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_insel_keep"
+                android:text="KEEP"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@id/bt_insel_itbag"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_insel_order"
+                android:text="주문하기"
+                android:textColor="#e33131"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

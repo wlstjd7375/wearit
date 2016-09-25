@@ -1,34 +1,16 @@
 package kr.wearit.android.view.product;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,21 +20,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-
-import java.util.ArrayList;
-
-import kr.wearit.android.App;
 import kr.wearit.android.Config;
 import kr.wearit.android.R;
 import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.ProductApi;
-import kr.wearit.android.model.ContentPart;
-import kr.wearit.android.model.Pagination;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.model.ProductSize;
-import kr.wearit.android.model.Resource;
 import kr.wearit.android.util.ImageUtil;
 import kr.wearit.android.util.Util;
 
@@ -68,8 +41,15 @@ public class ProductActivity extends BaseActivity {
 
 //    private CustomDialog customDialog;
 
+
     private Product mItem;
     private RelativeLayout rlWating;
+    private LinearLayout llSelector;
+    private TextView tvSelSize;
+
+    private int selSize;
+    private int count;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,12 +68,54 @@ public class ProductActivity extends BaseActivity {
                 public void onSuccess(Product item) {
                     mItem = item;
                     initialize();
+                    initialize_selector();
                 }
             });
         }
+        selSize = 0;
 
+        llSelector = (LinearLayout) findViewById(R.id.ll_selector);
         rlWating = (RelativeLayout) findViewById(R.id.rl_waiting);
         rlWating.setVisibility(View.VISIBLE);
+    }
+
+    public void initialize_selector(){
+        tvSelSize = (TextView) findViewById(R.id.tv_sel_size);
+        ((RelativeLayout) findViewById(R.id.rl_size_sel)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new OptionDialog(getActivity()).show();
+            }
+        });
+
+        ((RelativeLayout) findViewById(R.id.rl_plus)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentCount = Integer.valueOf(((TextView) findViewById(R.id.tv_count)).getText().toString());
+                ((TextView) findViewById(R.id.tv_count)).setText(String.valueOf(currentCount+1));
+                count = currentCount + 1;
+            }
+        });
+
+        ((RelativeLayout) findViewById(R.id.rl_minus)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(count > 1) {
+                    int currentCount = Integer.valueOf(((TextView) findViewById(R.id.tv_count)).getText().toString());
+                    ((TextView) findViewById(R.id.tv_count)).setText(String.valueOf(currentCount - 1));
+                    count = currentCount - 1;
+                }
+            }
+        });
+
+        ((TextView) findViewById(R.id.tv_insel_order)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(selSize != 0) {
+                    new OrderDialog(getActivity()).show();
+                }
+            }
+        });
     }
 
     public void initialize() {
@@ -226,182 +248,111 @@ public class ProductActivity extends BaseActivity {
         rlWating.setVisibility(View.GONE);
 //        optionLayoutInitialize();
 
-    }
-//
-//
-//    public void optionLayoutInitialize(){
-//        ((Button) findViewById(R.id.visit_question)).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                VisitGuideActivity.launch(getActivity());
-//            }
-//        });
-//
-//        findViewById(R.id.product_pay_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (selectedPosition != mItem.getProductSizes().size()) {
-//                    if (!mItem.getProductSizes().get(selectedPosition).isSoldout()) {
-//                        Toast.makeText(getActivity(), "품절된 옵션 입니다.", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                }
-//                if (selectedPosition != mItem.getProductSizes().size() && cart_count > 0) {
-//                    mTracker.send(new HitBuilders.EventBuilder().setCategory("buy").setAction("add").setLabel("product/" + String.valueOf(mItem.getKey())).build());
-//                    try {
-//                        AirBridge.goal("buy_item_info_option");
-//                    } catch (Exception e){
-//                        e.printStackTrace();
-//                    }
-//                    if(purchaseFlag == 2){
-//                        mTracker.send(new HitBuilders.EventBuilder().setCategory("buy").setAction("add").setLabel("product/" + String.valueOf(mItem.getKey())).build());
-//
-//                        int tempkey = mItem.getProductSizes().get(selectedPosition).getKey();
-//
-//                        int price = 0;
-//                        int deliverPrice = 0;
-//
-//                        if(mItem.isSale()) {
-//                            price = mItem.getSalePrice() * cart_count;
-//                        }
-//                        else {
-//                            price = mItem.getPrice() * cart_count;
-//                        }
-//
-//                        for(int i=0;i<mItem.getDeliverInfos().size();i++){
-//                            if(price >= mItem.getDeliverInfos().get(i).getBasis()) {
-//                                deliverPrice = mItem.getDeliverInfos().get(i).getDeliverPrice();
-//                                break;
-//                            }
-//                        }
-//
-//                        ProductPaymentActivity.launch(getActivity(), mItem, mItem.getProductSizes().get(selectedPosition), cart_count, deliverPrice, "normal");
-//                        cartinFlag = false;
-//                        cart_in_layout.setVisibility(View.INVISIBLE);
-//                    }
-//                    else if(purchaseFlag == 3) {
-//                        //방문배송
-//                        mTracker.send(new HitBuilders.EventBuilder().setCategory("visitbuy").setAction("add").setLabel("product/" + String.valueOf(mItem.getKey())).build());
-//
-//                        int tempkey = mItem.getProductSizes().get(selectedPosition).getKey();
-//                        int price = 0;
-//                        int deliverPrice = 0;
-//                        int basis = 0;
-//
-//                        if(mItem.isSale()) {
-//                            price = mItem.getSalePrice() * cart_count;
-//                        }
-//                        else {
-//                            price = mItem.getPrice() * cart_count;
-//                        }
-////                        for(int i=0;i<mItem.getVisitDeliverInfos().size();i++){
-////                            if(mItem.getVisitDeliverInfos().get(i).getDeliverPrice() == 0) {
-////                                basis = mItem.getVisitDeliverInfos().get(i).getBasis();
-////                            }
-////                            if(price >= mItem.getVisitDeliverInfos().get(i).getBasis()) {
-////                                deliverPrice = mItem.getVisitDeliverInfos().get(i).getDeliverPrice();
-////                                break;
-////                            }
-////                        }
-//                        if(price >= 200000) {
-//                            deliverPrice = 0;
-//                        }
-//                        else {
-//                            deliverPrice = 10000;
-//                        }
-//                        ProductVisitPaymentActivity.launch(getActivity(), mItem, mItem.getProductSizes().get(selectedPosition), cart_count, deliverPrice, basis, "visit");
-//                        cartinFlag = false;
-//                        cart_in_layout.setVisibility(View.INVISIBLE);
-//
-//                    }
-//                } else {
-//                    Toast.makeText(getActivity(), "옵션을 정해주세요.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
-//
-//        findViewById(R.id.product_cart_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(selectedPosition != mItem.getProductSizes().size()) {
-//                    if (!mItem.getProductSizes().get(selectedPosition).isSoldout()) {
-//                        Toast.makeText(getActivity(), "품절된 옵션 입니다.", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                }
-//                if (selectedPosition != mItem.getProductSizes().size() && cart_count > 0) {
-//
-//                    int tempkey = mItem.getProductSizes().get(selectedPosition).getKey();
-//                    mTracker.send(new HitBuilders.EventBuilder().setCategory("cart").setAction("add").setLabel("product/"+String.valueOf(mItem.getKey())).build());
-//                    try {
-//                        AirBridge.goal("cart_item_info_option");
-//                    } catch (Exception e){
-//                        e.printStackTrace();
-//                    }
-//                    CartApi.add(tempkey, cart_count, new Api.OnAuthListener<Integer>() {
-//
-//                        @Override
-//                        public void onStart() {
-//                        }
-//
-//                        @Override
-//                        public void onSuccess(Integer data) {
-//                            dialogFlag = true;
-//                            customDialog = new CustomDialog(getActivity());
-//                            customDialog.show();
-//                        }
-//
-//                        @Override
-//                        public void onFail() {
-//                            System.out.println("실패 ㅅㅂ");
-//                        }
-//                    });
-//
-//                }
-//                else {
-//                    Toast.makeText(getActivity(), "옵션을 정해주세요.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
-//        cartCount = (TextView) findViewById(R.id.cart_count_text);
-//
-//        findViewById(R.id.cart_count_minus).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                cart_count--;
-//                if (cart_count <= 0) {
-//                    cart_count = 0;
-//                    cartCount.setText("수량");
-//                } else {
-//                    cartCount.setText("" + cart_count);
-//                }
-//            }
-//        });
-//
-//        findViewById(R.id.cart_count_plus).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                cart_count++;
-//                cartCount.setText("" + cart_count);
-//
-//            }
-//        });
-//
-//        size = (TextView) findViewById(R.id.tv_size_selector);
-//        size.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                new OptionDialog(getActivity()).show();
-//            }
-//        });
-//
-//        Animation fadeout = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
-//        rlWating.startAnimation(fadeout);
-//        rlWating.setVisibility(View.GONE);
-//    }
+        ((ImageButton) findViewById(R.id.bt_itbag)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((LinearLayout)findViewById(R.id.ll_selector)).setVisibility(View.VISIBLE);
+            }
+        });
 
+        ((TextView) findViewById(R.id.tv_order)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((LinearLayout)findViewById(R.id.ll_selector)).setVisibility(View.VISIBLE);
+            }
+        });
+
+        ((ScrollView) findViewById(R.id.sv_product)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(((LinearLayout) findViewById(R.id.ll_selector)).getVisibility() == View.VISIBLE){
+                    ((LinearLayout) findViewById(R.id.ll_selector)).setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    private class OrderDialog extends Dialog {
+
+        public OrderDialog(Context context) {
+            super(context);
+
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            setContentView(R.layout.dialog_order);
+
+            ((TextView) findViewById(R.id.tv_now_order)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dismiss();
+                }
+            });
+
+            ((TextView) findViewById(R.id.tv_later_order)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dismiss();
+                }
+            });
+        }
+    }
+
+    private class OptionDialog extends Dialog {
+        private ListView list;
+        private HintAdapter mAdapter;
+        public OptionDialog(Context context) {
+            super(context);
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            setContentView(R.layout.dialog_size);
+
+            mAdapter = new HintAdapter();
+            mAdapter.addAll(mItem.getProductSizes());
+            list = (ListView) findViewById(R.id.list);
+            list.setAdapter(mAdapter);
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if(!mAdapter.getItem(position).isSoldout()) {
+                        Toast.makeText(getActivity(),"품절된 옵션입니다",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        selSize = position;
+                        tvSelSize.setText(mAdapter.getItem(position).getSize());
+                        ((TextView) getActivity().findViewById(R.id.tv_insel_order)).setTextColor(Color.parseColor("#000000"));
+                        dismiss();
+                    }
+                }
+            });
+        }
+
+        private class HintAdapter extends ArrayAdapter<ProductSize> {
+            public HintAdapter() {
+                super(getActivity(), 0);
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = convertView;
+                ProductSize item = getItem(position);
+
+                view = LayoutInflater.from(getActivity()).inflate(R.layout.listrow_product_size, parent, false);
+
+                if(item.isSoldout()) {
+                    ((TextView) view.findViewById(R.id.tv_soldout)).setVisibility(View.GONE);
+
+                    ((TextView) view.findViewById(R.id.tv_name)).setVisibility(View.VISIBLE);
+                    ((TextView) view.findViewById(R.id.tv_name)).setText(item.getSize());
+                }
+                else {
+                    ((TextView) view.findViewById(R.id.tv_name)).setVisibility(View.GONE);
+
+                    ((TextView) view.findViewById(R.id.tv_soldout)).setVisibility(View.VISIBLE);
+                    ((TextView) view.findViewById(R.id.tv_soldout)).setText(item.getSize());
+                }
+
+                return view;
+            }
+        }
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -411,61 +362,13 @@ public class ProductActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if(findViewById(R.id.ll_selector).getVisibility() == View.VISIBLE) {
+            findViewById(R.id.ll_selector).setVisibility(View.GONE);
+        }
+        else {
+            super.onBackPressed();
+        }
     }
-//
-//    private class OptionDialog extends Dialog {
-//        private ListView list;
-//        private HintAdapter mAdapter;
-//        public OptionDialog(Context context) {
-//            super(context);
-//            requestWindowFeature(Window.FEATURE_NO_TITLE);
-//            setContentView(R.layout.dialog_option);
-//
-//            mAdapter = new HintAdapter();
-//            mAdapter.addAll(mItem.getProductSizes());
-//            list = (ListView) findViewById(R.id.list);
-//            list.setAdapter(mAdapter);
-//            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    selectedPosition = position;
-//                    size.setText(mAdapter.getItem(position).getSize());
-//                    dismiss();
-//                }
-//            });
-//        }
-//
-//        private class HintAdapter extends ArrayAdapter<ProductSize> {
-//            public HintAdapter() {
-//                super(getActivity(), 0);
-//            }
-//
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//                View view = convertView;
-//                ProductSize item = getItem(position);
-//
-//                view = LayoutInflater.from(getActivity()).inflate(R.layout.spinner_dropdown_row, parent, false);
-//
-//                if(item.isSoldout()) {
-//                    ((TextView) view.findViewById(R.id.tv_item_soldout)).setVisibility(View.GONE);
-//
-//                    ((TextView) view.findViewById(R.id.tv_item)).setVisibility(View.VISIBLE);
-//                    ((TextView) view.findViewById(R.id.tv_item)).setText(item.getSize());
-//                }
-//                else {
-//                    ((TextView) view.findViewById(R.id.tv_item)).setVisibility(View.GONE);
-//
-//                    ((TextView) view.findViewById(R.id.tv_item_soldout)).setVisibility(View.VISIBLE);
-//                    ((TextView) view.findViewById(R.id.tv_item_soldout)).setText(item.getSize());
-//                }
-//
-//                return view;
-//            }
-//        }
-//    }
-
 }
 
 
