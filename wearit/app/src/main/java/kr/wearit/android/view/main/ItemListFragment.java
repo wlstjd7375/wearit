@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import kr.wearit.android.R;
@@ -30,12 +31,17 @@ public class ItemListFragment extends Fragment {
 
     private ProductListAdapter mAdapter;
 
+    private RelativeLayout rlWating;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-
         mContext = getActivity();
+
+        //Loading
+        rlWating = (RelativeLayout) view.findViewById(R.id.rl_waiting);
+        rlWating.setVisibility(View.VISIBLE);
 
         tvToolbarTitle = (TextView)view.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("ITEM");
@@ -44,6 +50,9 @@ public class ItemListFragment extends Fragment {
         ProductApi.getListOrder(1, "neworder", new Api.OnDefaultListener<Pagination<Product>>() {
             @Override
             public void onSuccess(Pagination<Product> data) {
+                //Loading finish
+                rlWating.setVisibility(View.GONE);
+
                 mAdapter = new ProductListAdapter(mContext, data.getList(), getScreenWidth());
                 lvItemList.setAdapter(mAdapter);
                 //lvItemList.setOnScrollListener(mFetchHandler);

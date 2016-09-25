@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,8 @@ public class MoreActivity extends BaseActivity {
     private ArrayList<Product> mDataList;
     private ProductListAdapter mAdapter;
 
+    private RelativeLayout rlWating;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,10 @@ public class MoreActivity extends BaseActivity {
     }
 
     private void init() {
+        //Loading
+        rlWating = (RelativeLayout) findViewById(R.id.rl_waiting);
+        rlWating.setVisibility(View.VISIBLE);
+
         mContext = this;
         tvToolbarTitle = (TextView)findViewById(R.id.tvToolbarTitle);
         ivToolbarBack = (ImageView)findViewById(R.id.ivToolbarBack);
@@ -106,23 +113,13 @@ public class MoreActivity extends BaseActivity {
     }
 
     private void setListAdapter() {
+        //Loading finish
+        rlWating.setVisibility(View.GONE);
+
         mAdapter = new ProductListAdapter(mContext, mDataList, getScreenWidth());
         //mAdapter = new ProductListAdapter(mContext, getSubList(11), getScreenWidth());
         lvItemList.setAdapter(mAdapter);
         lvItemList.setOnScrollListener(mFetchHandler);
-    }
-
-    private ArrayList<Product> getSubList(int size) {
-        int iter = mDataList.size();
-        if(iter > size) {
-            iter = size;
-        }
-
-        ArrayList<Product> result = new ArrayList<>();
-        for(int i = 0; i < iter; i++){
-            result.add(mDataList.get(i));
-        }
-        return result;
     }
 
     private ScrollListener mFetchHandler = new ScrollListener() {
@@ -174,4 +171,18 @@ public class MoreActivity extends BaseActivity {
             }
         }
     };
+
+    //원하는 갯수만큼 출력(테스트용)
+    private ArrayList<Product> getSubList(int size) {
+        int iter = mDataList.size();
+        if(iter > size) {
+            iter = size;
+        }
+
+        ArrayList<Product> result = new ArrayList<>();
+        for(int i = 0; i < iter; i++){
+            result.add(mDataList.get(i));
+        }
+        return result;
+    }
 }
