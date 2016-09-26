@@ -27,7 +27,9 @@ import kr.wearit.android.model.News;
 import kr.wearit.android.model.NewsCategory;
 import kr.wearit.android.model.Pagination;
 import kr.wearit.android.model.Product;
+import kr.wearit.android.view.main.BagFragment;
 import kr.wearit.android.view.main.ItemListFragment;
+import kr.wearit.android.view.main.KeepFragment;
 import kr.wearit.android.view.main.MainFragment;
 import kr.wearit.android.view.main.MyPageGuestFragment;
 
@@ -44,7 +46,7 @@ public class MainActivity extends BaseActivity {
 
     private final int FRAGMENT_MAIN = 1;
     private final int FRAGMENT_SEARCH = 2;
-    private final int FRAGMENT_CART = 3;
+    private final int FRAGMENT_BAG = 3;
     private final int FRAGMENT_K = 4;
     private final int FRAGMENT_MY = 5;
 
@@ -104,6 +106,18 @@ public class MainActivity extends BaseActivity {
                 fragmentTransaction.commitAllowingStateLoss();
                 break;
 
+            case FRAGMENT_BAG:
+                BagFragment bf = new BagFragment();
+                fragmentTransaction.replace(R.id.fragment_content, bf);
+                fragmentTransaction.commitAllowingStateLoss();
+                break;
+
+            case FRAGMENT_K:
+                KeepFragment kf = new KeepFragment();
+                fragmentTransaction.replace(R.id.fragment_content, kf);
+                fragmentTransaction.commitAllowingStateLoss();
+                break;
+
             case FRAGMENT_MY:
                 MyPageGuestFragment mpf = new MyPageGuestFragment();
                 fragmentTransaction.replace(R.id.fragment_content, mpf);
@@ -146,6 +160,20 @@ public class MainActivity extends BaseActivity {
                 changeFragment(FRAGMENT_SEARCH, null);
             }
         });
+        llBtnBag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeFragment(FRAGMENT_BAG, null);
+            }
+        });
+
+        llBtnK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeFragment(FRAGMENT_K, null);
+            }
+        });
+
         llBtnMy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
