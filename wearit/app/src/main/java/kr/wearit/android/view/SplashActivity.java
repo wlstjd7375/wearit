@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import kr.wearit.android.App;
 import kr.wearit.android.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -31,6 +32,10 @@ public class SplashActivity extends AppCompatActivity {
     private Runnable wait = new Runnable() {
         @Override
         public void run() {
+            // 이전에 로그인 한 기록이 있으면 shared preference 에서 불러와
+            // User 정보(객체)를 App.getintance().mUser 에 저장해둠
+            App.getInstance().isLogin();
+
             mHandler.sendEmptyMessageDelayed(1, 1000);
         }
     };

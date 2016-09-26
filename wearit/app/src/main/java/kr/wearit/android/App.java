@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
+import com.google.gson.Gson;
 import com.tsengvn.typekit.Typekit;
 
 import java.lang.ref.WeakReference;
@@ -49,7 +50,7 @@ import kr.wearit.android.util.ImageUtil;
  */
 public class App extends Application {
     //@#!@#
-    private static final String TAG = App.class.getSimpleName();
+    private static final String TAG = App.class.getSimpleName() + "##";
     private static final boolean LOG = Config.LOG;
     //
     public interface OnUserStateListener {
@@ -64,6 +65,8 @@ public class App extends Application {
         void onStateChanged(int value);
     }
     //
+    private static final String PREF_USER = "_user_obj_";
+
     private static final String PREF_USER_ID = "_user_id_";
     private static final String PREF_USER_NAME = "_user_name_";
     private static final String PREF_USER_PASSWORD = "_user_password_";
@@ -121,12 +124,6 @@ public class App extends Application {
 
         ImageUtil.init(this);
 
-        /*
-        GcmUtil.check();
-        //GcmUtil.unregister();
-        //GCMRegistrar.setRegisteredOnServer(App.getInstance(), false);
-
-
         mApp = PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_APP, null);
 
         if (mApp == null) {
@@ -134,6 +131,11 @@ public class App extends Application {
 
             PreferenceManager.getDefaultSharedPreferences(this).edit().putString(PREF_APP, mApp).commit();
         }
+
+        /*
+        GcmUtil.check();
+        //GcmUtil.unregister();
+        //GCMRegistrar.setRegisteredOnServer(App.getInstance(), false);
 
         Config.Server server = getServer();
 
@@ -152,11 +154,85 @@ public class App extends Application {
         */
     }
 
+    //쓰는것
+    //Login
+    public User getUser() {
+        if(mUser == null) { // 앱 시작 or 로그인이 되어있지 않은 상태
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+            String json = pref.getString(PREF_USER, null);
+            if(json == null) {
+                //로그인정보 없음
+                mUser = null;
+            }
+            else {
+                //로그인정보 존재
+                Gson gson = new Gson();
+                User user = gson.fromJson(json, User.class);
+                mUser = user;
+            }
+        }
+        return mUser;
+    }
+    public boolean isLogin() {
+        if(getUser() == null) {
+            if(LOG) {
+                Log.d(TAG, "Login Status: false");
+            }
+            return false;
+        }
+        else {
+            if(LOG) {
+                Log.d(TAG, "Login Status: true");
+            }
+            return true;
+        }
+    }
+
+    public void login(User user, String loginPasswd) {
+        //setUser(user, true, loginPasswd);
+        setUser(user);
+    }
+
+    public void logout() {
+        //setUser(null, true, null);
+        setUser(null);
+    }
+    public void modifyUser(User user) {
+        //setUser(user, null);
+    }
+
+
+    private void setUser(User user) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+
+        if (LOG)
+            Log.d(TAG, "setUser // user = " + user);
+
+        if (LOG)
+            if (user != null)
+                Log.d(TAG, "setUser // id = " + user.getId() + ", password = " + user.getPassword());
+
+        if (user != null) {
+            Gson gson = new Gson();
+            String json = gson.toJson(user);
+            editor.putString(PREF_USER, json);
+        }
+        else { //Logout
+            editor.putString(PREF_USER, null);
+        }
+
+        editor.commit();
+        mUser = user;
+    }
+
+
     //
     public String getApp() {
         return mApp;
     }
 
+
+    //안쓰는거
     public String[] getAccountPreference() {
 //        User user = DBManager.getManager(getApplicationContext()).getUser();
 //
@@ -199,30 +275,14 @@ public class App extends Application {
         return (TextUtils.isEmpty(facebook) && TextUtils.isEmpty(kakao)) ? id : null;
     }
 
-    public User getUser() {
-        return mUser;
-    }
-
-    public void modifyUser(User user) {
-        setUser(user, false, null);
-    }
-
     public void login(User user) {
         setUser(user, false, null);
 
     }
 
-    public void login(User user, String loginPasswd) {
-        setUser(user, true, loginPasswd);
-    }
 
-    public void logout() {
-        setUser(null, true, null);
-    }
 
-    public boolean isLogin() {
-        return mUser != null;
-    }
+
 
     public Config.Server getServer() {
         return Config.Server.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_SERVER, Config.Server.PRD.name()));
@@ -256,6 +316,9 @@ public class App extends Application {
             if (mUserStateListener.get(i).get() == listener)
                 mUserStateListener.remove(i);
     }
+
+
+
     //
     private void setUser(User user, boolean facebook, String loginPasswd) {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
