@@ -1,8 +1,10 @@
 package kr.wearit.android.view;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 
@@ -18,7 +20,9 @@ import com.nhn.android.maps.opt.V;
 
 import java.util.ArrayList;
 
+import kr.wearit.android.App;
 import kr.wearit.android.Config;
+import kr.wearit.android.Const;
 import kr.wearit.android.R;
 import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.NewsApi;
@@ -31,6 +35,7 @@ import kr.wearit.android.view.main.BagFragment;
 import kr.wearit.android.view.main.ItemListFragment;
 import kr.wearit.android.view.main.KeepFragment;
 import kr.wearit.android.view.main.MainFragment;
+import kr.wearit.android.view.main.MyPageFragment;
 import kr.wearit.android.view.main.MyPageGuestFragment;
 
 public class MainActivity extends BaseActivity {
@@ -72,11 +77,10 @@ public class MainActivity extends BaseActivity {
                     Log.d(TAG, "in mHandler");
                 }
                 rlWating.setVisibility(View.GONE);
-                changeFragment(1, makeBundle());
+                changeFragment(FRAGMENT_MAIN);
             }
         }
     };
-
 
     private Bundle makeBundle() {
         Bundle args = new Bundle();
@@ -88,42 +92,52 @@ public class MainActivity extends BaseActivity {
         return args;
     }
 
-    private void changeFragment(int idx, Bundle args) {
+    public void changeFragment(int idx) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
+        Fragment fragment = new Fragment();
         switch(idx) {
             case FRAGMENT_MAIN:
-                MainFragment mf = new MainFragment();
-                mf.setArguments(args);
-                fragmentTransaction.replace(R.id.fragment_content, mf);
-                fragmentTransaction.commitAllowingStateLoss();
+                Bundle args = makeBundle();
+                fragment = new MainFragment();
+                fragment.setArguments(args);
+                /*
+                if(fragmentManager.getBackStackEntryCount() == 0) {
+                    fragmentTransaction.addToBackStack(null);
+                }
+                else {
+                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                }*/
                 break;
 
             case FRAGMENT_SEARCH:
-                ItemListFragment af = new ItemListFragment();
-                fragmentTransaction.replace(R.id.fragment_content, af);
-                fragmentTransaction.commitAllowingStateLoss();
+                fragment = new ItemListFragment();
                 break;
 
             case FRAGMENT_BAG:
-                BagFragment bf = new BagFragment();
-                fragmentTransaction.replace(R.id.fragment_content, bf);
-                fragmentTransaction.commitAllowingStateLoss();
+                fragment = new BagFragment();
                 break;
 
             case FRAGMENT_K:
-                KeepFragment kf = new KeepFragment();
-                fragmentTransaction.replace(R.id.fragment_content, kf);
-                fragmentTransaction.commitAllowingStateLoss();
+                fragment = new KeepFragment();
                 break;
 
             case FRAGMENT_MY:
-                MyPageGuestFragment mpf = new MyPageGuestFragment();
-                fragmentTransaction.replace(R.id.fragment_content, mpf);
-                fragmentTransaction.commitAllowingStateLoss();
+                if(App.getInstance().isLogin()) {
+                    fragment = new MyPageFragment();
+                }
+                else {
+                    fragment = new MyPageGuestFragment();
+                }
                 break;
         }
+
+        fragmentTransaction.replace(R.id.fragment_content, fragment);
+        fragmentTransaction.commitAllowingStateLoss();
+        /*
+        if(LOG) {
+            Log.d(TAG, "@@@in back stack: " + fragmentManager.getBackStackEntryCount());
+        }*/
     }
 
     @Override
@@ -151,33 +165,31 @@ public class MainActivity extends BaseActivity {
         llBtnMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeFragment(FRAGMENT_MAIN, makeBundle());
+                changeFragment(FRAGMENT_MAIN);
             }
         });
         llBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeFragment(FRAGMENT_SEARCH, null);
+                changeFragment(FRAGMENT_SEARCH);
             }
         });
         llBtnBag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeFragment(FRAGMENT_BAG, null);
+                changeFragment(FRAGMENT_BAG);
             }
         });
-
         llBtnK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeFragment(FRAGMENT_K, null);
+                changeFragment(FRAGMENT_K);
             }
         });
-
         llBtnMy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeFragment(FRAGMENT_MY, null);
+                changeFragment(FRAGMENT_MY);
             }
         });
 
@@ -229,6 +241,40 @@ public class MainActivity extends BaseActivity {
             else {
                 llBottomBar.setVisibility(View.VISIBLE);
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment currentFragment = getActivity().getFragmentManager().findFragmentById(R.id.fragment_content);
+        if(currentFragment instanceof MainFragment) {
+            super.onBackPressed();
+        }
+        else {
+            changeFragment(FRAGMENT_MAIN);
+        }
+        /*
+        FragmentManager fragmentManager = getFragmentManager();
+        if(LOG) {
+            Log.d(TAG, "@@@onBackPressed(), in back stack: " + fragmentManager.getBackStackEntryCount());
+        }
+        if(fragmentManager.getBackStackEntryCount() != 0) {
+            fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            changeFragment(FRAGMENT_MAIN, makeBundle());
+        }
+        else {
+            super.onBackPressed();
+        }*/
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if(LOG) {
+            Log.d(TAG, "onActivityResult, " + requestCode);
+        }
+        if(resultCode == Const.FROM_LOGIN_SUCCESS) {
+            changeFragment(FRAGMENT_MAIN);
         }
     }
 }

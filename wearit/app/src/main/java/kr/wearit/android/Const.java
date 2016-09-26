@@ -37,4 +37,6 @@ public class Const {
     public static final int BEST_ITEM = 1;
     public static final int NEW_ITEM = 2;
     public static final int SALE_ITEM = 3;
+
+    public static final int FROM_LOGIN_SUCCESS = 1;
 }
