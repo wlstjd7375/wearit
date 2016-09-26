@@ -25,6 +25,8 @@ public class Brand implements Parcelable, Images {
 	private ArrayList<Shop> shopList;
 	private ArrayList<Product> productList;
 
+	private boolean checked;
+
 	//
 
 	public int getKey() {
@@ -170,6 +172,14 @@ public class Brand implements Parcelable, Images {
 
 	public ArrayList<Product> getProductList() {
 		return productList;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 
 	//

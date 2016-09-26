@@ -10,6 +10,10 @@ import kr.wearit.android.model.Pagination;
 
 public class BrandApi extends Api {
 
+	public static void getPage(int page, OnListener<Pagination<Brand>> handler) {
+		get("/brand?page="+page, handler, new TypeToken<Response<Pagination<Brand>>>() {}.getType());
+	}
+
 	public static void getBannerList(OnListener<Pagination<BrandBanner>> handler) {
 		get("/brand/banner?page=1", handler, new TypeToken<Response<Pagination<BrandBanner>>>() {}.getType());
 	}

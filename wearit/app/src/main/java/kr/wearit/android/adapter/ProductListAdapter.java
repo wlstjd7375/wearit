@@ -35,6 +35,11 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         LinearLayout llProductRight;
     }
 
+    public ProductListAdapter(Context context, int screenWidth) {
+        super(context, R.layout.listrow_product_list);
+        mScreenWidth = screenWidth;
+    }
+
     public ProductListAdapter(Context context, ArrayList<Product> arrayList, int screenWidth) {
         super(context, R.layout.listrow_product_list, arrayList);
         // TODO Auto-generated constructor stub

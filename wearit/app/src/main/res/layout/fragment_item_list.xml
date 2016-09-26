@@ -135,16 +135,30 @@
         <ExpandableListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/lv_selector"
+            android:id="@+id/lv_category_selector"
             android:listSelector="@android:color/transparent"
             android:divider="#bababa"
             android:dividerHeight="1dp"
             android:childDivider="#dedede"
             android:choiceMode="multipleChoice"
             android:layout_below="@+id/rl_selector_top"
-            android:layout_above="@+id/bt_complete_selector">
+            android:layout_above="@+id/bt_complete_selector"
+            android:visibility="gone">
 
         </ExpandableListView>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lv_brand_selector"
+            android:listSelector="@android:color/transparent"
+            android:divider="#bababa"
+            android:dividerHeight="1dp"
+            android:choiceMode="multipleChoice"
+            android:layout_below="@+id/rl_selector_top"
+            android:layout_above="@+id/bt_complete_selector">
+
+        </ListView>
 
         <Button
             android:layout_width="match_parent"

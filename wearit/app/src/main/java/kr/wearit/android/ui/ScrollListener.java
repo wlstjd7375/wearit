@@ -49,8 +49,8 @@ public abstract class ScrollListener implements AbsListView.OnScrollListener {
             Log.d(TAG, "fetch // fetching = " + mFetching);
         }
 
-        if (page > mPageSize)
-            return;
+//        if (page > mPageSize)
+//            return;
 
         if (mFetching)
             return;

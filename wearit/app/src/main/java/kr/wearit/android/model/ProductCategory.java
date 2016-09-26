@@ -18,6 +18,7 @@ public class ProductCategory implements Key.Name<ProductCategory> {
 	private List<ProductCategory> children;
 	private int grandparent;
 	//
+	private boolean checked;
 
 	public ProductCategory() {
 	}
@@ -78,6 +79,14 @@ public class ProductCategory implements Key.Name<ProductCategory> {
 
 	public int getGrandparent(){
 		return this.grandparent;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 	//
 
