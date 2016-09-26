@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.nhn.android.maps.opt.V;
+
 import java.util.ArrayList;
 
 import kr.wearit.android.Config;
@@ -54,6 +56,10 @@ public class MainActivity extends BaseActivity {
     private LinearLayout llBtnMy;
 
     private RelativeLayout rlWating;
+
+    private LinearLayout llBottomBar;
+
+    public static Wating wait;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -113,6 +119,9 @@ public class MainActivity extends BaseActivity {
         mContext = this;
         rlWating = (RelativeLayout) findViewById(R.id.rl_waiting);
         rlWating.setVisibility(View.VISIBLE);
+
+        wait = new Wating();
+
         initView();
         getData();
     }
@@ -143,6 +152,8 @@ public class MainActivity extends BaseActivity {
                 changeFragment(FRAGMENT_MY, null);
             }
         });
+
+        llBottomBar = (LinearLayout) findViewById(R.id.ll_bottom_bar);
     }
 
     private void getData() {
@@ -174,5 +185,22 @@ public class MainActivity extends BaseActivity {
                 });
             }
         });
+    }
+
+    public static void removeBottomBar() {
+        wait.run();
+    }
+
+    private class Wating implements Runnable{
+
+        @Override
+        public void run() {
+            if(llBottomBar.getVisibility() == View.VISIBLE) {
+                llBottomBar.setVisibility(View.GONE);
+            }
+            else {
+                llBottomBar.setVisibility(View.VISIBLE);
+            }
+        }
     }
 }

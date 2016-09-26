@@ -2,6 +2,7 @@ package kr.wearit.android.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import kr.wearit.android.R;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.view.product.ProductActivity;
 
 /**
  * Created by KimJS on 2016-09-24.
@@ -95,7 +97,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         llProduct.requestLayout();
 
         // set values
-        Product productLeft = getItem(idx);
+        final Product productLeft = getItem(idx);
         ImageUtil.display(ivProduct, productLeft.getImagePath());
 
         tvProductBrand.setText(productLeft.getBrandName());
@@ -103,7 +105,14 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         tvProductPriceFinal.setText(productLeft.getPrice() + "");
 
         //TODO sale price
-
+        itemLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ProductActivity.class);
+                intent.putExtra("key",productLeft.getKey());
+                getContext().startActivity(intent);
+            }
+        });
         return itemLayout;
     }
 }

@@ -11,12 +11,14 @@
         android:id="@+id/fragment_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/bottombar_height_border"
+        android:layout_above="@+id/ll_bottom_bar"
+        android:layout_alignParentTop="true"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottombar_height_border"
+        android:id="@+id/ll_bottom_bar"
         android:layout_alignParentBottom="true">
         <include
             android:layout_width="match_parent"
