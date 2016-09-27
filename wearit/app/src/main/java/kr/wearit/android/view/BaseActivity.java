@@ -64,14 +64,6 @@ public class BaseActivity extends AppCompatActivity {
         return this;
     }
 
-    public static int getScreenWidth() {
-        return Resources.getSystem().getDisplayMetrics().widthPixels;
-    }
-
-    public static int getScreenHeight() {
-        return Resources.getSystem().getDisplayMetrics().heightPixels;
-    }
-
     @Override
     protected void attachBaseContext(Context newBase) {
 

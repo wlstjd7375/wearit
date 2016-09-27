@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -229,6 +230,10 @@ public class App extends Application {
     //
     public String getApp() {
         return mApp;
+    }
+
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
 
 

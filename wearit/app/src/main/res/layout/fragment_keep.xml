@@ -60,7 +60,7 @@
             android:layout_height="match_parent"
             layout="@layout/layout_go_shopping" />
         <ListView
-            android:id="@+id/lvBagList"
+            android:id="@+id/lvKeepList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone">

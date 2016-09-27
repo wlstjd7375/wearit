@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import kr.wearit.android.App;
 import kr.wearit.android.Const;
 import kr.wearit.android.R;
 import kr.wearit.android.adapter.ProductListAdapter;
@@ -116,7 +117,7 @@ public class MoreActivity extends BaseActivity {
         //Loading finish
         rlWating.setVisibility(View.GONE);
 
-        mAdapter = new ProductListAdapter(mContext, mDataList, getScreenWidth());
+        mAdapter = new ProductListAdapter(mContext, mDataList, App.getInstance().getScreenWidth());
         //mAdapter = new ProductListAdapter(mContext, getSubList(11), getScreenWidth());
         lvItemList.setAdapter(mAdapter);
         lvItemList.setOnScrollListener(mFetchHandler);

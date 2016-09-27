@@ -20,6 +20,7 @@ import com.etsy.android.grid.util.DynamicHeightImageView;
 
 import java.util.ArrayList;
 
+import kr.wearit.android.App;
 import kr.wearit.android.Config;
 import kr.wearit.android.Const;
 import kr.wearit.android.R;
@@ -112,7 +113,7 @@ public class MainFragment extends Fragment {
         });
 
 
-        screenWidth = getScreenWidth();
+        screenWidth = App.getInstance().getScreenWidth();
 
         addProductList(mBestItemList, BEST_ITEM);
         addProductList(mNewItemList, NEW_ITEM);
@@ -122,10 +123,6 @@ public class MainFragment extends Fragment {
         addNewsView();
 
         return view;
-    }
-
-    public static int getScreenWidth() {
-        return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
 
     private void addNewsView() {

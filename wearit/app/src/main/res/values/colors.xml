@@ -15,6 +15,7 @@
     <color name="white">#FFFFFF</color>
     <color name="white_gray">#80b9b9b9</color>
     <color name="green">#009688</color>
+    <color name="red">#de2b2b</color>
     <color name="edittext_hint_color">#bfbfbf</color>
     <color name="edittext_color">#d8d8d8</color>
     <color name="signup_button_color">#c2c2c2</color>

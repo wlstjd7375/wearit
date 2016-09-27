@@ -11,8 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import kr.wearit.android.App;
 import kr.wearit.android.Const;
 import kr.wearit.android.R;
+import kr.wearit.android.controller.MeApi;
+import kr.wearit.android.controller.ProductApi;
+import kr.wearit.android.model.Product;
 import kr.wearit.android.view.MainActivity;
 
 /**
@@ -28,7 +32,8 @@ public class KeepFragment extends Fragment {
     private Button btGoShopping;
 
     //Keep List
-    private ListView lvBagList;
+    private ListView lvKeepList;
+    //private final String BAG_URL = "/me/product";
 
     @Nullable
     @Override
@@ -37,6 +42,10 @@ public class KeepFragment extends Fragment {
 
         tvToolbarTitle = (TextView)view.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("KEEP");
+/*
+        if(App.getInstance().isLogin()) {
+
+        }*/
 
         //TODO if there is no item
         //set layout_go_shopping
