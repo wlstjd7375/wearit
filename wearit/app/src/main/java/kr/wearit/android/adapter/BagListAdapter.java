@@ -1,19 +1,23 @@
 package kr.wearit.android.adapter;
 
+import android.app.Fragment;
 import android.content.Context;
+import android.support.v4.view.ViewPager;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 
 import java.util.ArrayList;
 
+import kr.wearit.android.App;
 import kr.wearit.android.R;
 import kr.wearit.android.model.ProductCart;
-import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.view.main.BagFragment;
+
 
 /**
  * Created by KimJS on 2016-09-27.
@@ -23,26 +27,21 @@ public class BagListAdapter extends ArrayAdapter<ProductCart> {
     private Context mContext;
     private ArrayList<ProductCart> mDataList;
     private int mScreenWidth;
+    private Fragment mParentFragment;
 
     // View lookup cache
     private static class ViewHolder {
-        ImageView ivProduct;
-        TextView tvBrand;
-        TextView tvProductName;
-        TextView tvSalePrice;
-        TextView tvPrice;
-        TextView tvSize;
-        TextView tvItemCount;
-        TextView tvModify;
+        ViewPager pager;
     }
 
 
-    public BagListAdapter(Context context, ArrayList<ProductCart> arrayList, int screenWidth) {
+    public BagListAdapter(Context context, ArrayList<ProductCart> arrayList, Fragment parentFragment) {
         super(context, R.layout.listrow_bag_list, arrayList);
         // TODO Auto-generated constructor stub
         mContext = context;
         mDataList = arrayList;
-        mScreenWidth = screenWidth;
+        mParentFragment = parentFragment;
+        mScreenWidth = App.getInstance().getScreenWidth();
     }
 
     @Override
@@ -54,14 +53,7 @@ public class BagListAdapter extends ArrayAdapter<ProductCart> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             view = inflater.inflate(R.layout.listrow_bag_list, parent, false);
 
-            viewHolder.ivProduct = (ImageView)view.findViewById(R.id.ivProduct);
-            viewHolder.tvBrand = (TextView)view.findViewById(R.id.tvBrand);
-            viewHolder.tvProductName = (TextView)view.findViewById(R.id.tvProductName);
-            viewHolder.tvSalePrice = (TextView)view.findViewById(R.id.tvSalePrice);
-            viewHolder.tvPrice = (TextView)view.findViewById(R.id.tvPrice);
-            viewHolder.tvSize = (TextView)view.findViewById(R.id.tvSize);
-            viewHolder.tvItemCount = (TextView)view.findViewById(R.id.tvItemCount);
-            viewHolder.tvModify = (TextView)view.findViewById(R.id.tvModify);
+            viewHolder.pager = (ViewPager) view.findViewById(R.id.viewPager);
 
             view.setTag(viewHolder);
         }
@@ -69,21 +61,46 @@ public class BagListAdapter extends ArrayAdapter<ProductCart> {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        ProductCart item = getItem(position);
+        final ProductCart item = getItem(position);
+        ListRowPagerAdapter mAdapter = new ListRowPagerAdapter(mContext, item);
+        viewHolder.pager.setAdapter(mAdapter);
+        viewHolder.pager.getLayoutParams().height = mScreenWidth/2;
+        viewHolder.pager.setCurrentItem(1);
+        viewHolder.pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //Drag 하는동안 호출
+                /*
+                Log.d(TAG, "position = " + position + ", positionOffset = " + positionOffset + ", positionOffsetPixels = " + positionOffsetPixels);
+                if(position == 0 && positionOffsetPixels < 10) {
+                    //TODO Api Call
+                    ((BagFragment)mParentFragment).deleteRow(item);
+                }
+                else if(position == 2 && positionOffsetPixels < 10) {
+                    //TODO Api Call
+                    ((BagFragment)mParentFragment).deleteRow(item);
+                }*/
+            }
 
-        //image
-        viewHolder.ivProduct.getLayoutParams().height = mScreenWidth/2;
-        viewHolder.ivProduct.getLayoutParams().width = mScreenWidth/3;
-        ImageUtil.display(viewHolder.ivProduct, item.getImagepath());
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                //Called when the scroll state changes.
+            }
 
-        viewHolder.tvBrand.setText(item.getBrandname());
-        viewHolder.tvProductName.setText(item.getName());
-        if(item.isSale()) {
-            viewHolder.tvSalePrice.setText(item.getSale_price() + "원");
-        }
-        viewHolder.tvPrice.setText(item.getPrice() + "원");
-        viewHolder.tvSize.setText("SIZE: " + item.getSize());
-        viewHolder.tvItemCount.setText("개수: " + item.getCount());
+            @Override
+            public void onPageSelected(int position) {
+                //This method will be invoked when a new page becomes selected.
+                if(position == 0) {
+                    //TODO Api Call
+                    ((BagFragment)mParentFragment).deleteRow(item);
+                }
+                else if(position == 2) {
+                    //TODO Api Call
+                    ((BagFragment)mParentFragment).deleteRow(item);
+                }
+
+            }
+        });
 
         return view;
     }
