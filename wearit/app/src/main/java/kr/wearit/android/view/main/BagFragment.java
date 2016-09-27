@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import kr.wearit.android.adapter.BagListAdapter;
 import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.CartApi;
 import kr.wearit.android.model.CartDeliver;
+import kr.wearit.android.model.Product;
 import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.view.MainActivity;
 
@@ -31,6 +33,7 @@ import kr.wearit.android.view.MainActivity;
  */
 public class BagFragment extends Fragment {
 
+    private final String TAG = "BagFragment##";
     private TextView tvToolbarTitle;
     private TextView tvTotalItemInfo;
 
@@ -55,6 +58,8 @@ public class BagFragment extends Fragment {
         tvToolbarTitle = (TextView)view.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("BAG");
 
+        tvTotalItemInfo = (TextView)view.findViewById(R.id.tvTotalItemInfo);
+
         rlGoShopping = (RelativeLayout)view.findViewById(R.id.rlGoShopping);
         lvBagList = (ListView)view.findViewById(R.id.lvBagList);
 
@@ -63,13 +68,7 @@ public class BagFragment extends Fragment {
                 @Override
                 public void onSuccess(CartDeliver data) {
                     mProductList = data.getCart();
-                    if(mProductList.size() == 0) {
-                        setNoItemLayout();
-                    }
-                    else {
-                        setBagListLayout();
-                    }
-
+                    setListView();
                 }
             });
         }
@@ -77,11 +76,22 @@ public class BagFragment extends Fragment {
         return view;
     }
 
+    private void setListView() {
+        if(mProductList.size() == 0) {
+            setNoItemLayout();
+        }
+        else {
+            setBagListLayout();
+        }
+    }
+
     private void setNoItemLayout() {
         //if there is no item
         //set layout_go_shopping
         lvBagList.setVisibility(View.INVISIBLE);
         rlGoShopping.setVisibility(View.VISIBLE);
+
+        tvTotalItemInfo.setText("NO ITEM");
 
         tvNoItem = (TextView) view.findViewById(R.id.tvNoItem);
         tvNoItem.setText("ITBAG에 담긴 상품이 없습니다.");
@@ -100,16 +110,21 @@ public class BagFragment extends Fragment {
         lvBagList.setVisibility(View.VISIBLE);
 
         //set Total item in bag information
-        tvTotalItemInfo = (TextView)view.findViewById(R.id.tvTotalItemInfo) ;
         int cnt = mProductList.size();
         tvTotalItemInfo.setText(cnt + " items: ");
 
         //Set Bag List
 
         //Create Adapter
-        mAdapter = new BagListAdapter(getActivity(), mProductList, App.getInstance().getScreenWidth());
+        mAdapter = new BagListAdapter(getActivity(), mProductList, BagFragment.this);
         //setAdapter
         lvBagList.setAdapter(mAdapter);
     }
 
+    public void deleteRow(ProductCart item) {
+        mProductList.remove(item);
+        setListView();
+        //mAdapter.remove(item);
+        //mAdapter.notifyDataSetChanged();
+    }
 }

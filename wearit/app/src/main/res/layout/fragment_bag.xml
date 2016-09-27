@@ -19,7 +19,6 @@
             android:id="@+id/tvTotalItemInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NO ITEM"
             android:textColor="@color/gray"
             android:textSize="13sp"/>
 
