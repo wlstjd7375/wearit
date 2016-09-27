@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tvNoItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btGoShopping"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:gravity="center"
+        android:text="상품이 없습니다."
+        android:textColor="@color/gray"
+        android:textSize="13sp" />
+    <Button
+        android:id="@+id/btGoShopping"
+        android:layout_width="150dp"
+        android:layout_height="56dp"
+        android:layout_centerInParent="true"
+        android:background="@color/green"
+        android:text="쇼핑하러가기"
+        android:textColor="@color/white"/>
+
+</RelativeLayout>

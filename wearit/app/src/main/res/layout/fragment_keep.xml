@@ -51,5 +51,20 @@
     <!-- !header -->
 
     <!-- contents -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            android:id="@+id/layout_go_shopping"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/layout_go_shopping" />
+        <ListView
+            android:id="@+id/lvBagList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+        </ListView>
+    </RelativeLayout>
 
 </LinearLayout>

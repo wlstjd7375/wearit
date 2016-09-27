@@ -49,11 +49,11 @@ public class MainActivity extends BaseActivity {
     private ArrayList<Product> mNewItemList;
     private ArrayList<Product> mSaleItemList;
 
-    private final int FRAGMENT_MAIN = 1;
-    private final int FRAGMENT_SEARCH = 2;
-    private final int FRAGMENT_BAG = 3;
-    private final int FRAGMENT_K = 4;
-    private final int FRAGMENT_MY = 5;
+    private final int FRAGMENT_MAIN = Const.FRAGMENT_MAIN;
+    private final int FRAGMENT_ITEMLIST = Const.FRAGMENT_ITEMLIST;
+    private final int FRAGMENT_BAG = Const.FRAGMENT_BAG;
+    private final int FRAGMENT_K = Const.FRAGMENT_K;
+    private final int FRAGMENT_MY = Const.FRAGMENT_MY;
 
     //BottomBar
     private LinearLayout llBtnMain;
@@ -110,7 +110,7 @@ public class MainActivity extends BaseActivity {
                 }*/
                 break;
 
-            case FRAGMENT_SEARCH:
+            case FRAGMENT_ITEMLIST:
                 fragment = new ItemListFragment();
                 break;
 
@@ -131,7 +131,6 @@ public class MainActivity extends BaseActivity {
                 }
                 break;
         }
-
         fragmentTransaction.replace(R.id.fragment_content, fragment);
         fragmentTransaction.commitAllowingStateLoss();
         /*
@@ -171,7 +170,7 @@ public class MainActivity extends BaseActivity {
         llBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeFragment(FRAGMENT_SEARCH);
+                changeFragment(FRAGMENT_ITEMLIST);
             }
         });
         llBtnBag.setOnClickListener(new View.OnClickListener() {

@@ -39,4 +39,10 @@ public class Const {
     public static final int SALE_ITEM = 3;
 
     public static final int FROM_LOGIN_SUCCESS = 1;
+
+    public static final int FRAGMENT_MAIN = 1;
+    public static final int FRAGMENT_ITEMLIST = 2;
+    public static final int FRAGMENT_BAG = 3;
+    public static final int FRAGMENT_K = 4;
+    public static final int FRAGMENT_MY = 5;
 }
