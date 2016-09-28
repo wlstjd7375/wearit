@@ -84,6 +84,10 @@ public class ProductApi extends Api {
 		get(params.getUrl(), handler, new TypeToken<Response<ArrayList<Product>>>() {}.getType());
 	}
 
+	public static void getList(String url, OnListener<ArrayList<Product>> handler) {
+		get(url, handler, new TypeToken<Response<ArrayList<Product>>>() {}.getType());
+	}
+
 	public static void getList(Brand brand, OnListener<ArrayList<Product>> handler) {
 		get(ProductArgs.create(brand).getUrl(), handler, new TypeToken<Response<ArrayList<Product>>>() {}.getType());
 	}

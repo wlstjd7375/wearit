@@ -9,14 +9,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import kr.wearit.android.App;
 import kr.wearit.android.Const;
 import kr.wearit.android.R;
+import kr.wearit.android.adapter.BagListAdapter;
+import kr.wearit.android.adapter.KeepListAdapter;
+import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.MeApi;
 import kr.wearit.android.controller.ProductApi;
 import kr.wearit.android.model.Product;
+import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.view.MainActivity;
 
 /**
@@ -24,15 +31,20 @@ import kr.wearit.android.view.MainActivity;
  */
 public class KeepFragment extends Fragment {
 
+    private final String TAG = "KeepFragment##";
     private TextView tvToolbarTitle;
 
+    private View view;
+
     //Go Shopping
-    private LinearLayout llGoShopping;
+    private RelativeLayout rlGoShopping;
     private TextView tvNoItem;
     private Button btGoShopping;
 
     //Keep List
     private ListView lvKeepList;
+    private KeepListAdapter mAdapter;
+    private ArrayList<Product> mProductList;
     //private final String BAG_URL = "/me/product";
 
     @Nullable
@@ -42,15 +54,42 @@ public class KeepFragment extends Fragment {
 
         tvToolbarTitle = (TextView)view.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("KEEP");
-/*
+
+        rlGoShopping = (RelativeLayout)view.findViewById(R.id.rlGoShopping);
+        lvKeepList = (ListView)view.findViewById(R.id.lvKeepList);
+
         if(App.getInstance().isLogin()) {
+            ProductApi.getList("/me/product", new Api.OnDefaultListener<ArrayList<Product>>() {
+                @Override
+                public void onSuccess(ArrayList<Product> data) {
+                    mProductList = data;
+                    setListView();
+                }
+            });
+        }
 
-        }*/
+        return view;
+    }
 
-        //TODO if there is no item
+    private void setListView() {
+        if(mProductList.size() == 0) {
+            setNoItemLayout();
+        }
+        else {
+            setBagListLayout();
+        }
+    }
+
+
+    private void setNoItemLayout() {
+        //if there is no item
         //set layout_go_shopping
+        lvKeepList.setVisibility(View.INVISIBLE);
+        rlGoShopping.setVisibility(View.VISIBLE);
+
         tvNoItem = (TextView) view.findViewById(R.id.tvNoItem);
         tvNoItem.setText("현재 KEEP한 상품이 없습니다.\n마음에 드는 상품을 KEEP하세요.");
+
         btGoShopping = (Button) view.findViewById(R.id.btGoShopping);
         btGoShopping.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -58,10 +97,26 @@ public class KeepFragment extends Fragment {
                 ((MainActivity)getActivity()).changeFragment(Const.FRAGMENT_ITEMLIST);
             }
         });
+    }
 
-        //else
-        //get Keep Product List
+    private void setBagListLayout() {
+        //No Item Layout invisible
+        rlGoShopping.setVisibility(View.INVISIBLE);
+        lvKeepList.setVisibility(View.VISIBLE);
 
-        return view;
+
+        //Set Bag List
+
+        //Create Adapter
+        mAdapter = new KeepListAdapter(getActivity(), mProductList, KeepFragment.this);
+        //setAdapter
+        lvKeepList.setAdapter(mAdapter);
+    }
+
+    public void deleteRow(Product item) {
+        mProductList.remove(item);
+        setListView();
+        //mAdapter.remove(item);
+        //mAdapter.notifyDataSetChanged();
     }
 }

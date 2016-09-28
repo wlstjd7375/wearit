@@ -1,15 +1,12 @@
 package kr.wearit.android.view.main;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,7 +20,6 @@ import kr.wearit.android.adapter.BagListAdapter;
 import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.CartApi;
 import kr.wearit.android.model.CartDeliver;
-import kr.wearit.android.model.Product;
 import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.view.MainActivity;
 

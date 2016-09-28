@@ -1,9 +1,7 @@
 package kr.wearit.android.adapter;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,25 +10,24 @@ import android.widget.TextView;
 
 import kr.wearit.android.App;
 import kr.wearit.android.R;
-import kr.wearit.android.model.ProductCart;
+import kr.wearit.android.model.Product;
 import kr.wearit.android.util.ImageUtil;
-import kr.wearit.android.view.main.BagFragment;
 
 /**
- * Created by KimJS on 2016-09-27.
+ * Created by KimJS on 2016-09-28.
  */
-public class ListRowPagerAdapter extends PagerAdapter {
+public class KeepPagerAdapter extends PagerAdapter {
 
-    private String TAG = "ListRowPagerAdapter##";
+    private String TAG = "BagPagerAdapter##";
     private LayoutInflater mInflater;
-    private ProductCart mProductCart;
+    private Product mProduct;
 
     private int mScreenWidth;
 
-    public ListRowPagerAdapter(Context mContext, ProductCart productCart) {
+    public KeepPagerAdapter(Context mContext, Product product) {
         super();
         mInflater = LayoutInflater.from(mContext);
-        mProductCart = productCart;
+        mProduct = product;
 
         mScreenWidth = App.getInstance().getScreenWidth();
     }
@@ -47,7 +44,7 @@ public class ListRowPagerAdapter extends PagerAdapter {
             view = mInflater.inflate(R.layout.layout_left_delete, null);
         }
         else if(position == 1) {
-            view = mInflater.inflate(R.layout.layout_listrow_bag, null);
+            view = mInflater.inflate(R.layout.layout_listrow_keep, null);
 
             //set Bag List
             ImageView ivProduct = (ImageView)view.findViewById(R.id.ivProduct);
@@ -55,26 +52,23 @@ public class ListRowPagerAdapter extends PagerAdapter {
             TextView tvProductName = (TextView)view.findViewById(R.id.tvProductName);
             TextView tvSalePrice = (TextView)view.findViewById(R.id.tvSalePrice);
             TextView tvPrice = (TextView)view.findViewById(R.id.tvPrice);
-            TextView tvSize = (TextView)view.findViewById(R.id.tvSize);
-            TextView tvItemCount = (TextView)view.findViewById(R.id.tvItemCount);
-            TextView tvModify = (TextView)view.findViewById(R.id.tvModify);
 
             //image
             ivProduct.getLayoutParams().height = mScreenWidth/2;
             ivProduct.getLayoutParams().width = mScreenWidth/3;
-            ImageUtil.display(ivProduct, mProductCart.getImagepath());
+            ImageUtil.display(ivProduct, mProduct.getImagePath());
 
-            tvBrand.setText(mProductCart.getBrandname());
-            tvProductName.setText(mProductCart.getName());
-            if(mProductCart.isSale()) {
-                tvSalePrice.setText(mProductCart.getSale_price() + "원");
+            tvBrand.setText(mProduct.getBrandName());
+            tvProductName.setText(mProduct.getName());
+            if(mProduct.isSale()) {
+                tvSalePrice.setText(mProduct.getSalePrice() + "원");
             }
-            tvPrice.setText(mProductCart.getPrice() + "원");
-            tvSize.setText("SIZE: " + mProductCart.getSize());
-            tvItemCount.setText("개수: " + mProductCart.getCount());
+            tvPrice.setText(mProduct.getPrice() + "원");
         }
         else {
             view = mInflater.inflate(R.layout.layout_right_add, null);
+            TextView tvAddTo = (TextView)view.findViewById(R.id.tvAddTo);
+            tvAddTo.setText("ITBAG\n담기");
         }
         container.addView(view);
 
@@ -85,7 +79,6 @@ public class ListRowPagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View)object);
-        //super.destroyItem(container, position, object);
     }
 
     @Override

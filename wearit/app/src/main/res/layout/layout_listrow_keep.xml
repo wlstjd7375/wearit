@@ -25,24 +25,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="1">
-        <TextView
-            android:id="@+id/tv_delivery_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:layout_marginRight="14dp"
-            android:gravity="end"
-            android:text="브랜드 당 20만원 이상 무료 배달"
-            android:textSize="10sp"
-            android:textColor="@color/gray"
-            android:includeFontPadding="false"/>
 
         <TextView
             android:id="@+id/tvBrand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_delivery_info"
-            android:layout_marginTop="11dp"
+            android:layout_marginTop="42dp"
             android:textColor="@color/black"
             android:textSize="13sp"
             android:maxLines="1"
@@ -54,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvBrand"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="5dp"
             android:textColor="@color/gray"
             android:textSize="12sp"
             android:maxLines="2"
@@ -66,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvBrand"
-            android:layout_marginTop="43dp"
+            android:layout_marginTop="46dp"
             android:textColor="@color/red"
             android:textSize="13sp"
             android:includeFontPadding="false" />
@@ -81,41 +69,16 @@
             android:includeFontPadding="false" />
 
         <!-- size, item count -->
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_delivery_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvPrice"
-            android:layout_marginTop="11dp"
-            android:layout_marginBottom="33dp">
-            <TextView
-                android:id="@+id/tvSize"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:includeFontPadding="false"/>
-            <TextView
-                android:id="@+id/tvItemCount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:includeFontPadding="false"/>
-            <TextView
-                android:id="@+id/tvModify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/gray"
-                android:textSize="12sp"
-                android:text="수정"
-                android:includeFontPadding="false"/>
-        </LinearLayout>
+            android:layout_marginTop="16dp"
+            android:text="브랜드 당 20만원 이상 무료 배달"
+            android:textSize="10sp"
+            android:textColor="@color/gray"
+            android:includeFontPadding="false"/>
 
     </RelativeLayout>
 

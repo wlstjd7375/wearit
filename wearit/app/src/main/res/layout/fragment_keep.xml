@@ -55,14 +55,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <include
-            android:id="@+id/layout_go_shopping"
+            android:id="@+id/rlGoShopping"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            layout="@layout/layout_go_shopping" />
+            layout="@layout/layout_go_shopping"
+            android:visibility="gone"/>
         <ListView
             android:id="@+id/lvKeepList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:divider="@color/white_gray"
+            android:dividerHeight="1dp"
             android:visibility="gone">
         </ListView>
     </RelativeLayout>
