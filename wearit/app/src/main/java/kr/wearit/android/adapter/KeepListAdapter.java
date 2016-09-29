@@ -7,11 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import kr.wearit.android.App;
 import kr.wearit.android.R;
+import kr.wearit.android.controller.Api;
+import kr.wearit.android.controller.CartApi;
+import kr.wearit.android.controller.ProductApi;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.view.main.KeepFragment;
 
@@ -78,16 +82,58 @@ public class KeepListAdapter extends ArrayAdapter<Product> {
                 //This method will be invoked when a new page becomes selected.
                 if(position == 0) {
                     //TODO Api Call
-                    ((KeepFragment)mParentFragment).deleteRow(item);
+                    //Delete from Keep
+                    removeFromKeep(item);
+                    //((KeepFragment)mParentFragment).deleteRow(item);
                 }
                 else if(position == 2) {
                     //TODO Api Call
-                    ((KeepFragment)mParentFragment).deleteRow(item);
+                    //Add to Bag, remove From Keep
+                    //removeFromKeep(item);
+                    //addToBag(item);
+
+                    //((KeepFragment)mParentFragment).deleteRow(item);
                 }
 
             }
         });
 
         return view;
+    }
+
+    private void addToBag(Product item) {
+        //TODO 키내놔
+        int cartCount = 1;
+        int cartKey = item.getKey();
+        int itemSizeKey = 1;
+        CartApi.add(cartKey, cartCount, new Api.OnAuthListener<Integer>() {
+            @Override
+            public void onStart() {
+            }
+            @Override
+            public void onSuccess(Integer data) {
+                Toast.makeText(mContext, "변경되었습니다", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFail() {
+                System.out.println("실패 ㅅㅂ");
+            }
+        });
+    }
+
+    private void removeFromKeep(final Product item) {
+        ProductApi.removeFavorite(item, new Api.OnAuthListener<Void>() {
+            @Override
+            public void onStart() {
+            }
+            @Override
+            public void onSuccess(Void data) {
+                //remove(item);
+                ((KeepFragment)mParentFragment).deleteRow(item);
+            }
+            @Override
+            public void onFail() {
+            }
+        });
     }
 }

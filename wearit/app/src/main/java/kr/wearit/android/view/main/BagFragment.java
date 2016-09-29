@@ -59,6 +59,12 @@ public class BagFragment extends Fragment {
         rlGoShopping = (RelativeLayout)view.findViewById(R.id.rlGoShopping);
         lvBagList = (ListView)view.findViewById(R.id.lvBagList);
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if(App.getInstance().isLogin()) {
             CartApi.getList(new Api.OnAuthDefaultListener<CartDeliver>() {
                 @Override
@@ -68,8 +74,6 @@ public class BagFragment extends Fragment {
                 }
             });
         }
-
-        return view;
     }
 
     private void setListView() {

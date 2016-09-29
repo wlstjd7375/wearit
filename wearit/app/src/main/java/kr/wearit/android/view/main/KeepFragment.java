@@ -50,7 +50,7 @@ public class KeepFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_keep, container, false);
+        view = inflater.inflate(R.layout.fragment_keep, container, false);
 
         tvToolbarTitle = (TextView)view.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("KEEP");
@@ -58,6 +58,12 @@ public class KeepFragment extends Fragment {
         rlGoShopping = (RelativeLayout)view.findViewById(R.id.rlGoShopping);
         lvKeepList = (ListView)view.findViewById(R.id.lvKeepList);
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if(App.getInstance().isLogin()) {
             ProductApi.getList("/me/product", new Api.OnDefaultListener<ArrayList<Product>>() {
                 @Override
@@ -67,8 +73,6 @@ public class KeepFragment extends Fragment {
                 }
             });
         }
-
-        return view;
     }
 
     private void setListView() {

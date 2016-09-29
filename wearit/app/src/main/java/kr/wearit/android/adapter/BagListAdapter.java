@@ -8,12 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
 
 import kr.wearit.android.App;
 import kr.wearit.android.R;
+import kr.wearit.android.controller.Api;
+import kr.wearit.android.controller.CartApi;
+import kr.wearit.android.controller.ProductApi;
+import kr.wearit.android.model.Product;
 import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.view.main.BagFragment;
 
@@ -70,16 +75,6 @@ public class BagListAdapter extends ArrayAdapter<ProductCart> {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 //Drag 하는동안 호출
-                /*
-                Log.d(TAG, "position = " + position + ", positionOffset = " + positionOffset + ", positionOffsetPixels = " + positionOffsetPixels);
-                if(position == 0 && positionOffsetPixels < 10) {
-                    //TODO Api Call
-                    ((BagFragment)mParentFragment).deleteRow(item);
-                }
-                else if(position == 2 && positionOffsetPixels < 10) {
-                    //TODO Api Call
-                    ((BagFragment)mParentFragment).deleteRow(item);
-                }*/
             }
 
             @Override
@@ -92,11 +87,17 @@ public class BagListAdapter extends ArrayAdapter<ProductCart> {
                 //This method will be invoked when a new page becomes selected.
                 if(position == 0) {
                     //TODO Api Call
-                    ((BagFragment)mParentFragment).deleteRow(item);
+                    //Delete from Bag
+                    removeFromBag(item);
+                    //((BagFragment)mParentFragment).deleteRow(item);
                 }
                 else if(position == 2) {
                     //TODO Api Call
-                    ((BagFragment)mParentFragment).deleteRow(item);
+                    //Add to keep, Remove from Bag
+                    removeFromBag(item);
+                    addToKeep(item);
+
+                    //((BagFragment)mParentFragment).deleteRow(item);
                 }
 
             }
@@ -104,4 +105,45 @@ public class BagListAdapter extends ArrayAdapter<ProductCart> {
 
         return view;
     }
+
+    private void addToKeep(ProductCart itemCart) {
+        ProductApi.get(itemCart.getProduct(), new Api.OnWaitListener<Product>() {
+            @Override
+            public void onSuccess(Product data) {
+                ProductApi.addFavorite(data, new Api.OnAuthListener() {
+
+                    @Override
+                    public void onStart() {
+                    }
+                    @Override
+                    public void onSuccess(Object data) {
+                        Toast.makeText(mContext, "KEEP 에 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onFail() {
+                    }
+                });
+            }
+        });
+    }
+
+    private void removeFromBag(final ProductCart itemCart) {
+        CartApi.remove(itemCart, new Api.OnWaitListener<Void>() {
+            @Override
+            public void onStart() {
+            }
+
+            @Override
+            public void onSuccess(Void data) {
+                //remove(itemCart);
+                ((BagFragment)mParentFragment).deleteRow(itemCart);
+                //Toast.makeText(mContext, "삭제되었습니다", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFail() {
+            }
+        });
+    }
+
 }

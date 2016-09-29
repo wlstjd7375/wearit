@@ -12,6 +12,7 @@ import android.view.Window;
 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -269,6 +270,35 @@ public class ProductActivity extends BaseActivity {
                 if(((LinearLayout) findViewById(R.id.ll_selector)).getVisibility() == View.VISIBLE){
                     ((LinearLayout) findViewById(R.id.ll_selector)).setVisibility(View.GONE);
                 }
+            }
+        });
+
+
+        //Add to Keep
+        ((TextView)findViewById(R.id.tv_keep)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductApi.addFavorite(mItem, new Api.OnAuthListener() {
+
+                    @Override
+                    public void onStart() {
+                    }
+                    @Override
+                    public void onSuccess(Object data) {
+                        Toast.makeText(getApplicationContext(), "KEEP 에 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onFail() {
+                    }
+                });
+            }
+        });
+
+        //Add to Bag
+        ((ImageButton)findViewById(R.id.bt_itbag)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Get Size Key, Add to Bag
             }
         });
     }

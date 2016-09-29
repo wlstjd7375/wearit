@@ -101,13 +101,6 @@ public class MainActivity extends BaseActivity {
                 Bundle args = makeBundle();
                 fragment = new MainFragment();
                 fragment.setArguments(args);
-                /*
-                if(fragmentManager.getBackStackEntryCount() == 0) {
-                    fragmentTransaction.addToBackStack(null);
-                }
-                else {
-                    fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                }*/
                 break;
 
             case FRAGMENT_ITEMLIST:
@@ -133,10 +126,6 @@ public class MainActivity extends BaseActivity {
         }
         fragmentTransaction.replace(R.id.fragment_content, fragment);
         fragmentTransaction.commitAllowingStateLoss();
-        /*
-        if(LOG) {
-            Log.d(TAG, "@@@in back stack: " + fragmentManager.getBackStackEntryCount());
-        }*/
     }
 
     @Override
@@ -252,18 +241,6 @@ public class MainActivity extends BaseActivity {
         else {
             changeFragment(FRAGMENT_MAIN);
         }
-        /*
-        FragmentManager fragmentManager = getFragmentManager();
-        if(LOG) {
-            Log.d(TAG, "@@@onBackPressed(), in back stack: " + fragmentManager.getBackStackEntryCount());
-        }
-        if(fragmentManager.getBackStackEntryCount() != 0) {
-            fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            changeFragment(FRAGMENT_MAIN, makeBundle());
-        }
-        else {
-            super.onBackPressed();
-        }*/
     }
 
     @Override
