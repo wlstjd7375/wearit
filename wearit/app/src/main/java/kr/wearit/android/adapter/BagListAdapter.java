@@ -119,7 +119,7 @@ public class BagListAdapter extends ArrayAdapter<ProductCart> {
                     }
                     @Override
                     public void onSuccess(Object data) {
-                        Toast.makeText(mContext, "KEEP 에 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "KEEP에 저장되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onFail() {

@@ -3,6 +3,7 @@ package kr.wearit.android.view.main;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,11 @@ public class BagFragment extends Fragment {
                 }
             });
         }
+        //TODO 로그인이 안됐을때 페이지 어떻게?
+        /*
+        else {
+            setListView();
+        }*/
     }
 
     private void setListView() {

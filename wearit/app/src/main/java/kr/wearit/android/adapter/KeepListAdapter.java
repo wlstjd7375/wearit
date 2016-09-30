@@ -90,7 +90,7 @@ public class KeepListAdapter extends ArrayAdapter<Product> {
                     //TODO Api Call
                     //Add to Bag, remove From Keep
                     //removeFromKeep(item);
-                    //addToBag(item);
+                    addToBag(item);
                     //((KeepFragment)mParentFragment).deleteRow(item);
                 }
 
@@ -100,27 +100,16 @@ public class KeepListAdapter extends ArrayAdapter<Product> {
         return view;
     }
 
-    private void addToBag(Product item, RelativeLayout rlSelector) {
-        //TODO 키내놔
-        int cartCount = 1;
-        int cartKey = item.getKey();
-        int itemSizeKey = 1;
-        CartApi.add(cartKey, cartCount, new Api.OnAuthListener<Integer>() {
+    public void addToBag(Product item) {
+        ProductApi.get(item.getKey(), new Api.OnDefaultListener<Product>() {
             @Override
-            public void onStart() {
-            }
-            @Override
-            public void onSuccess(Integer data) {
-                Toast.makeText(mContext, "변경되었습니다", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onFail() {
-                System.out.println("실패 ㅅㅂ");
+            public void onSuccess(Product data) {
+                ((KeepFragment)mParentFragment).setSelctor(data);
             }
         });
     }
 
-    private void removeFromKeep(final Product item) {
+    public void removeFromKeep(final Product item) {
         ProductApi.removeFavorite(item, new Api.OnAuthListener<Void>() {
             @Override
             public void onStart() {
