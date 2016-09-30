@@ -25,8 +25,11 @@ import kr.wearit.android.Config;
 import kr.wearit.android.Const;
 import kr.wearit.android.R;
 import kr.wearit.android.adapter.MainNewsAdapter;
+import kr.wearit.android.controller.Api;
+import kr.wearit.android.controller.ProductApi;
 import kr.wearit.android.model.News;
 import kr.wearit.android.model.NewsPair;
+import kr.wearit.android.model.Pagination;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.util.ImageUtil;
 import kr.wearit.android.view.MainActivity;
@@ -115,11 +118,9 @@ public class MainFragment extends Fragment {
 
         screenWidth = App.getInstance().getScreenWidth();
 
-        addProductList(mBestItemList, BEST_ITEM);
-        addProductList(mNewItemList, NEW_ITEM);
-        addProductList(mSaleItemList, SALE_ITEM);
 
         lvMainNews.addFooterView(footer);
+        getData();
         addNewsView();
 
         return view;
@@ -205,6 +206,30 @@ public class MainFragment extends Fragment {
 
             llHorizontalView.addView(llProductItem);
         }
+    }
+
+    public void getData() {
+        ProductApi.getListOrder(1, "bestorder", new Api.OnDefaultListener<Pagination<Product>>() {
+            @Override
+            public void onSuccess(Pagination<Product> data) {
+                mBestItemList = data.getList();
+                addProductList(mBestItemList, BEST_ITEM);
+            }
+        });
+        ProductApi.getListOrder(1, "neworder", new Api.OnDefaultListener<Pagination<Product>>() {
+            @Override
+            public void onSuccess(Pagination<Product> data) {
+                mNewItemList = data.getList();
+                addProductList(mNewItemList, NEW_ITEM);
+            }
+        });
+        ProductApi.getListSale(1, new Api.OnDefaultListener<Pagination<Product>>() {
+            @Override
+            public void onSuccess(Pagination<Product> data) {
+                mSaleItemList = data.getList();
+                addProductList(mSaleItemList, SALE_ITEM);
+            }
+        });
     }
 
     private void startMoreActivity(int itemType) {

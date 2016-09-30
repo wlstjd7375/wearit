@@ -189,28 +189,8 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onSuccess(Pagination<News> data) {
                 mNewsList = data.getList();
+                mHandler.sendEmptyMessage(1);
 
-                ProductApi.getListOrder(1, "bestorder", new Api.OnDefaultListener<Pagination<Product>>() {
-                    @Override
-                    public void onSuccess(Pagination<Product> data) {
-                        mBestItemList = data.getList();
-
-                        ProductApi.getListOrder(1, "neworder", new Api.OnDefaultListener<Pagination<Product>>() {
-                            @Override
-                            public void onSuccess(Pagination<Product> data) {
-                                mNewItemList = data.getList();
-
-                                ProductApi.getListSale(1, new Api.OnDefaultListener<Pagination<Product>>() {
-                                    @Override
-                                    public void onSuccess(Pagination<Product> data) {
-                                        mSaleItemList = data.getList();
-                                        mHandler.sendEmptyMessage(1);
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
             }
         });
     }

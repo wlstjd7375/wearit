@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ public class KeepListAdapter extends ArrayAdapter<Product> {
     private ArrayList<Product> mDataList;
     private int mScreenWidth;
     private Fragment mParentFragment;
-
     // View lookup cache
     private static class ViewHolder {
         ViewPager pager;
@@ -91,7 +91,6 @@ public class KeepListAdapter extends ArrayAdapter<Product> {
                     //Add to Bag, remove From Keep
                     //removeFromKeep(item);
                     //addToBag(item);
-
                     //((KeepFragment)mParentFragment).deleteRow(item);
                 }
 
@@ -101,7 +100,7 @@ public class KeepListAdapter extends ArrayAdapter<Product> {
         return view;
     }
 
-    private void addToBag(Product item) {
+    private void addToBag(Product item, RelativeLayout rlSelector) {
         //TODO 키내놔
         int cartCount = 1;
         int cartKey = item.getKey();
