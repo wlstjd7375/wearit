@@ -25,6 +25,7 @@ import android.widget.Toast;
 import kr.wearit.android.Config;
 import kr.wearit.android.R;
 import kr.wearit.android.controller.Api;
+import kr.wearit.android.controller.CartApi;
 import kr.wearit.android.controller.ProductApi;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.model.ProductSize;
@@ -115,6 +116,31 @@ public class ProductActivity extends BaseActivity {
             public void onClick(View view) {
                 if(selSize != 0) {
                     new OrderDialog(getActivity()).show();
+                }
+            }
+        });
+
+        ((ImageButton) findViewById(R.id.bt_insel_itbag)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(selSize != 0) {
+                    CartApi.add(selSize, count, new Api.OnAuthListener<Integer>() {
+                        @Override
+                        public void onStart() {
+                        }
+                        @Override
+                        public void onSuccess(Integer data) {
+                            Toast.makeText(getActivity(), "ITBAG에 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                            llSelector.setVisibility(View.GONE);
+                        }
+                        @Override
+                        public void onFail() {
+                            System.out.println("실패 ㅅㅂ");
+                        }
+                    });
+                }
+                else {
+                    Toast.makeText(getActivity(), "옵션과 수량을 선택해주세요.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -285,20 +311,12 @@ public class ProductActivity extends BaseActivity {
                     }
                     @Override
                     public void onSuccess(Object data) {
-                        Toast.makeText(getApplicationContext(), "KEEP 에 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "KEEP에 저장되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onFail() {
                     }
                 });
-            }
-        });
-
-        //Add to Bag
-        ((ImageButton)findViewById(R.id.bt_itbag)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO Get Size Key, Add to Bag
             }
         });
     }
@@ -346,7 +364,8 @@ public class ProductActivity extends BaseActivity {
                         Toast.makeText(getActivity(),"품절된 옵션입니다",Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        selSize = position;
+                        //selSize = position;
+                        selSize = mAdapter.getItem(position).getKey();
                         tvSelSize.setText(mAdapter.getItem(position).getSize());
                         ((TextView) getActivity().findViewById(R.id.tv_insel_order)).setTextColor(Color.parseColor("#000000"));
                         dismiss();
