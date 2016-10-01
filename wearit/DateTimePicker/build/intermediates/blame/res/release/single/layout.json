@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_time_title_view.xml",
+        "source": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\layout\\mdtp_time_title_view.xml"
+    },
+    {
+        "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_done_button.xml",
+        "source": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\layout\\mdtp_done_button.xml"
+    },
+    {
+        "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_date_picker_selected_date.xml",
+        "source": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\layout\\mdtp_date_picker_selected_date.xml"
+    },
+    {
+        "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_date_picker_view_animator.xml",
+        "source": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\layout\\mdtp_date_picker_view_animator.xml"
+    },
+    {
+        "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_date_picker_dialog.xml",
+        "source": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\layout\\mdtp_date_picker_dialog.xml"
+    },
+    {
+        "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_year_label_text_view.xml",
+        "source": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\layout\\mdtp_year_label_text_view.xml"
+    },
+    {
+        "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_time_header_label.xml",
+        "source": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\layout\\mdtp_time_header_label.xml"
+    },
+    {
+        "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_time_picker_dialog.xml",
+        "source": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\layout\\mdtp_time_picker_dialog.xml"
+    },
+    {
+        "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\layout\\mdtp_date_picker_header_view.xml",
+        "source": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\layout\\mdtp_date_picker_header_view.xml"
+    }
+]
