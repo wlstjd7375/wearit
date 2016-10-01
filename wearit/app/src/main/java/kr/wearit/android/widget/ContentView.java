@@ -177,17 +177,43 @@ public class ContentView extends LinearLayout {
 
         String text = part.getText();
 
-        view.setText(part.getText());
+        ArrayList<Integer> impactList = new ArrayList<Integer>();
+
+        for(int i=0;i<text.length();i++){
+            if(text.charAt(i) == '|'){
+                text = text.substring(0,i) + " " + text.substring(i+1,text.length());
+                impactList.add(i);
+            }
+        }
+
+        SpannableStringBuilder builder = new SpannableStringBuilder(text);
+        for(int i=0;i<impactList.size();i+=2) {
+            builder.setSpan(new AbsoluteSizeSpan(20,true), impactList.get(i), impactList.get(i+1)+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        view.append(builder);
 
         return view;
     }
 
     private TextView createText(ContentPart part, int type) {
-        TextView view = (TextView) inflate(getContext(), R.layout.content_product_text, null).findViewById(R.id.text);
+        TextView view = (TextView) inflate(getContext(), R.layout.content_text, null).findViewById(R.id.text);
 
         String text = part.getText();
 
-        view.setText(part.getText());
+        ArrayList<Integer> impactList = new ArrayList<Integer>();
+
+        for(int i=0;i<text.length();i++){
+            if(text.charAt(i) == '|'){
+                text = text.substring(0,i) + " " + text.substring(i+1,text.length());
+                impactList.add(i);
+            }
+        }
+
+        SpannableStringBuilder builder = new SpannableStringBuilder(text);
+        for(int i=0;i<impactList.size();i+=2) {
+            builder.setSpan(new AbsoluteSizeSpan(20,true), impactList.get(i), impactList.get(i+1)+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        view.append(builder);
 
         return view;
     }

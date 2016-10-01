@@ -44,6 +44,7 @@
         <activity android:name=".view.account.SignupActivity" />
         <activity android:name=".view.MoreActivity"/>
         <activity android:name=".view.product.ProductActivity"/>
+        <activity android:name=".view.news.NewsActivity"/>
     </application>
 
 </manifest>

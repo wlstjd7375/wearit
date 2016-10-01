@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -204,6 +205,7 @@ public class ItemListFragment extends Fragment {
                 ((RelativeLayout) view.findViewById(R.id.rl_selector)).setVisibility(View.GONE);
                 rlWating.setVisibility(View.VISIBLE);
                 System.out.println("mFetch핸들러 호출직전!");
+                mFetchHandler.initialize();
                 mFetchHandler.fetch(1);
             }
         });

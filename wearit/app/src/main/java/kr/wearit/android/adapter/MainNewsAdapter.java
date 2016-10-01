@@ -1,6 +1,7 @@
 package kr.wearit.android.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import kr.wearit.android.R;
 import kr.wearit.android.model.News;
 import kr.wearit.android.model.NewsPair;
 import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.view.news.NewsActivity;
 
 /**
  * Created by KimJS on 2016-09-11.
@@ -47,7 +49,7 @@ public class MainNewsAdapter extends ArrayAdapter<NewsPair> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, final View convertView, ViewGroup parent) {
         //Log.d(TAG, "position = " + position +  " size = " + mNewsList.size());
         View view = convertView;
         ViewHolder viewHolder;
@@ -71,9 +73,24 @@ public class MainNewsAdapter extends ArrayAdapter<NewsPair> {
         }
 
 
-        News itemLeft = getItem(position).getNews1();
-        News itemRight = getItem(position).getNews2();
-
+        final News itemLeft = getItem(position).getNews1();
+        viewHolder.ivNewstLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), NewsActivity.class);
+                intent.putExtra("key", itemLeft.getKey());
+                getContext().startActivity(intent);
+            }
+        });
+        final News itemRight = getItem(position).getNews2();
+        viewHolder.ivNewsRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), NewsActivity.class);
+                intent.putExtra("key", itemRight.getKey());
+                getContext().startActivity(intent);
+            }
+        });
         //set left
         //viewHolder.ivNewstLeft.setHeightRatio(1);
         ImageUtil.display(viewHolder.ivNewstLeft, itemLeft.getImagePath());
