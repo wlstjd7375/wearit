@@ -1,6 +1,5 @@
 package kr.wearit.android.view.check;
 
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
@@ -10,12 +9,14 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
 
+import kr.wearit.android.view.BaseActivity;
+
 /**
  * Created by KimJS on 2016-10-01.
  */
 
 //Date Time Picker Dialog 기능을 하게 해줌
-public class CheckBaseActivity extends AppCompatActivity implements
+public class CheckBaseActivity extends BaseActivity implements
         View.OnClickListener, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
     private String TAG = "CheckBaseActivity##";

@@ -1,6 +1,7 @@
 package kr.wearit.android.view.main;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -23,6 +24,7 @@ import kr.wearit.android.controller.CartApi;
 import kr.wearit.android.model.CartDeliver;
 import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.view.MainActivity;
+import kr.wearit.android.view.check.CheckActivity;
 
 
 /**
@@ -35,6 +37,8 @@ public class BagFragment extends Fragment {
     private TextView tvTotalItemInfo;
 
     private View view;
+
+    private TextView tvCheckOut;
 
     //Go Shopping
     private RelativeLayout rlGoShopping;
@@ -59,6 +63,16 @@ public class BagFragment extends Fragment {
 
         rlGoShopping = (RelativeLayout)view.findViewById(R.id.rlGoShopping);
         lvBagList = (ListView)view.findViewById(R.id.lvBagList);
+
+        //TODO check out
+        tvCheckOut = (TextView)view.findViewById(R.id.tvCheckOut);
+        tvCheckOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CheckActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

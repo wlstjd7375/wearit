@@ -58,7 +58,7 @@ import kr.wearit.android.view.product.ProductActivity;
 public class NewsActivity extends BaseActivity {
 
     @SuppressWarnings("unused")
-    private static final String TAG = NewsActivity.class.getSimpleName();
+    private static final String TAG = NewsActivity.class.getSimpleName() + "##";
     @SuppressWarnings("unused")
     private static final boolean LOG = Config.LOG;
 
@@ -119,6 +119,7 @@ public class NewsActivity extends BaseActivity {
 //        lvProduct.setOnScrollListener(mFetchHandler);
         if(mExtraItem.getProductRelationCount() != 0){
             ((RelativeLayout) header.findViewById(R.id.ll_product_header)).setVisibility(View.VISIBLE);
+            Log.d(TAG, "size = " + mExtraItem.getProductRelationCount());
             mAdapter = new ProductListAdapter(getActivity(), mExtraItem.getProductRelationList(), App.getInstance().getScreenWidth());
             lvProduct.setAdapter(mAdapter);
             lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {

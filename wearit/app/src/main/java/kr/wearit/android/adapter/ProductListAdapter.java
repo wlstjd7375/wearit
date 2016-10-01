@@ -67,6 +67,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         }
 
         int idx = position * 2;
+        Log.d(TAG, "idx = " + idx + ", size = " + mDataList.size());
         viewHolder.llProductLeft.removeAllViews();
         viewHolder.llProductLeft.addView(getProductLayout(idx));
 
