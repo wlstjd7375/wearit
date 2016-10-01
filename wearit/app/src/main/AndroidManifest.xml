@@ -42,9 +42,15 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".view.account.LoginActivity" />
         <activity android:name=".view.account.SignupActivity" />
+<<<<<<< HEAD
         <activity android:name=".view.MoreActivity" />
         <activity android:name=".view.product.ProductActivity" />
         <activity android:name=".view.check.CheckActivity"></activity>
+=======
+        <activity android:name=".view.MoreActivity"/>
+        <activity android:name=".view.product.ProductActivity"/>
+        <activity android:name=".view.news.NewsActivity"/>
+>>>>>>> 51d523dbbec8397d96b12fa9ee32d8cb53fa0d47
     </application>
 
 </manifest>

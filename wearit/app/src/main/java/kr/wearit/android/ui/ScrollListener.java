@@ -49,8 +49,8 @@ public abstract class ScrollListener implements AbsListView.OnScrollListener {
             Log.d(TAG, "fetch // fetching = " + mFetching);
         }
 
-//        if (page > mPageSize)
-//            return;
+        if (page > mPageSize)
+            return;
 
         if (mFetching)
             return;
@@ -65,6 +65,14 @@ public abstract class ScrollListener implements AbsListView.OnScrollListener {
 //    public void setFetching(boolean flag){
 //        mFetching = flag;
 //    }
+
+    public void initialize() {
+        if(LOG)
+            Log.d(TAG,"initialize");
+        mPage = 0;
+        mPageSize = Integer.MAX_VALUE;
+        mFetching = false;
+    }
 
     public void onFetched(Pagination<?> data) {
         if (LOG)

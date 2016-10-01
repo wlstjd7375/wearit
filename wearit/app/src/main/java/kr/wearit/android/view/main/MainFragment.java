@@ -34,6 +34,7 @@ import kr.wearit.android.model.Product;
 import kr.wearit.android.util.ImageUtil;
 import kr.wearit.android.view.MainActivity;
 import kr.wearit.android.view.MoreActivity;
+import kr.wearit.android.view.news.NewsActivity;
 import kr.wearit.android.view.product.ProductActivity;
 
 /**
@@ -137,6 +138,14 @@ public class MainFragment extends Fragment {
         Log.d(TAG, w + ", " + h);
         headerImageView.setHeightRatio(ImageUtil.getRatio(w, h));
         ImageUtil.display(headerImageView, mNewsList.get(0).getImagePath());
+        headerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), NewsActivity.class);
+                intent.putExtra("key",mNewsList.get(0).getKey());
+                startActivity(intent);
+            }
+        });
         lvMainNews.addHeaderView(header);
 
         //Grid News

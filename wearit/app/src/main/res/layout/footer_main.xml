@@ -42,7 +42,7 @@
         <LinearLayout
             android:id="@+id/llMainBestItem"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="180dp"
             android:orientation="horizontal">
 
         </LinearLayout>
@@ -86,7 +86,7 @@
         <LinearLayout
             android:id="@+id/llMainNewItem"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="180dp"
             android:orientation="horizontal">
 
         </LinearLayout>
@@ -131,7 +131,7 @@
         <LinearLayout
             android:id="@+id/llMainSaleItem"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="180dp"
             android:orientation="horizontal">
 
         </LinearLayout>
