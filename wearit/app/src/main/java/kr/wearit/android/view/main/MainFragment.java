@@ -121,10 +121,14 @@ public class MainFragment extends Fragment {
 
 
         lvMainNews.addFooterView(footer);
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         getData();
         addNewsView();
-
-        return view;
     }
 
     private void addNewsView() {
