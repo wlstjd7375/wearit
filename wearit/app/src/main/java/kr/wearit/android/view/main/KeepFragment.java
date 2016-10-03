@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -86,6 +87,39 @@ public class KeepFragment extends Fragment {
         lvKeepList = (ListView)view.findViewById(R.id.lvKeepList);
 
         llSelector = (LinearLayout) view.findViewById(R.id.ll_selector);
+
+        ((RelativeLayout) view.findViewById(R.id.top_bar)).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(llSelector.getVisibility() == View.VISIBLE) {
+                    llSelector.setVisibility(View.GONE);
+                }
+
+                return false;
+            }
+        });
+
+        lvKeepList.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(llSelector.getVisibility() == View.VISIBLE) {
+                    llSelector.setVisibility(View.GONE);
+                }
+
+                return false;
+            }
+        });
+
+        ((RelativeLayout) view.findViewById(R.id.rl_main_layout)).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(llSelector.getVisibility() == View.VISIBLE) {
+                    llSelector.setVisibility(View.GONE);
+                }
+
+                return false;
+            }
+        });
 
         return view;
     }

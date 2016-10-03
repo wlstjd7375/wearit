@@ -58,6 +58,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/rl_main_layout"
         android:layout_below="@+id/view_line">
         <include
             android:id="@+id/rlGoShopping"

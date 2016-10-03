@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -149,11 +150,20 @@ public class ProductActivity extends BaseActivity {
     public void initialize() {
         ImageUtil.display((ImageView) findViewById(R.id.iv_product),mItem.getImagePath());
 
-
         ((TextView) findViewById(R.id.tv_name)).setText(mItem.getName());
 
         TextView salePrice = (TextView) findViewById(R.id.tv_sale_price);
         TextView price = (TextView) findViewById(R.id.tv_price);
+
+        ((ScrollView) findViewById(R.id.sv_product)).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(llSelector.getVisibility() == View.VISIBLE) {
+                    llSelector.setVisibility(View.GONE);
+                }
+                return false;
+            }
+        });
 
         if (mItem.isSale()) {
             salePrice.setVisibility(View.VISIBLE);
