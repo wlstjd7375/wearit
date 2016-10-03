@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kr.wearit.android.view.CouponActivity"
+    android:background="@color/setting_background"
+    android:orientation="vertical">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height_border"
+        layout="@layout/toolbar_with_back" />
+
+    <ListView
+        android:id="@+id/lvCouponList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="1dp"
+        android:divider="@color/white_gray">
+
+    </ListView>
+
+
+
+</LinearLayout>

@@ -24,7 +24,10 @@ import kr.wearit.android.R;
 import kr.wearit.android.adapter.MyPageAdapter;
 import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.UserApi;
+import kr.wearit.android.view.CouponActivity;
+import kr.wearit.android.view.CustomerServiceActivity;
 import kr.wearit.android.view.MainActivity;
+import kr.wearit.android.view.SettingActivity;
 import kr.wearit.android.view.account.MyInfoActivity;
 
 /**
@@ -67,13 +70,25 @@ public class MyPageFragment extends Fragment {
         lvMyPage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
+
                 //0 부터 시작
                 switch (position) {
                     case 0: //My Info Activity
-                        Intent intent = new Intent(mContext, MyInfoActivity.class);
+                        intent = new Intent(mContext, MyInfoActivity.class);
                         startActivity(intent);
                         break;
-                    case 4:
+                    case 2: //Coupon Activity
+                        intent = new Intent(mContext, CouponActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 3: //Setting Activity
+                        intent = new Intent(mContext, SettingActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 4: //Customer Service
+                        intent = new Intent(getActivity(), CustomerServiceActivity.class);
+                        startActivity(intent);
                         break;
                     case 5: //LOG OUT api 필요한지
                         UserApi.logout(new Api.OnWaitListener<Void>(getActivity()) {

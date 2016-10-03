@@ -5,4 +5,8 @@
     <string name="signup_information">키와 몸무게는 배달 시에 고객님의 사이즈를 보다 정확하게 배달하기 위해 사용됩니다.</string>
     <string name="size_option_prompt">옵션</string>
     <string name="password_changed_wanna_login_again">비밀번호가 변경되었습니다.\n해당 아이디로 로그인하시겠습니까?</string>
+    <string name="customer_service">웨어잇을 이용해주셔서 감사합니다.\n이용관련 문의, 건의사항, 주문관련, 제휴 문의 등 자유롭게 남겨주시면 유선상으로 연락 드리겠습니다.\n더 나은 서비스가 되도록 노력하겠습니다.\n감사합니다^___^\n</string>
+    <string name="setting_alarm_info">세일, 프로모션 등의 소식을 받습니다.</string>
+
+
 </resources>

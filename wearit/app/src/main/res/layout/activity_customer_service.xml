@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kr.wearit.android.view.CustomerServiceActivity"
+    android:orientation="vertical">
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height_border"
+        layout="@layout/toolbar_with_back" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tvInfo"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/green">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:padding="5dp"
+                android:background="@color/white">
+                <EditText
+                    android:id="@+id/etCustomerService"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:gravity="top"
+                    android:includeFontPadding="false"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tvInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btSendQuestion"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="76dp"
+            android:text="@string/customer_service"
+            android:textColor="@color/gray"
+            android:textSize="13sp"/>
+        <Button
+            android:id="@+id/btSendQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/green"
+            android:text="교환, 환불 기타 문의"
+            android:textSize="16sp"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

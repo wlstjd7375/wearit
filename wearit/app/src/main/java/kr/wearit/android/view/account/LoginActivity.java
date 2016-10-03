@@ -102,7 +102,7 @@ public class LoginActivity extends BaseActivity {
                             user.setPassword(EncryptPassword.encryptSHA256(password));
 
                             App.getInstance().login(data, EncryptPassword.encryptSHA256(password));
-
+                            App.getInstance().setCouponList();
                             //Activity를 종료하고 MainActivity 에 Login 이 성공했다는 것을 알려줌
                             //MainFragment로 가기위해
                             Intent intent = getIntent();

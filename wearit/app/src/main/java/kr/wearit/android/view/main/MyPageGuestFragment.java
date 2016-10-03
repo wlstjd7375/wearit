@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import kr.wearit.android.Const;
 import kr.wearit.android.R;
+import kr.wearit.android.view.CustomerServiceActivity;
+import kr.wearit.android.view.SettingActivity;
 import kr.wearit.android.view.account.LoginActivity;
 import kr.wearit.android.view.account.SignupActivity;
 
@@ -52,6 +54,25 @@ public class MyPageGuestFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 //LoginActivity 에서 Login 성공시 MainActivity 의 onActivityResult 를 통해 MainFragment 로 감
                 getActivity().startActivityForResult(intent, Const.FROM_LOGIN_SUCCESS);
+            }
+        });
+
+        tvSetting = (TextView)view.findViewById(R.id.tvSetting);
+        tvSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        tvCustomService = (TextView)view.findViewById(R.id.tvCustomService);
+        tvCustomService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CustomerServiceActivity.class);
+                startActivity(intent);
             }
         });
 

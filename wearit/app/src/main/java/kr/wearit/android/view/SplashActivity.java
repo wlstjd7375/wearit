@@ -32,10 +32,6 @@ public class SplashActivity extends AppCompatActivity {
     private Runnable wait = new Runnable() {
         @Override
         public void run() {
-            // 이전에 로그인 한 기록이 있으면 shared preference 에서 불러와
-            // User 정보(객체)를 App.getintance().mUser 에 저장해둠
-            App.getInstance().isLogin();
-
             mHandler.sendEmptyMessageDelayed(1, 1000);
         }
     };
@@ -50,6 +46,12 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // 이전에 로그인 한 기록이 있으면 shared preference 에서 불러와
+        // User 정보(객체)를 App.getintance().mUser 에 저장해둠
+        if(App.getInstance().isLogin()) {
+            App.getInstance().setCouponList();
+        }
+
         mThread = new Thread(wait);
         mThread.start();
     }
