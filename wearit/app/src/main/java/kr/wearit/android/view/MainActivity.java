@@ -218,6 +218,17 @@ public class MainActivity extends BaseActivity {
         if(currentFragment instanceof MainFragment) {
             super.onBackPressed();
         }
+        else if(currentFragment instanceof ItemListFragment) {
+            if(((ItemListFragment) currentFragment).isSelectorVisible()) {
+                //ItemList에서 Selector가 Visible일때
+                ((ItemListFragment) currentFragment).setSelectorVisible(false);
+                llBottomBar.setVisibility(View.VISIBLE);
+                return;
+            }
+            else {
+                changeFragment(FRAGMENT_MAIN);
+            }
+        }
         else {
             changeFragment(FRAGMENT_MAIN);
         }

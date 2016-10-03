@@ -126,7 +126,6 @@ public class ItemListFragment extends Fragment {
         return view;
     }
 
-
     public void setSelector() {
         ((TextView) view.findViewById(R.id.tv_category)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,6 +178,7 @@ public class ItemListFragment extends Fragment {
             public void onClick(View v) {
                 ((RelativeLayout) view.findViewById(R.id.rl_selector)).setVisibility(View.GONE);
                 selectorFlag = 0;
+                MainActivity.removeBottomBar();
             }
         });
 
@@ -348,6 +348,24 @@ public class ItemListFragment extends Fragment {
                     }
                 });
             }
+        }
+    }
+
+    public boolean isSelectorVisible() {
+        if((view.findViewById(R.id.rl_selector)).getVisibility() ==View.VISIBLE ){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void setSelectorVisible(boolean flag) {
+        if(flag) {
+            ((RelativeLayout) view.findViewById(R.id.rl_selector)).setVisibility(View.VISIBLE);
+        }
+        else {
+            ((RelativeLayout) view.findViewById(R.id.rl_selector)).setVisibility(View.GONE);
         }
     }
 
