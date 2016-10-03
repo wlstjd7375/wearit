@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -253,7 +254,17 @@ public class ItemListFragment extends Fragment {
             if(selectBrand.size() != 0) {
                 fetchFlag = 3;
                 //카테고리 브랜드 모두 선택
-                ProductApi.getListByCategoryAndBrand(categoriArray[0].getKey(),brandArray[0].getKey(),page,new Api.OnAuthDefaultListener<Pagination<Product>>(){
+                String category = "";
+                for(int i=0;i<categoriArray.length;i++) {
+                    category += String.valueOf(categoriArray[i].getKey());
+                    category += ",";
+                }
+                String brand = "";
+                for(int i=0;i<brandArray.length;i++) {
+                    brand += String.valueOf(brandArray[i].getKey());
+                    brand += ",";
+                }
+                ProductApi.getListByCategoryAndBrand(category.substring(0,category.length()-1),brand.substring(0,brand.length()-1),page,new Api.OnAuthDefaultListener<Pagination<Product>>(){
 
                     @Override
                     public void onSuccess(Pagination<Product> data) {
@@ -270,7 +281,12 @@ public class ItemListFragment extends Fragment {
             else {
                 //카테고리만 선택
                 fetchFlag = 1;
-                ProductApi.getListByCategory(categoriArray[0].getKey(), page, new Api.OnAuthDefaultListener<Pagination<Product>>(){
+                String category = "";
+                for(int i=0;i<categoriArray.length;i++) {
+                    category += String.valueOf(categoriArray[i].getKey());
+                    category += ",";
+                }
+                ProductApi.getListByCategory(category.substring(0,category.length()-1), page, new Api.OnAuthDefaultListener<Pagination<Product>>(){
 
                     @Override
                     public void onSuccess(Pagination<Product> data) {
@@ -289,7 +305,12 @@ public class ItemListFragment extends Fragment {
             if(selectBrand.size() != 0) {
                 //브랜드만 선택
                 fetchFlag = 2;
-                ProductApi.getListByBrand(brandArray[0].getKey(),"neworder", page, new Api.OnAuthDefaultListener<Pagination<Product>>(){
+                String brand = "";
+                for(int i=0;i<brandArray.length;i++) {
+                    brand += String.valueOf(brandArray[i].getKey());
+                    brand += ",";
+                }
+                ProductApi.getListByBrand(brand.substring(0,brand.length()-1),"neworder", page, new Api.OnAuthDefaultListener<Pagination<Product>>(){
 
                     @Override
                     public void onSuccess(Pagination<Product> data) {

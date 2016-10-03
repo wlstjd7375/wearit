@@ -1,1 +1,5 @@
 wearit/.idea/misc.xml
+wearit/.idea/gradle.xml
+wearit/.idea/misc.xml
+*.class
+*.aar

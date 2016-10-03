@@ -64,9 +64,6 @@ public class SearchResultActivity extends BaseActivity {
 
     private HashSet<Brand> selectBrand;
     private HashSet<ProductCategory> selectCategory;
-    private ArrayList<Product> initProductList;
-    private ArrayList<Brand> brandList;
-    private ArrayList<ProductCategory> categoryList;
 
     private int selectorFlag;
     @Override
@@ -99,15 +96,16 @@ public class SearchResultActivity extends BaseActivity {
             System.out.println("SearchWord : " + word.getSearchWord());
             DBManager.getManager(getActivity().getApplicationContext()).insertSearchWord(word);
 
-            SearchApi.getProduct(query,1, new Api.OnDefaultListener<Pagination<Product>>() {
-                @Override
-                public void onSuccess(Pagination<Product> data) {
-                    rlWaiting.setVisibility(View.GONE);
-                    initProductList = data.getList();
-//                    brandList = data.getBrand();
-                    initialize();
-                }
-            });
+            initialize();
+//            SearchApi.getProduct(query,1,"","", new Api.OnDefaultListener<Pagination<Product>>() {
+//                @Override
+//                public void onSuccess(Pagination<Product> data) {
+//                    rlWaiting.setVisibility(View.GONE);
+//                    initProductList = data.getList();
+////                    brandList = data.getBrand();
+//                    initialize();
+//                }
+//            });
         }
     }
 
@@ -123,12 +121,15 @@ public class SearchResultActivity extends BaseActivity {
         selectBrand = new HashSet<Brand>();
         selectCategory = new HashSet<ProductCategory>();
 
-        mAdapter = new ProductListAdapter(getActivity(), initProductList, getScreenWidth());
-        lvItemList.setAdapter(mAdapter);
+        lvItemList.setOnScrollListener(mFetchHandler);
         rlWaiting.setVisibility(View.GONE);
 
         setSelector();
+
+        mFetchHandler.initialize();
+        mFetchHandler.fetch(1);
     }
+
     public void setSelector() {
         ((TextView) findViewById(R.id.tv_category)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,108 +216,149 @@ public class SearchResultActivity extends BaseActivity {
                 }
                 ((RelativeLayout) findViewById(R.id.rl_selector)).setVisibility(View.GONE);
                 rlWaiting.setVisibility(View.VISIBLE);
-                modifyProductList();
+                mFetchHandler.initialize();
+                mFetchHandler.fetch(1);
             }
         });
 
-//        brandAdapter = new BrandAdapter(getActivity(),R.layout.listrow_product_selector_child, brandList);
-//        lvBrand.setAdapter(brandAdapter);
-//        lvBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                if(selectBrand.contains(brandAdapter.getItem(position))){
-//                    ((TextView) view.findViewById(R.id.tv_name)).setTextColor(Color.parseColor("#000000"));
-//                    selectBrand.remove(brandAdapter.getItem(position));
-//                }
-//                else {
-//                    ((TextView) view.findViewById(R.id.tv_name)).setTextColor(Color.parseColor("#009688"));
-//                    selectBrand.add(brandAdapter.getItem(position));
-//                }
-//            }
-//        });
+        SearchApi.getBrand(query, new Api.OnDefaultListener<ArrayList<Brand>>(){
+            @Override
+            public void onSuccess(ArrayList<Brand> data) {
+                brandAdapter = new BrandAdapter(getActivity(),R.layout.listrow_product_selector_child, data);
+                lvBrand.setAdapter(brandAdapter);
+                lvBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                        if(selectBrand.contains(brandAdapter.getItem(position))){
+                            ((TextView) view.findViewById(R.id.tv_name)).setTextColor(Color.parseColor("#000000"));
+                            selectBrand.remove(brandAdapter.getItem(position));
+                        }
+                        else {
+                            ((TextView) view.findViewById(R.id.tv_name)).setTextColor(Color.parseColor("#009688"));
+                            selectBrand.add(brandAdapter.getItem(position));
+                        }
+                    }
+                });
+            }
+        });
+
     }
 
-    private void modifyProductList() {
+    private void modifyProductList(final int page) {
         System.out.println("modifyProductList Call!!");
 
         ProductCategory[] categoriArray = selectCategory.toArray(new ProductCategory[selectCategory.size()]);
         Brand[] brandArray = selectBrand.toArray(new Brand[selectBrand.size()]);
-        ArrayList<Product> changeList = new ArrayList<Product>();
 
         if(selectCategory.size() != 0) {
             if(selectBrand.size() != 0) {
                 //카테고리 브랜드 모두 선택
-                for(int i=0;i<initProductList.size();i++) {
-                    Product product = initProductList.get(i);
-                    for(int l=0; l<brandArray.length;l++) {
-                        if (brandArray[l].getName().equals(product.getBrandName())) {
-                            //선택된 브랜드와 아이템 브랜드가 같음
-                            if(product.getCategoryArray() != null) {
-                                for (int j = 0; j < product.getCategoryArray().length; j++) {
-                                    for (int k = 0; k < categoriArray.length; k++) {
-                                        if (categoriArray[k].getKey() == Integer.valueOf(product.getCategoryArray()[j])) {
-                                            //선택된 카테고리의 키와 아이템의 카테고리 키가 같음
-                                            changeList.add(product);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                String category = "";
+                for(int i=0;i<categoriArray.length;i++) {
+                    category += String.valueOf(categoriArray[i].getKey());
+                    category += ",";
                 }
-                mAdapter.clear();
-                mAdapter.addAll(changeList);
-                mAdapter.notifyDataSetChanged();
-                System.out.println("브랜드, 카테고리 선택 Size : " + changeList.size());
+                String brand = "";
+                for(int i=0;i<brandArray.length;i++) {
+                    brand += String.valueOf(brandArray[i].getKey());
+                    brand += ",";
+                }
+                SearchApi.getProduct(query, page, category.substring(0,category.length()-1),brand.substring(0,brand.length()-1),new Api.OnAuthDefaultListener<Pagination<Product>>(){
+
+                    @Override
+                    public void onSuccess(Pagination<Product> data) {
+                        if(page == 1) {
+                            mAdapter.clear();
+                        }
+                        mAdapter.addAll(data.getList());
+                        rlWaiting.setVisibility(View.GONE);
+                        selectorFlag = 0;
+                        mFetchHandler.onFetched(data);
+                    }
+                });
             }
             else {
                 //카테고리만 선택
-                for(int i=0;i<initProductList.size();i++) {
-                    Product product = initProductList.get(i);
-                    if(product.getCategoryArray() != null) {
-                        for (int j = 0; j < product.getCategoryArray().length; j++) {
-                            for (int k = 0; k < categoriArray.length; k++) {
-                                if (categoriArray[k].getKey() == Integer.valueOf(product.getCategoryArray()[j])) {
-                                    //선택된 카테고리의 키와 아이템의 카테고리 키가 같음
-                                    changeList.add(product);
-                                }
-                            }
-                        }
-                    }
+                String category = "";
+                for(int i=0;i<categoriArray.length;i++) {
+                    category += String.valueOf(categoriArray[i].getKey());
+                    category += ",";
                 }
-                mAdapter.clear();
-                mAdapter.addAll(changeList);
-                mAdapter.notifyDataSetChanged();
-                System.out.println("카테고리만 선택 Size : " + changeList.size());
+                SearchApi.getProduct(query, page, category.substring(0,category.length()-1),"",new Api.OnAuthDefaultListener<Pagination<Product>>(){
+
+                    @Override
+                    public void onSuccess(Pagination<Product> data) {
+                        if(page == 1) {
+                            mAdapter.clear();
+                        }
+                        mAdapter.addAll(data.getList());
+                        rlWaiting.setVisibility(View.GONE);
+                        selectorFlag = 0;
+                        mFetchHandler.onFetched(data);
+                    }
+                });
             }
         }
         else {
             if(selectBrand.size() != 0) {
                 //브랜드만 선택
-                for(int i=0;i<initProductList.size();i++) {
-                    Product product = initProductList.get(i);
-                    for(int l=0; l<brandArray.length;l++) {
-                        if (brandArray[l].getName().equals(product.getBrandName())) {
-                            //선택된 브랜드와 아이템 브랜드가 같음
-                            changeList.add(product);
-                        }
-                    }
+                String brand = "";
+                for(int i=0;i<brandArray.length;i++) {
+                    brand += String.valueOf(brandArray[i].getKey());
+                    brand += ",";
                 }
-                mAdapter.clear();
-                mAdapter.addAll(changeList);
-                mAdapter.notifyDataSetChanged();
-                System.out.println("브랜드만 선택 Size : " + changeList.size());
+                SearchApi.getProduct(query, page, "", brand.substring(0,brand.length()-1),new Api.OnAuthDefaultListener<Pagination<Product>>(){
+
+                    @Override
+                    public void onSuccess(Pagination<Product> data) {
+                        if(page == 1) {
+                            mAdapter.clear();
+                        }
+                        mAdapter.addAll(data.getList());
+                        rlWaiting.setVisibility(View.GONE);
+                        selectorFlag = 0;
+                        mFetchHandler.onFetched(data);
+                    }
+                });
             }
             else {
                 //아무것도 선택안함
-                mAdapter.clear();
-                mAdapter.addAll(initProductList);
-                mAdapter.notifyDataSetChanged();
-                System.out.println("아무것도 선택 안함 Size : " + changeList.size());
+                SearchApi.getProduct(query, page, "", "",new Api.OnAuthDefaultListener<Pagination<Product>>(){
+
+                    @Override
+                    public void onSuccess(Pagination<Product> data) {
+                        if(mAdapter == null) {
+                            System.out.println("SIZE 1 : " + data.getList().size());
+                            mAdapter = new ProductListAdapter(getActivity(), data.getList(), getScreenWidth());
+                            lvItemList.setAdapter(mAdapter);
+                            rlWaiting.setVisibility(View.GONE);
+                        }
+                        else {
+                            if(page == 1) {
+                                mAdapter.clear();
+                            }
+                        }
+                        System.out.println("SIZE 2 : " + data.getList().size());
+                        mAdapter.addAll(data.getList());
+                        rlWaiting.setVisibility(View.GONE);
+                        selectorFlag = 0;
+                        mFetchHandler.onFetched(data);
+                    }
+                });
             }
         }
         rlWaiting.setVisibility(View.GONE);
     }
+
+    private ScrollListener mFetchHandler = new ScrollListener() {
+
+        @Override
+        public void onFetch(final ScrollListener listener, final int page) {
+            //TODO Progressbar
+            Log.d(TAG, "onFetch page = " + page);
+            modifyProductList(page);
+        }
+    };
 
     private class BrandAdapter extends ArrayAdapter<Brand> {
         ArrayList<Brand> data;

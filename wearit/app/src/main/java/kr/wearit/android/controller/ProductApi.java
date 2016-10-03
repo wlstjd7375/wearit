@@ -22,28 +22,13 @@ public class ProductApi extends Api {
 	public static void getSalePage(ProductArgs.ShopProduct params,int page, OnListener<Pagination<Product>> handler) {
 		get(params.getSaleUrl(page), handler, new TypeToken<Response<Pagination<Product>>>() {}.getType());
 	}
-	public static void getListByShop(int shop, String order,int page, OnListener<Pagination<Product>> handler) {
-		get("/product?shop="+shop+"&sort="+order+"&page="+page, handler, new TypeToken<Response<Pagination<Product>>>() {}.getType());
-	}
 
-	public static void getListByBrand(int brand, String order,int page, OnListener<Pagination<Product>> handler) {
+	public static void getListByBrand(String brand, String order,int page, OnListener<Pagination<Product>> handler) {
 		get("/product?brand="+brand+"&sort="+order+"&page="+page, handler, new TypeToken<Response<Pagination<Product>>>() {}.getType());
-	}
-
-	public static void getSaleListByShop(int shop, int page, OnListener<Pagination<Product>> handler) {
-		get("/product?shop="+shop+"&sale=1"+"&page="+page, handler, new TypeToken<Response<Pagination<Product>>>() {}.getType());
 	}
 
 	public static void getSaleListByBrand(int brand, int page, OnListener<Pagination<Product>> handler) {
 		get("/product?brand="+brand+"&sale=1"+"&page="+page, handler, new TypeToken<Response<Pagination<Product>>>() {}.getType());
-	}
-
-	public static void getSpecialList(int category, OnListener<Pagination<ProductSpecial>> handler) {
-		get("/special?category=" + category,handler, new TypeToken<Response<Pagination<ProductSpecial>>>() {}.getType());
-	}
-
-	public static void getSpecial(int key, OnListener<ProductSpecial> handler) {
-		get("/special/" + key,handler, new TypeToken<Response<ProductSpecial>>() {}.getType());
 	}
 
 	public static void getRelationPage(int relation, int page, OnListener<Pagination<Product>> handler) {
@@ -51,16 +36,11 @@ public class ProductApi extends Api {
 		}.getType());
 	}
 
-	public static void getListByCategoryAndShop(int category, int shop, int page, OnListener<Pagination<Product>> handler) {
-		get("/product?category=" + category + "&shop=" + shop + "&page=" + page, handler, new TypeToken<Response<Pagination<Product>>>() {
-		}.getType());
-	}
-
-	public static void getListByCategoryAndBrand(int category, int brand, int page, OnListener<Pagination<Product>> handler) {
+	public static void getListByCategoryAndBrand(String category, String brand, int page, OnListener<Pagination<Product>> handler) {
 		get("/product?category=" + category + "&brand=" + brand + "&page=" + page, handler, new TypeToken<Response<Pagination<Product>>>() {
 		}.getType());
 	}
-	public static void getListByCategory(int category, int page, OnListener<Pagination<Product>> handler) {
+	public static void getListByCategory(String category, int page, OnListener<Pagination<Product>> handler) {
 		get("/product?category=" + category+"&page="+page, handler, new TypeToken<Response<Pagination<Product>>>() {}.getType());
 	}
 
