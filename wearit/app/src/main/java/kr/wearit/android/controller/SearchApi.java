@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import kr.wearit.android.model.Brand;
 import kr.wearit.android.model.News;
+import kr.wearit.android.model.Pagination;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.model.Search;
 import kr.wearit.android.model.Shop;
@@ -80,26 +81,26 @@ public class SearchApi extends Api {
 			}
 		});
 
-		getProduct(query, new OnListener<ArrayList<Product>>() {
-
-			@Override
-			public void onStart() {
-			}
-
-			@Override
-			public void onSuccess(ArrayList<Product> data) {
-				search.setProduct(data);
-
-				post.run();
-			}
-
-			@Override
-			public void onFail() {
-				search.setProduct(new ArrayList<Product>());
-
-				post.run();
-			}
-		});
+//		getProduct(query, new OnListener<ArrayList<Product>>() {
+//
+//			@Override
+//			public void onStart() {
+//			}
+//
+//			@Override
+//			public void onSuccess(ArrayList<Product> data) {
+//				search.setProduct(data);
+//
+//				post.run();
+//			}
+//
+//			@Override
+//			public void onFail() {
+//				search.setProduct(new ArrayList<Product>());
+//
+//				post.run();
+//			}
+//		});
 
 		getNews(query, new OnListener<ArrayList<News>>() {
 
@@ -124,7 +125,7 @@ public class SearchApi extends Api {
 	}
 
 	public static void get(String query, OnListener<Search> handler) {
-		get("/search?query=" + Util.encodeQueryString(query), handler, new TypeToken<Response<Search>>() {}.getType());
+		get("/product/search?query=" + Util.encodeQueryString(query), handler, new TypeToken<Response<Search>>() {}.getType());
 	}
 
 	public static void getShop(String query, OnListener<ArrayList<Shop>> handler) {
@@ -135,8 +136,8 @@ public class SearchApi extends Api {
 		get("/search/brand?query=" + Util.encodeQueryString(query), handler, new TypeToken<Response<ArrayList<Brand>>>() {}.getType());
 	}
 
-	public static void getProduct(String query, OnListener<ArrayList<Product>> handler) {
-		get("/search/product?query=" + Util.encodeQueryString(query), handler, new TypeToken<Response<ArrayList<Product>>>() {}.getType());
+	public static void getProduct(String query,int page, OnListener<Pagination<Product>> handler) {
+		get("/search/product?query=" + Util.encodeQueryString(query) + "&page="+page, handler, new TypeToken<Response<Pagination<Product>>>() {}.getType());
 	}
 
 	public static void getNews(String query, OnListener<ArrayList<News>> handler) {

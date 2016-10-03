@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="kr.wearit.android.view.search.SearchActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#b9b9b9"
+        android:paddingBottom="1dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="#FFFFFF">
+
+            <ImageButton
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:id="@+id/bt_back"
+                android:background="@drawable/bg_back"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="25dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="@drawable/round_angle_eaeaea"
+                android:layout_toRightOf="@+id/bt_back"
+                android:layout_toLeftOf="@+id/bt_search"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="15dp"
+                >
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/et_search"
+                    android:maxLines="1"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"/>
+            </RelativeLayout>
+
+
+            <ImageButton
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:id="@+id/bt_search"
+                android:background="@drawable/bt_search"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="20dp"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="27dp"
+                android:paddingLeft="42dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="추천 검색어"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/ll_recommand"
+                    android:layout_marginTop="12dp">
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="30dp"
+                android:paddingLeft="42dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="최근 검색어"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/ll_recent">
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

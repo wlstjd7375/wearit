@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="kr.wearit.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -42,11 +43,12 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".view.account.LoginActivity" />
         <activity android:name=".view.account.SignupActivity" />
-
         <activity android:name=".view.MoreActivity" />
         <activity android:name=".view.product.ProductActivity" />
-        <activity android:name=".view.news.NewsActivity"/>
-        <activity android:name=".view.check.CheckActivity"/>
+        <activity android:name=".view.news.NewsActivity" />
+        <activity android:name=".view.check.CheckActivity" />
+        <activity android:name=".view.search.SearchActivity" />
+        <activity android:name=".view.search.SearchResultActivity"/>
     </application>
 
 </manifest>
