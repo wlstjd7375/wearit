@@ -2,6 +2,7 @@ package kr.wearit.android.view.main;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import kr.wearit.android.model.Product;
 import kr.wearit.android.model.ProductCategory;
 import kr.wearit.android.ui.ScrollListener;
 import kr.wearit.android.view.MainActivity;
+import kr.wearit.android.view.search.SearchActivity;
 
 /**
  * Created by KimJS on 2016-09-23.
@@ -111,7 +113,13 @@ public class ItemListFragment extends Fragment {
 
         mFetchHandler.fetch(1);
 
-
+        view.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
         setSelector();
 
         return view;

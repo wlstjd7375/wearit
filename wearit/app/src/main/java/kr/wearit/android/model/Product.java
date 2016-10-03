@@ -63,6 +63,9 @@ public class Product implements Parcelable, Images, ProductRelation {
 
 	private Boolean image_flag;
 
+	private String[] categoryArray;
+	private String categories;
+
     //
 
 	public Product() {
@@ -381,6 +384,21 @@ public class Product implements Parcelable, Images, ProductRelation {
 
 	public void setImage_flag(Boolean image_flag) { this.image_flag = image_flag; }
 
+	public String getCategories() {
+		return categories;
+	}
+
+	public void setCategories(String categories) {
+		this.categories = categories;
+	}
+
+	public String[] getCategoryArray() {
+		if(categories == null) {
+			return null;
+		}
+		return categories.split(",");
+	}
+
 	@Override
 	public Type getImagesType() {
 		return Type.PRODUCT;
@@ -498,6 +516,7 @@ public class Product implements Parcelable, Images, ProductRelation {
 
 		dest.writeParcelable(userFavorite, flags);
 		dest.writeValue(image_flag);
+		dest.writeString(categories);
 	}
 
 	private Product(Parcel in) {
@@ -551,6 +570,7 @@ public class Product implements Parcelable, Images, ProductRelation {
 
 		userFavorite = in.readParcelable(FavoriteItem.class.getClassLoader());
 		image_flag = (Boolean)in.readValue(Boolean.class.getClassLoader());
+		categories = in.readString();
 	}
 
 	public static final Creator<Product> CREATOR = new Creator<Product>() {
