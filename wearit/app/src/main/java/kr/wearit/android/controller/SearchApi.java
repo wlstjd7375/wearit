@@ -136,8 +136,8 @@ public class SearchApi extends Api {
 		get("/search/brand?query=" + Util.encodeQueryString(query), handler, new TypeToken<Response<ArrayList<Brand>>>() {}.getType());
 	}
 
-	public static void getProduct(String query,int page, OnListener<Pagination<Product>> handler) {
-		get("/search/product?query=" + Util.encodeQueryString(query) + "&page="+page, handler, new TypeToken<Response<Pagination<Product>>>() {}.getType());
+	public static void getProduct(String query,int page,String brand,String category, OnListener<Pagination<Product>> handler) {
+		get("/search/product?query=" + Util.encodeQueryString(query) + "&page="+page +" &category="+category + "&brand="+brand, handler, new TypeToken<Response<Pagination<Product>>>() {}.getType());
 	}
 
 	public static void getNews(String query, OnListener<ArrayList<News>> handler) {
