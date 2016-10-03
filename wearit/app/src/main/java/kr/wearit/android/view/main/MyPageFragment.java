@@ -2,6 +2,7 @@ package kr.wearit.android.view.main;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -24,14 +25,12 @@ import kr.wearit.android.adapter.MyPageAdapter;
 import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.UserApi;
 import kr.wearit.android.view.MainActivity;
+import kr.wearit.android.view.account.MyInfoActivity;
 
 /**
  * Created by KimJS on 2016-09-17.
  */
-public class MyPageFragment extends Fragment implements
-        View.OnClickListener,
-        TimePickerDialog.OnTimeSetListener,
-        DatePickerDialog.OnDateSetListener{
+public class MyPageFragment extends Fragment {
 
     private String TAG = "MyPageFragment##";
     private Context mContext;
@@ -42,20 +41,6 @@ public class MyPageFragment extends Fragment implements
     private MyPageAdapter mAdapter;
 
     private String[] mypagetList = {"MY INFO", "ORDER LIST", "COUPON", "SETTING", "CUSTOMER SERVICE", "LOG OUT"};
-
-    @Override
-    public void onClick(View v) {
-    }
-
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = "You picked the following date: "+dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
-        Log.d(TAG, date);
-    }
-
-    @Override
-    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
-    }
 
     @Nullable
     @Override
@@ -84,6 +69,10 @@ public class MyPageFragment extends Fragment implements
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //0 부터 시작
                 switch (position) {
+                    case 0: //My Info Activity
+                        Intent intent = new Intent(mContext, MyInfoActivity.class);
+                        startActivity(intent);
+                        break;
                     case 4:
                         break;
                     case 5: //LOG OUT api 필요한지

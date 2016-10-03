@@ -117,11 +117,11 @@ containing a value of this type.
         public static int animator=0x7f080006;
         public static int cancel=0x7f080008;
         public static int center_view=0x7f08000b;
-        public static int date_picker_day=0x7f080004;
+        public static int date_picker_day=0x7f080005;
         public static int date_picker_header=0x7f080000;
-        public static int date_picker_month=0x7f080003;
-        public static int date_picker_month_and_day=0x7f080002;
-        public static int date_picker_year=0x7f080005;
+        public static int date_picker_month=0x7f080004;
+        public static int date_picker_month_and_day=0x7f080003;
+        public static int date_picker_year=0x7f080002;
         public static int day_picker_selected_date_layout=0x7f080001;
         public static int done_background=0x7f080007;
         public static int hour_space=0x7f08000c;

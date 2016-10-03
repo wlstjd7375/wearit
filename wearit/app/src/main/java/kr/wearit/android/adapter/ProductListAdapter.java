@@ -85,6 +85,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
     @Override
     public int getCount() {
         int size = mDataList.size();
+        Log.d(TAG, "size in getCount = " + size);
         return (size / 2) + (size % 2);
     }
 

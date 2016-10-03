@@ -119,7 +119,7 @@ public class NewsActivity extends BaseActivity {
 //        lvProduct.setOnScrollListener(mFetchHandler);
         if(mExtraItem.getProductRelationCount() != 0){
             ((RelativeLayout) header.findViewById(R.id.ll_product_header)).setVisibility(View.VISIBLE);
-            Log.d(TAG, "size = " + mExtraItem.getProductRelationCount());
+            Log.d(TAG, "size = " + mExtraItem.getProductRelationList().size());
             mAdapter = new ProductListAdapter(getActivity(), mExtraItem.getProductRelationList(), App.getInstance().getScreenWidth());
             lvProduct.setAdapter(mAdapter);
             lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {

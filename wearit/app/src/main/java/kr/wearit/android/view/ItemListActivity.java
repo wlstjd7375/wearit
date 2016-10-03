@@ -9,6 +9,8 @@ import android.view.View;
 
 import kr.wearit.android.R;
 
+
+//안씀
 public class ItemListActivity extends AppCompatActivity {
 
     @Override

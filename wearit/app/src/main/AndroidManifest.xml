@@ -42,11 +42,14 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".view.account.LoginActivity" />
         <activity android:name=".view.account.SignupActivity" />
-
         <activity android:name=".view.MoreActivity" />
         <activity android:name=".view.product.ProductActivity" />
-        <activity android:name=".view.news.NewsActivity"/>
-        <activity android:name=".view.check.CheckActivity"/>
+        <activity android:name=".view.news.NewsActivity" />
+        <activity android:name=".view.check.CheckActivity" />
+        <activity
+            android:name=".view.account.MyInfoActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".view.account.FindPasswordActivity"></activity>
     </application>
 
 </manifest>

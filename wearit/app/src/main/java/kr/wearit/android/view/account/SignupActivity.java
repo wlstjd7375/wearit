@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +23,21 @@ public class SignupActivity extends BaseActivity {
     private TextView tvToolbarTitle;
     private ImageView ivToolbarBack;
 
-
+    private EditText etEmail;
+    private EditText etPassword;
+    private EditText etPasswordConfirm;
+    private EditText etName;
+    private EditText etBirthday;
+    private EditText etPhone;
+    private Button btSendSMS;
+    private EditText etCertification;
+    private Button btCertification;
+    private EditText etAddress;
+    private Button btFindAddress;
+    private EditText etExtraAddress;
+    private EditText etHeight;
+    private EditText etWeight;
+    private Button btSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +58,22 @@ public class SignupActivity extends BaseActivity {
                 onBackPressed();
             }
         });
+
+        etEmail = (EditText)findViewById(R.id.etEmail);
+        etPassword = (EditText)findViewById(R.id.etPassword);
+        etPasswordConfirm = (EditText)findViewById(R.id.etPasswordConfirm);
+        etName = (EditText)findViewById(R.id.etName);
+        etBirthday = (EditText)findViewById(R.id.etBirthday);
+        etPhone = (EditText)findViewById(R.id.etPhone);
+        btSendSMS = (Button)findViewById(R.id.btSendSMS);
+        etCertification = (EditText)findViewById(R.id.etCertification);
+        btCertification = (Button)findViewById(R.id.btCertification);
+        etAddress = (EditText)findViewById(R.id.etAddress);
+        btFindAddress = (Button)findViewById(R.id.btFindAddress);
+        etExtraAddress = (EditText)findViewById(R.id.etExtraAddress);
+        etHeight = (EditText)findViewById(R.id.etHeight);
+        etWeight = (EditText)findViewById(R.id.etWeight);
+        btSignUp = (Button)findViewById(R.id.btSignUp);
     }
 
 }

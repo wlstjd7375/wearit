@@ -203,7 +203,7 @@ public class App extends Application {
     }
 
 
-    private void setUser(User user) {
+    public void setUser(User user) {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
 
         if (LOG)

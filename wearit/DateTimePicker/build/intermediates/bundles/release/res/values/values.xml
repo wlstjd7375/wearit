@@ -50,7 +50,7 @@
     <dimen name="mdtp_done_label_size">14sp</dimen>
     <dimen name="mdtp_extra_time_label_margin">-30dp</dimen>
     <dimen name="mdtp_footer_height">48dip</dimen>
-    <dimen name="mdtp_header_height">96dip</dimen>
+    <dimen name="mdtp_header_height">116dip</dimen>
     <dimen name="mdtp_material_button_height">48dp</dimen>
     <dimen name="mdtp_material_button_minwidth">64dp</dimen>
     <dimen name="mdtp_material_button_textpadding_horizontal">8dp</dimen>
