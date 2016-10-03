@@ -91,11 +91,11 @@ int id ampm_label 0x7f080015
 int id animator 0x7f080006
 int id cancel 0x7f080008
 int id center_view 0x7f08000b
-int id date_picker_day 0x7f080005
+int id date_picker_day 0x7f080004
 int id date_picker_header 0x7f080000
-int id date_picker_month 0x7f080004
-int id date_picker_month_and_day 0x7f080003
-int id date_picker_year 0x7f080002
+int id date_picker_month 0x7f080003
+int id date_picker_month_and_day 0x7f080002
+int id date_picker_year 0x7f080005
 int id day_picker_selected_date_layout 0x7f080001
 int id done_background 0x7f080007
 int id hour_space 0x7f08000c

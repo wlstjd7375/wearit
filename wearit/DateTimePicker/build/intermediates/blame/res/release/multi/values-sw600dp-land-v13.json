@@ -11,7 +11,14 @@
                     "endOffset": 102
                 },
                 "from": {
-                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml"
+                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1033,
+                        "endColumn": 51,
+                        "endOffset": 1080
+                    }
                 }
             },
             {
@@ -21,154 +28,15 @@
                     "startOffset": 107,
                     "endColumn": 53,
                     "endOffset": 156
-                },
-                "from": {
-                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 4,
-                    "startColumn": 4,
-                    "startOffset": 161,
-                    "endColumn": 61,
-                    "endOffset": 218
-                },
-                "from": {
-                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 5,
-                    "startColumn": 4,
-                    "startOffset": 223,
-                    "endColumn": 50,
-                    "endOffset": 269
-                },
-                "from": {
-                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 6,
-                    "startColumn": 4,
-                    "startOffset": 274,
-                    "endColumn": 51,
-                    "endOffset": 321
                 },
                 "from": {
                     "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
-                        "startLine": 29,
-                        "startColumn": 4,
-                        "startOffset": 1193,
-                        "endColumn": 51,
-                        "endOffset": 1240
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 7,
-                    "startColumn": 4,
-                    "startOffset": 326,
-                    "endColumn": 53,
-                    "endOffset": 375
-                },
-                "from": {
-                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 8,
-                    "startColumn": 4,
-                    "startOffset": 380,
-                    "endColumn": 53,
-                    "endOffset": 429
-                },
-                "from": {
-                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 9,
-                    "startColumn": 4,
-                    "startOffset": 434,
-                    "endColumn": 60,
-                    "endOffset": 490
-                },
-                "from": {
-                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 10,
-                    "startColumn": 4,
-                    "startOffset": 495,
-                    "endColumn": 51,
-                    "endOffset": 542
-                },
-                "from": {
-                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml"
-                }
-            },
-            {
-                "to": {
-                    "startLine": 11,
-                    "startColumn": 4,
-                    "startOffset": 547,
-                    "endColumn": 61,
-                    "endOffset": 604
-                },
-                "from": {
-                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml"
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\values-sw600dp-land-v13\\values-sw600dp-land-v13.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 51,
-                    "endOffset": 102
-                },
-                "from": {
-                    "file": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
-                    "position": {
-                        "startLine": 26,
-                        "startColumn": 4,
-                        "startOffset": 1059,
-                        "endColumn": 51,
-                        "endOffset": 1106
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 107,
-                    "endColumn": 53,
-                    "endOffset": 156
-                },
-                "from": {
-                    "file": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
-                    "position": {
                         "startLine": 27,
                         "startColumn": 4,
-                        "startOffset": 1112,
+                        "startOffset": 1085,
                         "endColumn": 53,
-                        "endOffset": 1161
+                        "endOffset": 1134
                     }
                 }
             },
@@ -181,13 +49,13 @@
                     "endOffset": 218
                 },
                 "from": {
-                    "file": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
+                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
-                        "startOffset": 818,
+                        "startOffset": 796,
                         "endColumn": 61,
-                        "endOffset": 875
+                        "endOffset": 853
                     }
                 }
             },
@@ -200,13 +68,13 @@
                     "endOffset": 269
                 },
                 "from": {
-                    "file": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
+                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
-                        "startOffset": 1274,
+                        "startOffset": 1244,
                         "endColumn": 50,
-                        "endOffset": 1320
+                        "endOffset": 1290
                     }
                 }
             },
@@ -219,13 +87,13 @@
                     "endOffset": 320
                 },
                 "from": {
-                    "file": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
+                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
-                        "startOffset": 1222,
+                        "startOffset": 1193,
                         "endColumn": 50,
-                        "endOffset": 1268
+                        "endOffset": 1239
                     }
                 }
             },
@@ -238,13 +106,13 @@
                     "endOffset": 374
                 },
                 "from": {
-                    "file": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
+                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
                         "startLine": 31,
                         "startColumn": 4,
-                        "startOffset": 1326,
+                        "startOffset": 1295,
                         "endColumn": 53,
-                        "endOffset": 1375
+                        "endOffset": 1344
                     }
                 }
             },
@@ -257,13 +125,13 @@
                     "endOffset": 428
                 },
                 "from": {
-                    "file": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
+                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
-                        "startOffset": 1167,
+                        "startOffset": 1139,
                         "endColumn": 53,
-                        "endOffset": 1216
+                        "endOffset": 1188
                     }
                 }
             },
@@ -276,13 +144,13 @@
                     "endOffset": 489
                 },
                 "from": {
-                    "file": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
+                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
-                        "startOffset": 881,
+                        "startOffset": 858,
                         "endColumn": 60,
-                        "endOffset": 937
+                        "endOffset": 914
                     }
                 }
             },
@@ -295,13 +163,13 @@
                     "endOffset": 541
                 },
                 "from": {
-                    "file": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
+                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
-                        "startOffset": 943,
+                        "startOffset": 919,
                         "endColumn": 51,
-                        "endOffset": 990
+                        "endOffset": 966
                     }
                 }
             },
@@ -314,13 +182,13 @@
                     "endOffset": 603
                 },
                 "from": {
-                    "file": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
+                    "file": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
-                        "startOffset": 996,
+                        "startOffset": 971,
                         "endColumn": 61,
-                        "endOffset": 1053
+                        "endOffset": 1028
                     }
                 }
             }

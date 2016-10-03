@@ -1,23 +1,11 @@
 [
     {
-        "merged": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_done_background_color.xml",
-        "source": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\drawable\\mdtp_done_background_color.xml"
-    },
-    {
-        "merged": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_done_background_color_dark.xml",
-        "source": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\drawable\\mdtp_done_background_color_dark.xml"
-    },
-    {
-        "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_done_background_color.xml",
-        "source": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\drawable\\mdtp_done_background_color.xml"
-    },
-    {
         "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_material_button_background.xml",
         "source": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\drawable\\mdtp_material_button_background.xml"
     },
     {
-        "merged": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_material_button_selected.xml",
-        "source": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\drawable\\mdtp_material_button_selected.xml"
+        "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_done_background_color.xml",
+        "source": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\drawable\\mdtp_done_background_color.xml"
     },
     {
         "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_material_button_selected.xml",
@@ -26,9 +14,5 @@
     {
         "merged": "D:\\git\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_done_background_color_dark.xml",
         "source": "D:\\git\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\drawable\\mdtp_done_background_color_dark.xml"
-    },
-    {
-        "merged": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\build\\intermediates\\res\\merged\\release\\drawable\\mdtp_material_button_background.xml",
-        "source": "C:\\wearit\\wearit\\wearit\\DateTimePicker\\src\\main\\res\\drawable\\mdtp_material_button_background.xml"
     }
 ]
