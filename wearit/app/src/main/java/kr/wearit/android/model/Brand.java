@@ -25,6 +25,20 @@ public class Brand implements Parcelable, Images {
 	private ArrayList<Shop> shopList;
 	private ArrayList<Product> productList;
 
+	private double latitude;
+	private double longitude;
+
+	private String deliver_info;
+	private String refund_info;
+
+	private String start_time;
+	private String end_time;
+
+	private ArrayList<String> holidays;
+
+
+	private String phone;
+
 	private boolean checked;
 
 	//
@@ -182,6 +196,69 @@ public class Brand implements Parcelable, Images {
 		this.checked = checked;
 	}
 
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getDeliver_info() {
+		return deliver_info;
+	}
+
+	public void setDeliver_info(String deliver_info) {
+		this.deliver_info = deliver_info;
+	}
+
+	public String getRefund_info() {
+		return refund_info;
+	}
+
+	public void setRefund_info(String refund_info) {
+		this.refund_info = refund_info;
+	}
+
+	public String getStart_time() {
+		return start_time;
+	}
+
+	public void setStart_time(String start_time) {
+		this.start_time = start_time;
+	}
+
+	public String getEnd_time() {
+		return end_time;
+	}
+
+	public void setEnd_time(String end_time) {
+		this.end_time = end_time;
+	}
+
+	public ArrayList<String> getHolidays() {
+		return holidays;
+	}
+
+	public void setHolidays(ArrayList<String> holidays) {
+		this.holidays = holidays;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	//
 
 	@Override
@@ -208,6 +285,14 @@ public class Brand implements Parcelable, Images {
 		dest.writeParcelable(userFavorite, flags);
 		dest.writeTypedList(shopList);
 		dest.writeTypedList(productList);
+		dest.writeDouble(latitude);
+		dest.writeDouble(longitude);
+		dest.writeString(deliver_info);
+		dest.writeString(refund_info);
+		dest.writeString(start_time);
+		dest.writeString(end_time);
+		dest.writeStringList(holidays);
+		dest.writeString(phone);
 	}
 
 	private Brand(Parcel in) {
@@ -228,6 +313,16 @@ public class Brand implements Parcelable, Images {
 		userFavorite = in.readParcelable(FavoriteItem.class.getClassLoader());
 		in.readTypedList(shopList = new ArrayList<Shop>(), Shop.CREATOR);
 		in.readTypedList(productList = new ArrayList<Product>(), Product.CREATOR);
+
+		latitude = in.readDouble();
+		longitude = in.readDouble();
+		deliver_info = in.readString();
+		refund_info = in.readString();
+		start_time = in.readString();
+		end_time = in.readString();
+		holidays = new ArrayList<String>();
+		in.readStringList(holidays);
+		phone = in.readString();
 	}
 
 	public static final Creator<Brand> CREATOR = new Creator<Brand>() {

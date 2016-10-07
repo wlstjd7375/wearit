@@ -8,7 +8,7 @@ import android.os.Parcelable;
  */
 public class DeliverInfo implements Parcelable {
 
-    private int shop;
+    private int brand;
     private int deliverPrice;
     private int basis;
 
@@ -16,11 +16,11 @@ public class DeliverInfo implements Parcelable {
     }
 
     public int getShop() {
-        return shop;
+        return brand;
     }
 
-    public void setShop(int shop) {
-        this.shop = shop;
+    public void setShop(int brand) {
+        this.brand = brand;
     }
 
     public int getDeliverPrice() {
@@ -47,13 +47,13 @@ public class DeliverInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(shop);
+        dest.writeInt(brand);
         dest.writeInt(deliverPrice);
         dest.writeInt(basis);
     }
 
     private DeliverInfo(Parcel in) {
-        shop = in.readInt();
+        brand = in.readInt();
         deliverPrice = in.readInt();
         basis = in.readInt();
     }

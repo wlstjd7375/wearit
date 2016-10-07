@@ -2,6 +2,7 @@ package kr.wearit.android.view.product;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +14,6 @@ import android.view.Window;
 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +34,7 @@ import kr.wearit.android.util.ImageUtil;
 import kr.wearit.android.util.Util;
 
 import kr.wearit.android.view.BaseActivity;
+import kr.wearit.android.view.order.ProductPaymentActivity;
 import kr.wearit.android.widget.ContentView;
 
 public class ProductActivity extends BaseActivity {
@@ -51,8 +52,10 @@ public class ProductActivity extends BaseActivity {
     private LinearLayout llSelector;
     private TextView tvSelSize;
 
-    private int selSize;
+    private int selSizeKey;
     private int count;
+
+    private ProductSize selSize;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,7 +79,7 @@ public class ProductActivity extends BaseActivity {
                 }
             });
         }
-        selSize = 0;
+        selSizeKey = 0;
 
         llSelector = (LinearLayout) findViewById(R.id.ll_selector);
         rlWating = (RelativeLayout) findViewById(R.id.rl_waiting);
@@ -115,7 +118,7 @@ public class ProductActivity extends BaseActivity {
         ((TextView) findViewById(R.id.tv_insel_order)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(selSize != 0) {
+                if(selSizeKey != 0) {
                     new OrderDialog(getActivity()).show();
                 }
             }
@@ -124,8 +127,8 @@ public class ProductActivity extends BaseActivity {
         ((ImageButton) findViewById(R.id.bt_insel_itbag)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(selSize != 0) {
-                    CartApi.add(selSize, count, new Api.OnAuthListener<Integer>() {
+                if(selSizeKey != 0) {
+                    CartApi.add(selSizeKey, count, new Api.OnAuthListener<Integer>() {
                         @Override
                         public void onStart() {
                         }
@@ -182,7 +185,7 @@ public class ProductActivity extends BaseActivity {
         String ment = "";
         for(int i=0;i<mItem.getDeliverInfos().size();i++){
             if(mItem.getDeliverInfos().get(i).getDeliverPrice() == 0){
-                ment += mItem.getShopObject().getName() + " 상품으로만 "+ String.valueOf(mItem.getDeliverInfos().get(i).getBasis()) +"원 이상 구매시 무료배송";
+                ment += mItem.getBrandObject().getName() + " 상품으로만 "+ Util.formatWon((mItem.getDeliverInfos().get(i).getBasis())) +"원 이상 구매시 무료배송";
             }
         }
         ((TextView) findViewById(R.id.tv_delivery)).setText(ment);
@@ -267,7 +270,6 @@ public class ProductActivity extends BaseActivity {
                 }
             });
         }
-        //추후에 브랜드로 바꿔야됨!
         ((LinearLayout) findViewById(R.id.ll_delivery_sel)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -280,8 +282,13 @@ public class ProductActivity extends BaseActivity {
             }
         });
 
-        ((TextView) findViewById(R.id.tv_delivery_info)).setText(mItem.getShopObject().getDeliver_info());
-        ((TextView) findViewById(R.id.tv_refund_info)).setText(mItem.getShopObject().getRefund_info());
+        //추후에 브랜드로 바꿔야됨!
+        if(mItem.getBrandObject().getDeliver_info() != null && mItem.getBrandObject().getDeliver_info().length() != 0) {
+            ((TextView) findViewById(R.id.tv_delivery_info)).setText(mItem.getBrandObject().getDeliver_info());
+        }
+        if(mItem.getBrandObject().getRefund_info() != null && mItem.getBrandObject().getRefund_info().length() != 0) {
+            ((TextView) findViewById(R.id.tv_refund_info)).setText(mItem.getBrandObject().getRefund_info());
+        }
 
         rlWating.setVisibility(View.GONE);
 //        optionLayoutInitialize();
@@ -331,6 +338,20 @@ public class ProductActivity extends BaseActivity {
         });
     }
 
+    public int calculDeliverPrice() {
+        //배송비 계산
+        int deliverPrice = 0;
+
+        for(int i=0;i<mItem.getDeliverInfos().size();i++){
+            if(count * mItem.getPriceCurrent() > mItem.getDeliverInfos().get(i).getBasis()) {
+                deliverPrice = mItem.getDeliverInfos().get(i).getDeliverPrice();
+                break;
+            }
+        }
+
+        return deliverPrice;
+    }
+
     private class OrderDialog extends Dialog {
 
         public OrderDialog(Context context) {
@@ -342,6 +363,13 @@ public class ProductActivity extends BaseActivity {
             ((TextView) findViewById(R.id.tv_now_order)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Intent intent = new Intent(ProductActivity.this, ProductPaymentActivity.class);
+                    intent.putExtra("product", mItem);
+                    intent.putExtra("size", selSize);
+                    intent.putExtra("count", count);
+                    intent.putExtra("deliver", calculDeliverPrice());
+                    intent.putExtra("ordertype", "now");
+                    startActivity(intent);
                     dismiss();
                 }
             });
@@ -374,8 +402,9 @@ public class ProductActivity extends BaseActivity {
                         Toast.makeText(getActivity(),"품절된 옵션입니다",Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        //selSize = position;
-                        selSize = mAdapter.getItem(position).getKey();
+                        //selSizeKey = position;
+                        selSize = mAdapter.getItem(position);
+                        selSizeKey = mAdapter.getItem(position).getKey();
                         tvSelSize.setText(mAdapter.getItem(position).getSize());
                         ((TextView) getActivity().findViewById(R.id.tv_insel_order)).setTextColor(Color.parseColor("#000000"));
                         dismiss();
