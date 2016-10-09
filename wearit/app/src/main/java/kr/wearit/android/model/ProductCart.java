@@ -22,8 +22,7 @@ public class ProductCart implements Parcelable {
     private boolean best;
     private String imagepath;
     private String brandname;
-    private int shopkey;
-    private String shopname;
+    private int brand;
     private Date date;
     private boolean checked;
     private int product;
@@ -147,20 +146,12 @@ public class ProductCart implements Parcelable {
         this.brandname = brandname;
     }
 
-    public int getShopkey() {
-        return shopkey;
+    public void setBrand(int brand) {
+        this.brand = brand;
     }
 
-    public void setShopkey(int shopkey) {
-        this.shopkey = shopkey;
-    }
-
-    public String getShopname() {
-        return shopname;
-    }
-
-    public void setShopname(String shopname) {
-        this.shopname = shopname;
+    public int getBrand() {
+        return brand;
     }
 
     public Date getDate() {
@@ -192,8 +183,7 @@ public class ProductCart implements Parcelable {
         dest.writeInt(best ? 1 : 0);
         dest.writeString(imagepath);
         dest.writeString(brandname);
-        dest.writeInt(shopkey);
-        dest.writeString(shopname);
+        dest.writeInt(brand);
         dest.writeSerializable(date);
         dest.writeInt(product);
     }
@@ -213,8 +203,7 @@ public class ProductCart implements Parcelable {
         best = in.readInt() == 1;
         imagepath= in.readString();
         brandname= in.readString();
-        shopkey= in.readInt();
-        shopname= in.readString();
+        brand = in.readInt();
         date = (Date) in.readSerializable();
         product = in.readInt();
 

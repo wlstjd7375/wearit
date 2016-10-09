@@ -22,8 +22,10 @@ import kr.wearit.android.adapter.BagListAdapter;
 import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.CartApi;
 import kr.wearit.android.model.CartDeliver;
+import kr.wearit.android.model.DeliverInfo;
 import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.view.MainActivity;
+import kr.wearit.android.view.check.CartCheckActivity;
 import kr.wearit.android.view.check.CheckActivity;
 
 
@@ -49,7 +51,7 @@ public class BagFragment extends Fragment {
     private ListView lvBagList;
     private BagListAdapter mAdapter;
     private ArrayList<ProductCart> mProductList;
-
+    private ArrayList<DeliverInfo> mDeliverList;
 
     @Nullable
     @Override
@@ -69,7 +71,9 @@ public class BagFragment extends Fragment {
         tvCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CheckActivity.class);
+                Intent intent = new Intent(getActivity(), CartCheckActivity.class);
+                intent.putExtra("cart", mProductList);
+                intent.putExtra("deliver", mDeliverList);
                 startActivity(intent);
             }
         });
@@ -85,6 +89,7 @@ public class BagFragment extends Fragment {
                 @Override
                 public void onSuccess(CartDeliver data) {
                     mProductList = data.getCart();
+                    mDeliverList = data.getDeliverInfo();
                     setListView();
                 }
             });

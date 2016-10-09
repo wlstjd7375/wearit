@@ -1,32 +1,14 @@
-package kr.wearit.android.view.order;
+package kr.wearit.android.view.check;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Display;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,19 +19,15 @@ import kr.wearit.android.App;
 import kr.wearit.android.R;
 import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.OrderApi;
-import kr.wearit.android.controller.UserApi;
-import kr.wearit.android.model.CardPay;
 import kr.wearit.android.model.Coupon;
 import kr.wearit.android.model.Order;
-import kr.wearit.android.model.Phone;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.model.ProductSize;
 import kr.wearit.android.model.User;
-import kr.wearit.android.view.BaseActivity;
 import kr.wearit.android.util.ImageUtil;
 import kr.wearit.android.util.Util;
 
-public class ProductPaymentActivity extends BaseActivity {
+public class ProductCheckActivity extends CheckActivity {
 
     private static final String ARG = "product";
     private static final String ARG_SIZE = "size";
@@ -61,7 +39,7 @@ public class ProductPaymentActivity extends BaseActivity {
 
         App.getInstance().setUserMileage(activity);
 
-        Intent intent = new Intent(activity, ProductPaymentActivity.class);
+        Intent intent = new Intent(activity, ProductCheckActivity.class);
         intent.putExtra(ARG, product);
         intent.putExtra(ARG_SIZE, selectSize);
         intent.putExtra(ARG_COUNT, count);
@@ -120,7 +98,7 @@ public class ProductPaymentActivity extends BaseActivity {
         user = App.getInstance().getUser();
         couponList = App.getInstance().getCouponList();
 
-        setContentView(R.layout.activity_product_payment);
+        setContentView(R.layout.activity_product_check);
 
         ((TextView) findViewById(R.id.tv_brand)).setText(mItem.getBrandObject().getName());
 

@@ -55,8 +55,9 @@
         <activity android:name=".view.search.SearchResultActivity" />
         <activity android:name=".view.CustomerServiceActivity" />
         <activity android:name=".view.SettingActivity" />
-        <activity android:name=".view.CouponActivity"/>
-        <activity android:name=".view.order.ProductPaymentActivity"/>
+        <activity android:name=".view.CouponActivity" />
+        <activity android:name=".view.check.ProductCheckActivity" />
+        <activity android:name=".view.check.CartCheckActivity"></activity>
     </application>
 
 </manifest>

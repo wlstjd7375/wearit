@@ -34,7 +34,7 @@ import kr.wearit.android.util.ImageUtil;
 import kr.wearit.android.util.Util;
 
 import kr.wearit.android.view.BaseActivity;
-import kr.wearit.android.view.order.ProductPaymentActivity;
+import kr.wearit.android.view.check.ProductCheckActivity;
 import kr.wearit.android.widget.ContentView;
 
 public class ProductActivity extends BaseActivity {
@@ -363,7 +363,7 @@ public class ProductActivity extends BaseActivity {
             ((TextView) findViewById(R.id.tv_now_order)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(ProductActivity.this, ProductPaymentActivity.class);
+                    Intent intent = new Intent(ProductActivity.this, ProductCheckActivity.class);
                     intent.putExtra("product", mItem);
                     intent.putExtra("size", selSize);
                     intent.putExtra("count", count);

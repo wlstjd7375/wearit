@@ -15,11 +15,11 @@ public class DeliverInfo implements Parcelable {
     public DeliverInfo() {
     }
 
-    public int getShop() {
+    public int getBrand() {
         return brand;
     }
 
-    public void setShop(int brand) {
+    public void setBrand(int brand) {
         this.brand = brand;
     }
 

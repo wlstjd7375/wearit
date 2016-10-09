@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:visibility="visible">
+
+    <!-- left product image -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+        <ImageView
+            android:id="@+id/ivProduct"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+
+    </LinearLayout>
+
+    <!-- right, product info -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_weight="1">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_brand_in_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="STILL BY HAND"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:includeFontPadding="false" />
+
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_brand_in_item"
+                android:layout_marginTop="6dp"
+                android:text="Stand collar shirt(very blue dark western)"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:includeFontPadding="false" />
+
+            <TextView
+                android:id="@+id/tvSalePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvProductName"
+                android:layout_marginTop="11dp"
+                android:text="170,000$"
+                android:textColor="@color/red"
+                android:textSize="13sp"
+                android:includeFontPadding="false" />
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvSalePrice"
+                android:layout_marginTop="3dp"
+                android:text="170,000$"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:includeFontPadding="false" />
+
+            <!-- size, item count -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvPrice"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:id="@+id/tvSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="SIZE : 40"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:includeFontPadding="false"/>
+                <TextView
+                    android:id="@+id/tvItemCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="개수 : 1"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:includeFontPadding="false"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

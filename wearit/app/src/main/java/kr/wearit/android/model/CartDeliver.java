@@ -13,7 +13,6 @@ public class CartDeliver implements Parcelable {
     private ArrayList<ProductCart> cart;
     private ArrayList<DeliverInfo> deliverInfo;
     private ArrayList<DeliverInfo> visitDeliverInfo;
-    private ArrayList<ShopVisitInfo> shopVisitInfo;
 
     public CartDeliver() {
     }
@@ -40,13 +39,6 @@ public class CartDeliver implements Parcelable {
         this.deliverInfo = deliverInfo;
     }
 
-    public ArrayList<ShopVisitInfo> getShopVisitInfo() {
-        return shopVisitInfo;
-    }
-
-    public void setShopVisitInfo(ArrayList<ShopVisitInfo> shopVisitInfo) {
-        this.shopVisitInfo = shopVisitInfo;
-    }
 
     @Override
     public int describeContents() {
@@ -58,14 +50,12 @@ public class CartDeliver implements Parcelable {
         dest.writeTypedList(cart);
         dest.writeTypedList(deliverInfo);
         dest.writeTypedList(visitDeliverInfo);
-        dest.writeTypedList(shopVisitInfo);
     }
 
     private CartDeliver(Parcel in) {
         in.readTypedList(cart = new ArrayList<ProductCart>(), ProductCart.CREATOR);
         in.readTypedList(deliverInfo = new ArrayList<DeliverInfo>(), DeliverInfo.CREATOR);
         in.readTypedList(visitDeliverInfo = new ArrayList<DeliverInfo>(), DeliverInfo.CREATOR);
-        in.readTypedList(shopVisitInfo = new ArrayList<ShopVisitInfo>(), ShopVisitInfo.CREATOR);
     }
 
     public static final Creator<CartDeliver> CREATOR = new Creator<CartDeliver>() {
