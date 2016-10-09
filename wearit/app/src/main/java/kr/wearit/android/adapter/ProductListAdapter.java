@@ -68,6 +68,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
 
         int idx = position * 2;
         Log.d(TAG, "idx = " + idx + ", size = " + mDataList.size());
+        //TODO NullPoint 왜뜸 시발
         viewHolder.llProductLeft.removeAllViews();
         viewHolder.llProductLeft.addView(getProductLayout(idx));
 

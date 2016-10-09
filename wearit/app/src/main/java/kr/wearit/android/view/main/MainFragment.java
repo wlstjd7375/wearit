@@ -189,35 +189,40 @@ public class MainFragment extends Fragment {
             if(i++ > 5) {
                 break;
             }
-            View llProductItem = getActivity().getLayoutInflater().inflate(R.layout.layout_item, null);
-            DynamicHeightImageView ivProduct = (DynamicHeightImageView) llProductItem.findViewById(R.id.ivProduct);
-            TextView tvBrand = (TextView) llProductItem.findViewById(R.id.tvProductBrand);
-            TextView tvName = (TextView) llProductItem.findViewById(R.id.tvProductName);
-            TextView tvPrice1 = (TextView) llProductItem.findViewById(R.id.tvProductPrice1);
-            TextView tvPrice2 = (TextView) llProductItem.findViewById(R.id.tvProductPrice2);
+            try {
+                View llProductItem = getActivity().getLayoutInflater().inflate(R.layout.layout_item, null);
+                DynamicHeightImageView ivProduct = (DynamicHeightImageView) llProductItem.findViewById(R.id.ivProduct);
+                TextView tvBrand = (TextView) llProductItem.findViewById(R.id.tvProductBrand);
+                TextView tvName = (TextView) llProductItem.findViewById(R.id.tvProductName);
+                TextView tvPrice1 = (TextView) llProductItem.findViewById(R.id.tvProductPrice1);
+                TextView tvPrice2 = (TextView) llProductItem.findViewById(R.id.tvProductPrice2);
 
-            //imageView.setHeightRatio(ImageUtil.getRatio(product.getImageWi));
-            ImageUtil.display(ivProduct, product.getImagePath());
+                //imageView.setHeightRatio(ImageUtil.getRatio(product.getImageWi));
+                ImageUtil.display(ivProduct, product.getImagePath());
 
-            tvBrand.setText(product.getBrandName());
-            tvName.setText(product.getName());
+                tvBrand.setText(product.getBrandName());
+                tvName.setText(product.getName());
 
-            tvPrice1.setText(product.getPrice() + "");
-            if(product.isSale()) {
-                //TODO 빨간줄
-                tvPrice1.setTextColor(Color.parseColor("#e33131"));
-                tvPrice2.setText(product.getSalePrice() + "");
-            }
-            llProductItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), ProductActivity.class);
-                    intent.putExtra("key",product.getKey());
-                    startActivity(intent);
+                tvPrice1.setText(product.getPrice() + "");
+                if(product.isSale()) {
+                    //TODO 빨간줄
+                    tvPrice1.setTextColor(Color.parseColor("#e33131"));
+                    tvPrice2.setText(product.getSalePrice() + "");
                 }
-            });
+                llProductItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity(), ProductActivity.class);
+                        intent.putExtra("key",product.getKey());
+                        startActivity(intent);
+                    }
+                });
 
-            llHorizontalView.addView(llProductItem);
+                llHorizontalView.addView(llProductItem);
+            }catch (NullPointerException e) {
+                Log.d(TAG, e.getMessage());
+                break;
+            }
         }
     }
 

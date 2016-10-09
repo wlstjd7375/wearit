@@ -27,6 +27,7 @@ import kr.wearit.android.controller.UserApi;
 import kr.wearit.android.view.CouponActivity;
 import kr.wearit.android.view.CustomerServiceActivity;
 import kr.wearit.android.view.MainActivity;
+import kr.wearit.android.view.OrderListActivity;
 import kr.wearit.android.view.SettingActivity;
 import kr.wearit.android.view.account.MyInfoActivity;
 
@@ -58,37 +59,41 @@ public class MyPageFragment extends Fragment {
         tvToolbarTitle.setText("MY PAGE");
 
         itemList = new ArrayList<>();
+        for(int i=0; i < mypagetList.length; i++) {
+            itemList.add(mypagetList[i]);
+        }
+        /*
         itemList.add(mypagetList[0]);
         itemList.add(mypagetList[1]);
         itemList.add(mypagetList[2]);
         itemList.add(mypagetList[3]);
         itemList.add(mypagetList[4]);
-        itemList.add(mypagetList[5]);
+        itemList.add(mypagetList[5]);*/
+
         mAdapter = new MyPageAdapter(mContext, itemList);
         lvMyPage.setAdapter(mAdapter);
 
         lvMyPage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent;
+                //Intent intent;
 
                 //0 부터 시작
                 switch (position) {
                     case 0: //My Info Activity
-                        intent = new Intent(mContext, MyInfoActivity.class);
-                        startActivity(intent);
+                        mStartActivity(MyInfoActivity.class);
+                        break;
+                    case 1:
+                        mStartActivity(OrderListActivity.class);
                         break;
                     case 2: //Coupon Activity
-                        intent = new Intent(mContext, CouponActivity.class);
-                        startActivity(intent);
+                        mStartActivity(CouponActivity.class);
                         break;
                     case 3: //Setting Activity
-                        intent = new Intent(mContext, SettingActivity.class);
-                        startActivity(intent);
+                        mStartActivity(SettingActivity.class);
                         break;
                     case 4: //Customer Service
-                        intent = new Intent(getActivity(), CustomerServiceActivity.class);
-                        startActivity(intent);
+                        mStartActivity(CustomerServiceActivity.class);
                         break;
                     case 5: //LOG OUT api 필요한지
                         UserApi.logout(new Api.OnWaitListener<Void>(getActivity()) {
@@ -106,5 +111,10 @@ public class MyPageFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void mStartActivity(Class<?> cls) {
+        Intent intent = new Intent(mContext, cls);
+        startActivity(intent);
     }
 }

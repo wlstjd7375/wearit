@@ -89,6 +89,9 @@ public class App extends Application {
     private List<WeakReference<OnUserStateListener>> mUserStateListener = Collections.synchronizedList(new ArrayList<WeakReference<OnUserStateListener>>());
     private String mApp;
 
+    //스크린 넓이
+    private int mScreenWidth;
+
     private static ArrayList<ShopPlace> placeList;
     private static ArrayList<Home> homeList;
     private static HashMap<Integer, ProductCategory> productCategoryList;
@@ -232,8 +235,17 @@ public class App extends Application {
         return mApp;
     }
 
-    public static int getScreenWidth() {
-        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    public int getScreenWidth() {
+        //TODO 한번씩 터진다 최초에 받아오고 그 이후엔 변수로 리턴
+        if(mScreenWidth == 0) {
+            try {
+                mScreenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+            } catch(Exception e) {
+                Log.d(TAG, e.getMessage());
+            }
+        }
+
+        return mScreenWidth;
     }
 
 
