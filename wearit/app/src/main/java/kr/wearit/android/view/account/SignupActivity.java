@@ -50,7 +50,7 @@ public class SignupActivity extends BaseActivity {
     private void init() {
         mContext = this;
         tvToolbarTitle = (TextView)findViewById(R.id.tvToolbarTitle);
-        tvToolbarTitle.setText("LOGIN");
+        tvToolbarTitle.setText("SIGN UP");
         ivToolbarBack = (ImageView)findViewById(R.id.ivToolbarBack);
         ivToolbarBack.setOnClickListener(new View.OnClickListener() {
             @Override

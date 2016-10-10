@@ -27,7 +27,7 @@ import kr.wearit.android.model.User;
 import kr.wearit.android.util.ImageUtil;
 import kr.wearit.android.util.Util;
 
-public class ProductCheckActivity extends CheckActivity {
+public class ProductCheckActivity extends CheckBaseActivity {
 
     private static final String ARG = "product";
     private static final String ARG_SIZE = "size";
@@ -84,6 +84,10 @@ public class ProductCheckActivity extends CheckActivity {
 
     private LinearLayout llCouponList;
 
+    //시간 설정
+    private Button btSelectTime;
+    private String selectedDateTiem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +109,9 @@ public class ProductCheckActivity extends CheckActivity {
         initProduct();
         initUser();
         initTotal();
+
+        initDateTime();
+
 
         btOrder = (Button) findViewById(R.id.bt_payment);
         btOrder.setOnClickListener(new View.OnClickListener() {
@@ -195,6 +202,17 @@ public class ProductCheckActivity extends CheckActivity {
                 });
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isDateTimePicked()) {
+            selectedDateTiem = getDateTimeResult();
+            //TODO 시간선택하고 다른거 할거있나
+            btSelectTime.setText(selectedDateTiem);
+            //Toast.makeText(this, selectedDateTiem, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public boolean validate(){
@@ -318,5 +336,18 @@ public class ProductCheckActivity extends CheckActivity {
         }
 
         return Integer.valueOf(num);
+    }
+
+    private void initDateTime() {
+        //TODO 배송 불가능한 날짜, 시간 가져오기
+        btSelectTime = (Button)findViewById(R.id.bt_select_time);
+        btSelectTime.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO 시간 쳌쳌
+
+                showDialog();
+            }
+        });
     }
 }

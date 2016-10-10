@@ -23,6 +23,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import kr.wearit.android.App;
 import kr.wearit.android.Config;
 import kr.wearit.android.R;
 import kr.wearit.android.controller.Api;
@@ -34,6 +35,7 @@ import kr.wearit.android.util.ImageUtil;
 import kr.wearit.android.util.Util;
 
 import kr.wearit.android.view.BaseActivity;
+import kr.wearit.android.view.account.LoginActivity;
 import kr.wearit.android.view.check.ProductCheckActivity;
 import kr.wearit.android.widget.ContentView;
 
@@ -363,14 +365,21 @@ public class ProductActivity extends BaseActivity {
             ((TextView) findViewById(R.id.tv_now_order)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(ProductActivity.this, ProductCheckActivity.class);
-                    intent.putExtra("product", mItem);
-                    intent.putExtra("size", selSize);
-                    intent.putExtra("count", count);
-                    intent.putExtra("deliver", calculDeliverPrice());
-                    intent.putExtra("ordertype", "now");
-                    startActivity(intent);
-                    dismiss();
+                    if(App.getInstance().isLogin()) {
+                        Intent intent = new Intent(ProductActivity.this, ProductCheckActivity.class);
+                        intent.putExtra("product", mItem);
+                        intent.putExtra("size", selSize);
+                        intent.putExtra("count", count);
+                        intent.putExtra("deliver", calculDeliverPrice());
+                        intent.putExtra("ordertype", "now");
+                        startActivity(intent);
+                        dismiss();
+                    }
+                    else {
+                        //TODO 로그인 해주세요.
+                        Intent intent = new Intent(ProductActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
                 }
             });
 

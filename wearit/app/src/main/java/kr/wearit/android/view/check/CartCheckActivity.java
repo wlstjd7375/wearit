@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +34,9 @@ import kr.wearit.android.model.User;
 import kr.wearit.android.util.ImageUtil;
 import kr.wearit.android.util.Util;
 
-public class CartCheckActivity extends CheckActivity {
+public class CartCheckActivity extends CheckBaseActivity {
 
+    private final String TAG = "CartCheckActivity##";
     private ArrayList<ProductCart> productList;
     private ArrayList<DeliverInfo> deliverList;
 
@@ -76,6 +79,11 @@ public class CartCheckActivity extends CheckActivity {
     private TextView tvReceiverAddr2;
 
     private LinearLayout llCouponList;
+
+    //시간 설정
+    private Button btSelectTime;
+    private String selectedDateTiem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +102,18 @@ public class CartCheckActivity extends CheckActivity {
         makeHeaderView();
         makeFooterView();
         makeListView();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume()");
+        super.onResume();
+        if(isDateTimePicked()) {
+            selectedDateTiem = getDateTimeResult();
+            //TODO 시간선택하고 다른거 할거있나
+            btSelectTime.setText(selectedDateTiem);
+            //Toast.makeText(this, selectedDateTiem, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void makeHeaderView() {
@@ -155,7 +175,23 @@ public class CartCheckActivity extends CheckActivity {
             }
         });
         initTotal();
+
+        //set DateTime Picker
+        initDateTime();
+
         lvProduct.addFooterView(footer);
+    }
+
+    private void initDateTime() {
+        //TODO 배송 불가능한 날짜, 시간 가져오기
+        btSelectTime = (Button)footer.findViewById(R.id.bt_select_time);
+        btSelectTime.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showDialog();
+            }
+        });
     }
 
     public void calculPrice() {

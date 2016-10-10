@@ -25,6 +25,7 @@ import kr.wearit.android.model.CartDeliver;
 import kr.wearit.android.model.DeliverInfo;
 import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.view.MainActivity;
+import kr.wearit.android.view.account.LoginActivity;
 import kr.wearit.android.view.check.CartCheckActivity;
 import kr.wearit.android.view.check.CheckActivity;
 
@@ -41,6 +42,10 @@ public class BagFragment extends Fragment {
     private View view;
 
     private TextView tvCheckOut;
+
+    //Go Login
+    private RelativeLayout rlGoLogin;
+    private Button btGoLogin;
 
     //Go Shopping
     private RelativeLayout rlGoShopping;
@@ -63,6 +68,7 @@ public class BagFragment extends Fragment {
 
         tvTotalItemInfo = (TextView)view.findViewById(R.id.tvTotalItemInfo);
 
+        rlGoLogin = (RelativeLayout)view.findViewById(R.id.rlGoLogin);
         rlGoShopping = (RelativeLayout)view.findViewById(R.id.rlGoShopping);
         lvBagList = (ListView)view.findViewById(R.id.lvBagList);
 
@@ -71,10 +77,12 @@ public class BagFragment extends Fragment {
         tvCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CartCheckActivity.class);
-                intent.putExtra("cart", mProductList);
-                intent.putExtra("deliver", mDeliverList);
-                startActivity(intent);
+                if(App.getInstance().isLogin()) {
+                    Intent intent = new Intent(getActivity(), CartCheckActivity.class);
+                    intent.putExtra("cart", mProductList);
+                    intent.putExtra("deliver", mDeliverList);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -85,6 +93,7 @@ public class BagFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if(App.getInstance().isLogin()) {
+            tvCheckOut.setVisibility(View.VISIBLE);
             CartApi.getList(new Api.OnAuthDefaultListener<CartDeliver>() {
                 @Override
                 public void onSuccess(CartDeliver data) {
@@ -94,11 +103,21 @@ public class BagFragment extends Fragment {
                 }
             });
         }
-        //TODO 로그인이 안됐을때 페이지 어떻게?
-        /*
         else {
-            setListView();
-        }*/
+            tvCheckOut.setVisibility(View.INVISIBLE);
+            //Go to Login
+            rlGoLogin.setVisibility(View.VISIBLE);
+            lvBagList.setVisibility(View.INVISIBLE);
+            rlGoShopping.setVisibility(View.INVISIBLE);
+            btGoLogin = (Button)view.findViewById(R.id.btGoLogin);
+            btGoLogin.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     private void setListView() {
@@ -113,6 +132,7 @@ public class BagFragment extends Fragment {
     private void setNoItemLayout() {
         //if there is no item
         //set layout_go_shopping
+        rlGoLogin.setVisibility(View.INVISIBLE);
         lvBagList.setVisibility(View.INVISIBLE);
         rlGoShopping.setVisibility(View.VISIBLE);
 
@@ -131,6 +151,7 @@ public class BagFragment extends Fragment {
 
     private void setBagListLayout() {
         //No Item Layout invisible
+        rlGoLogin.setVisibility(View.INVISIBLE);
         rlGoShopping.setVisibility(View.INVISIBLE);
         lvBagList.setVisibility(View.VISIBLE);
 

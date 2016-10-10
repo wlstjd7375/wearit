@@ -3,6 +3,7 @@ package kr.wearit.android.view.main;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +36,7 @@ import kr.wearit.android.controller.ProductApi;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.model.ProductSize;
 import kr.wearit.android.view.MainActivity;
+import kr.wearit.android.view.account.LoginActivity;
 
 /**
  * Created by KimJS on 2016-09-26.
@@ -45,6 +47,10 @@ public class KeepFragment extends Fragment {
     private TextView tvToolbarTitle;
 
     private View view;
+
+    //Go Login
+    private RelativeLayout rlGoLogin;
+    private Button btGoLogin;
 
     //Go Shopping
     private RelativeLayout rlGoShopping;
@@ -83,6 +89,7 @@ public class KeepFragment extends Fragment {
         tvToolbarTitle = (TextView)view.findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("KEEP");
 
+        rlGoLogin = (RelativeLayout)view.findViewById(R.id.rlGoLogin);
         rlGoShopping = (RelativeLayout)view.findViewById(R.id.rlGoShopping);
         lvKeepList = (ListView)view.findViewById(R.id.lvKeepList);
 
@@ -94,7 +101,6 @@ public class KeepFragment extends Fragment {
                 if(llSelector.getVisibility() == View.VISIBLE) {
                     llSelector.setVisibility(View.GONE);
                 }
-
                 return false;
             }
         });
@@ -133,6 +139,20 @@ public class KeepFragment extends Fragment {
                 public void onSuccess(ArrayList<Product> data) {
                     mProductList = data;
                     setListView();
+                }
+            });
+        }
+        else {
+            //Go to Login
+            rlGoLogin.setVisibility(View.VISIBLE);
+            lvKeepList.setVisibility(View.INVISIBLE);
+            rlGoShopping.setVisibility(View.INVISIBLE);
+            btGoLogin = (Button)view.findViewById(R.id.btGoLogin);
+            btGoLogin.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
                 }
             });
         }
@@ -221,6 +241,7 @@ public class KeepFragment extends Fragment {
     private void setNoItemLayout() {
         //if there is no item
         //set layout_go_shopping
+        rlGoLogin.setVisibility(View.INVISIBLE);
         lvKeepList.setVisibility(View.INVISIBLE);
         rlGoShopping.setVisibility(View.VISIBLE);
 
@@ -238,9 +259,9 @@ public class KeepFragment extends Fragment {
 
     private void setBagListLayout() {
         //No Item Layout invisible
+        rlGoLogin.setVisibility(View.INVISIBLE);
         rlGoShopping.setVisibility(View.INVISIBLE);
         lvKeepList.setVisibility(View.VISIBLE);
-
 
         //Set Bag List
 

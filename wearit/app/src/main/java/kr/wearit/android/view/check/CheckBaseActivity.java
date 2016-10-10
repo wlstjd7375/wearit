@@ -3,6 +3,7 @@ package kr.wearit.android.view.check;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
@@ -19,6 +20,7 @@ import kr.wearit.android.view.BaseActivity;
  */
 
 //Date Time Picker Dialog 기능을 하게 해줌
+//https://android-arsenal.com/details/1/3779
 public class CheckBaseActivity extends BaseActivity implements
         View.OnClickListener, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
@@ -32,6 +34,9 @@ public class CheckBaseActivity extends BaseActivity implements
     private int day;
     private int hour;
     private int minute;
+    private String date;
+    private String time;
+    private String dateTime;
     private boolean isDateTimeComplete = false;
 
     public void showDialog() {
@@ -42,10 +47,14 @@ public class CheckBaseActivity extends BaseActivity implements
         //TODO
     }
 
+    public boolean isDateTimePicked() {
+        return isDateTimeComplete;
+    }
+
     //액티비티 onResume 에서 호출
     public String getDateTimeResult() {
         if(isDateTimeComplete) {
-            return year + "-" + month + "-" + day + " " + hour + ":" + minute;
+            return dateTime;
         }
         return "날짜와 시간을 선택해 주세요.";
     }
@@ -107,8 +116,10 @@ public class CheckBaseActivity extends BaseActivity implements
         this.year = year;
         this.month = monthOfYear + 1;
         this.day = dayOfMonth;
-        String date = "You picked the following date: "+dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
-        Log.d(TAG, date);
+        //String date = "You picked the following date: "+dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
+        //Log.d(TAG, date);
+
+        date = year + "-" + month + "-" + day;
 
         showTimePicker();
     }
@@ -118,7 +129,12 @@ public class CheckBaseActivity extends BaseActivity implements
         this.hour = hourOfDay;
         this.minute = minute;
         isDateTimeComplete = true;
-        String time = "You picked the following time: "+hourOfDay+"h"+minute;
-        Log.d(TAG, time);
+        //String time = "You picked the following time: "+hourOfDay+"h"+minute;
+        //Log.d(TAG, time);
+        time = hour + ":" + minute;
+        dateTime = date + " " + time;
+
+        onResume();
+        //Toast.makeText(this, dateTime, Toast.LENGTH_SHORT).show();
     }
 }

@@ -41,7 +41,12 @@
             android:layout_height="match_parent"
             layout="@layout/layout_go_shopping"
             android:visibility="gone"/>
-
+        <include
+            android:id="@+id/rlGoLogin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/layout_go_login"
+            android:visibility="gone"/>
         <ListView
             android:id="@+id/lvBagList"
             android:layout_width="match_parent"
