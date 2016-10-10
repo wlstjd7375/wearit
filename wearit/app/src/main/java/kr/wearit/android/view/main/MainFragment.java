@@ -220,7 +220,8 @@ public class MainFragment extends Fragment {
 
                 llHorizontalView.addView(llProductItem);
             }catch (NullPointerException e) {
-                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
+//                Log.d(TAG, e.getMessage());
                 break;
             }
         }

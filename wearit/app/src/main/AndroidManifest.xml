@@ -58,7 +58,8 @@
         <activity android:name=".view.CouponActivity" />
         <activity android:name=".view.check.ProductCheckActivity" />
         <activity android:name=".view.check.CartCheckActivity" />
-        <activity android:name=".view.OrderListActivity"></activity>
+        <activity android:name=".view.OrderListActivity" />
+        <activity android:name=".view.OrderActivity"></activity>
     </application>
 
 </manifest>

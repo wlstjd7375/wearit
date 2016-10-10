@@ -19,6 +19,7 @@ import kr.wearit.android.R;
 import kr.wearit.android.model.Order;
 import kr.wearit.android.util.ImageUtil;
 import kr.wearit.android.util.OrderStatusUtil;
+import kr.wearit.android.util.Util;
 
 /**
  * Created by KimJS on 2016-10-09.
@@ -101,10 +102,10 @@ public class OrderListAdapter extends ArrayAdapter<Order> {
         }
 
         //brand, name TODO 브랜드 이름
-        viewHolder.tvBrand.setText("브랜드 이름");
+        viewHolder.tvBrand.setText(item.getBrand());
         viewHolder.tvProductName.setText(item.getName());
 
-        viewHolder.tvPrice.setText(item.getPrice() + "");
+        viewHolder.tvPrice.setText(Util.formatWon(item.getPrice()) + "원");
         viewHolder.tvOrderStatus.setText(OrderStatusUtil.getStatus(item.getStatus()));
 
 

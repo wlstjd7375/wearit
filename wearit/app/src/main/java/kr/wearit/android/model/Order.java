@@ -32,6 +32,7 @@ public class Order implements Parcelable {
 
     private String imagePath;
     private String name;
+    private String brand;
 
     private String status;
     private String paytype;
@@ -49,7 +50,6 @@ public class Order implements Parcelable {
 
     private String request;
 
-    private int point;
     private Integer coupon;
     private int couponprice;
 
@@ -58,8 +58,6 @@ public class Order implements Parcelable {
     private int billtype;
 
     private String billnumber;
-
-    private int shoprecommand;
 
     //private String productThumbnailImagePath;
 
@@ -220,10 +218,6 @@ public class Order implements Parcelable {
         return request;
     }
 
-    public int getPoint() {
-        return point;
-    }
-
     public Integer getCoupon() {
         return coupon;
     }
@@ -272,10 +266,6 @@ public class Order implements Parcelable {
         this.request = request;
     }
 
-    public void setPoint(int point) {
-        this.point = point;
-    }
-
     public void setCoupon(Integer coupon) {
         this.coupon = coupon;
     }
@@ -300,12 +290,12 @@ public class Order implements Parcelable {
         this.billnumber = billnumber;
     }
 
-    public int getShopRecommand() {
-        return this.shoprecommand;
+    public String getBrand() {
+        return this.brand;
     }
 
-    public void setShopRecommand(int shoprecommand) {
-        this.shoprecommand = shoprecommand;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     @Override
@@ -328,7 +318,6 @@ public class Order implements Parcelable {
         dest.writeInt(billtype);
         dest.writeString(billnumber);
         dest.writeValue(coupon);
-        dest.writeInt(point);
         dest.writeInt(couponprice);
         dest.writeString(ordername);
         dest.writeString(ordermail);
@@ -344,7 +333,7 @@ public class Order implements Parcelable {
         dest.writeInt(productCount);
         dest.writeString(name);
         dest.writeString(size);
-        dest.writeInt(shoprecommand);
+        dest.writeString(brand);
     }
 
     private Order(Parcel in) {
@@ -361,7 +350,6 @@ public class Order implements Parcelable {
         billtype = in.readInt();
         billnumber = in.readString();
         coupon = (Integer) in.readValue(Integer.class.getClassLoader());
-        point = in.readInt();
         couponprice = in.readInt();
         ordername = in.readString();
         ordermail = in.readString();
@@ -377,7 +365,7 @@ public class Order implements Parcelable {
         productCount = in.readInt();
         name = in.readString();
         size = in.readString();
-        shoprecommand = in.readInt();
+        brand = in.readString();
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {
