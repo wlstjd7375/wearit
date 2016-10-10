@@ -52,12 +52,15 @@ public class Order implements Parcelable {
 
     private Integer coupon;
     private int couponprice;
+    private String couponName;
 
     private int price;
 
     private int billtype;
 
     private String billnumber;
+
+    private OrderAddProduct addProducts;
 
     //private String productThumbnailImagePath;
 
@@ -270,6 +273,14 @@ public class Order implements Parcelable {
         this.coupon = coupon;
     }
 
+    public void setCouponName(String couponName) {
+        this.couponName = couponName;
+    }
+
+    public String getCouponName() {
+        return couponName;
+    }
+
     public void setPrice(int price) {
         this.price = price;
     }
@@ -298,6 +309,14 @@ public class Order implements Parcelable {
         this.brand = brand;
     }
 
+    public OrderAddProduct getAddProducts() {
+        return addProducts;
+    }
+
+    public void setAddProducts (OrderAddProduct addProducts) {
+        this.addProducts = addProducts;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -319,6 +338,7 @@ public class Order implements Parcelable {
         dest.writeString(billnumber);
         dest.writeValue(coupon);
         dest.writeInt(couponprice);
+        dest.writeString(couponName);
         dest.writeString(ordername);
         dest.writeString(ordermail);
         dest.writeString(orderphone);
@@ -334,6 +354,7 @@ public class Order implements Parcelable {
         dest.writeString(name);
         dest.writeString(size);
         dest.writeString(brand);
+        dest.writeParcelable(addProducts,flags);
     }
 
     private Order(Parcel in) {
@@ -351,6 +372,7 @@ public class Order implements Parcelable {
         billnumber = in.readString();
         coupon = (Integer) in.readValue(Integer.class.getClassLoader());
         couponprice = in.readInt();
+        couponName = in.readString();
         ordername = in.readString();
         ordermail = in.readString();
         orderphone = in.readString();
@@ -366,6 +388,7 @@ public class Order implements Parcelable {
         name = in.readString();
         size = in.readString();
         brand = in.readString();
+        addProducts = in.readParcelable(OrderAddProduct.class.getClassLoader());
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {

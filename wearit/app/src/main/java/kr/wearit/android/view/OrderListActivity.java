@@ -69,7 +69,7 @@ public class OrderListActivity extends BaseActivity {
                 lvOrderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                        Intent intent = new Intent(OrderListActivity.this, OrderActivity.class);
+                        Intent intent = new Intent(OrderListActivity.this, OrderInfoActivity.class);
                         intent.putExtra("order", mAdapter.getItem(position).getKey());
                         startActivity(intent);
                     }
