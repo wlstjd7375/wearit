@@ -17,11 +17,13 @@ public class OrderProduct implements Parcelable{
     private int price;
     private int deliverprice;
     private String imagepath;
+    private int brand;
     private String brandname;
     private String shopname;
     private int order;
     private int cart;
     private int sequence;
+    public boolean sale;
     private int sale_price;
     private int sale_rate;
     private int itemTotalPrice;
@@ -90,6 +92,14 @@ public class OrderProduct implements Parcelable{
         this.imagepath = imagepath;
     }
 
+    public int getBrand() {
+        return brand;
+    }
+
+    public void setBrand(int brand) {
+        this.brand = brand;
+    }
+
     public String getBrandname() {
         return brandname;
     }
@@ -104,6 +114,14 @@ public class OrderProduct implements Parcelable{
 
     public void setShopname(String shopname) {
         this.shopname = shopname;
+    }
+
+    public boolean isSale() {
+        return sale;
+    }
+
+    public void setSale(boolean sale) {
+        this.sale = sale;
     }
 
     public int getSale_rate() { return sale_rate; }
@@ -195,11 +213,13 @@ public class OrderProduct implements Parcelable{
         dest.writeString(name);
         dest.writeString(code);
         dest.writeString(size);
+        dest.writeInt(sale ? 1 : 0);
         dest.writeInt(sale_price);
         dest.writeInt(price);
         dest.writeInt(deliverprice);
         dest.writeString(imagepath);
         dest.writeString(brandname);
+        dest.writeInt(brand);
         dest.writeString(shopname);
         dest.writeInt(order);
         dest.writeInt(cart);
@@ -218,10 +238,12 @@ public class OrderProduct implements Parcelable{
         name = in.readString();
         code = in.readString();
         size = in.readString();
+        sale = in.readInt() == 1;
         sale_price = in.readInt();
         price = in.readInt();
         deliverprice = in.readInt();
         imagepath = in.readString();
+        brand = in.readInt();
         brandname = in.readString();
         shopname = in.readString();
         order = in.readInt();

@@ -1,4 +1,4 @@
-package kr.wearit.android.view.check;
+package kr.wearit.android.view;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -6,49 +6,45 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import kr.wearit.android.App;
 import kr.wearit.android.R;
+import kr.wearit.android.controller.Api;
+import kr.wearit.android.controller.OrderApi;
 import kr.wearit.android.model.Coupon;
 import kr.wearit.android.model.DeliverInfo;
 import kr.wearit.android.model.Order;
-import kr.wearit.android.model.ProductCart;
-import kr.wearit.android.model.User;
+import kr.wearit.android.model.OrderProduct;
 import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.util.TextUtil;
 import kr.wearit.android.util.Util;
 
-public class CartCheckActivity extends CheckActivity {
+public class OrderInfoActivity extends BaseActivity {
+    int key;
 
-    private ArrayList<ProductCart> productList;
+    private ArrayList<OrderProduct> productList;
     private ArrayList<DeliverInfo> deliverList;
 
-    private ArrayList<BrandCart> brandCartList;
+    private ArrayList<BrandOrder> brandCartList;
 
     private ExpandableListView lvProduct;
-    private BrandCartAdapter mAdapter;
+    private BrandOrderAdapter mAdapter;
 
     private View header;
     private View footer;
 
     private String orderType;
 
-    private User user;
+    private Order order;
 
     private EditText etRequire;
-
-    private int coupon;
-
-    private Order order;
 
     private boolean orderFlag;
 
@@ -61,7 +57,6 @@ public class CartCheckActivity extends CheckActivity {
 
     private ArrayList<Coupon> couponList;
 
-    private Button btOrder;
     private String paytype;
 
     private TextView tvReceiverName;
@@ -70,34 +65,40 @@ public class CartCheckActivity extends CheckActivity {
     private TextView tvReceiverAddr1;
     private TextView tvReceiverAddr2;
 
-    private LinearLayout llCouponList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart_check);
 
-        productList = getIntent().getParcelableArrayListExtra("cart");
-        deliverList = getIntent().getParcelableArrayListExtra("deliver");
+        key = getIntent().getIntExtra("order",-1);
 
+        setContentView(R.layout.activity_order_info);
+        if(key != -1 ) {
+            OrderApi.get(key, new Api.OnAuthDefaultListener<Order>() {
+                @Override
+                public void onSuccess(Order data) {
+                    order = data;
+                    productList = data.getProducts();
+                    makeBrandCart();
+                    initialize();
+                }
+            });
+        }
+    }
+
+    public void initialize(){
         lvProduct = (ExpandableListView) findViewById(R.id.lv_order);
-
-        useCoupon = null;
-        user = App.getInstance().getUser();
-        couponList = App.getInstance().getCouponList();
-
-        makeBrandCart();
         makeHeaderView();
         makeFooterView();
         makeListView();
     }
 
     public void makeHeaderView() {
-        header = getActivity().getLayoutInflater().inflate(R.layout.header_check, null);
+        header = getActivity().getLayoutInflater().inflate(R.layout.header_order_info, null);
         lvProduct.addHeaderView(header);
     }
 
     public void makeFooterView() {
-        footer = getActivity().getLayoutInflater().inflate(R.layout.footer_check, null);
+        footer = getActivity().getLayoutInflater().inflate(R.layout.footer_order_info, null);
 
         calculPrice();
 
@@ -107,48 +108,21 @@ public class CartCheckActivity extends CheckActivity {
         tvReceiverAddr1 = (TextView) footer.findViewById(R.id.tv_receiver_address1);
         tvReceiverAddr2 = (TextView) footer.findViewById(R.id.tv_receiver_address2);
 
-        tvReceiverName.setText(user.getName());
-        tvReceiverPhone.setText(user.getPhone());
-        tvReceiverEmail.setText(user.getId());
-        tvReceiverAddr1.setText(user.getAddress1());
-        tvReceiverAddr2.setText(user.getAddress2());
+        tvReceiverName.setText(order.getOrdername());
+        tvReceiverPhone.setText(order.getOrderphone());
+        tvReceiverEmail.setText(order.getOrdermail());
+        tvReceiverAddr1.setText(order.getAddress1());
+        tvReceiverAddr2.setText(order.getAddress2());
 
-        ((TextView) footer.findViewById(R.id.tv_modify_receiver)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //수정 버튼 눌렀을 때 코딩
-            }
-        });
-        //쿠폰 목록 만들기
-        llCouponList = ((LinearLayout) footer.findViewById(R.id.ll_possible_coupon));
-
-        for(int i=0;i<couponList.size();i++) {
-            View view = getActivity().getLayoutInflater().inflate(R.layout.listrow_order_coupon, null);
-            ((TextView) view.findViewById(R.id.tv_coupon_name)).setText(couponList.get(i).getName());
-            final int finalI = i;
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    useCoupon = couponList.get(finalI);
-                    coupon = couponList.get(finalI).getKey();
-                    ((TextView) findViewById(R.id.tv_select_coupon)).setText(couponList.get(finalI).getName());
-                    llCouponList.setVisibility(View.GONE);
-                    initTotal();
-                }
-            });
-            llCouponList.addView(view);
+        ((TextView) footer.findViewById(R.id.tv_require)).setText(order.getRequest());
+        if(order.getCoupon() != null) {
+            ((TextView) footer.findViewById(R.id.tv_select_coupon)).setText(order.getCouponName());
         }
-        ((RelativeLayout) footer.findViewById(R.id.rl_select_coupon)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(llCouponList.getVisibility() == View.VISIBLE){
-                    llCouponList.setVisibility(View.GONE);
-                }
-                else {
-                    llCouponList.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+        else {
+            ((LinearLayout) footer.findViewById(R.id.ll_coupon)).setVisibility(View.GONE);
+        }
+        ((TextView) footer.findViewById(R.id.tv_select_paytype)).setText(TextUtil.getPaytype(order.getPaytype()));
+
         initTotal();
         lvProduct.addFooterView(footer);
     }
@@ -161,7 +135,7 @@ public class CartCheckActivity extends CheckActivity {
         int tipPrice = 0;
 
         for(int i=0;i<productList.size();i++) {
-            ProductCart productCart = productList.get(i);
+            OrderProduct productCart = productList.get(i);
             if(productCart.isSale()) {
                 calculProductPrice += (Util.formatWon(productCart.getSale_price() * productCart.getCount())+"원+");
                 productPrice += (productCart.getSale_price() * productCart.getCount());
@@ -175,25 +149,18 @@ public class CartCheckActivity extends CheckActivity {
         totalCheck = productPrice;
 
         for(int i=0;i<brandCartList.size();i++) {
-            BrandCart brandCart = brandCartList.get(i);
+            BrandOrder brandCart = brandCartList.get(i);
             int brandProductPrice = 0;
             for(int j=0;j<brandCart.getCartList().size();j++) {
-                ProductCart productCart = brandCart.getCartList().get(j);
+                OrderProduct productCart = brandCart.getCartList().get(j);
                 if(productCart.isSale()) {
                     brandProductPrice += productCart.getSale_price();
                 }
                 else {
                     brandProductPrice += productCart.getPrice();
                 }
-            }
-            for(int j=0;j<deliverList.size();j++) {
-                if(brandCart.getBrand() == deliverList.get(j).getBrand()) {
-                    if(brandProductPrice >= deliverList.get(j).getBasis()) {
-                        calculTipPrice += (Util.formatWon(deliverList.get(j).getDeliverPrice())+"원+");
-                        tipPrice += deliverList.get(j).getDeliverPrice();
-                        break;
-                    }
-                }
+                calculTipPrice += (Util.formatWon(productCart.getDeliverprice())+"원+");
+                tipPrice += productCart.getDeliverprice();
             }
         }
         calculTipPrice = calculTipPrice.substring(0,calculTipPrice.length()-1);
@@ -227,7 +194,7 @@ public class CartCheckActivity extends CheckActivity {
     }
 
     public void makeListView() {
-        mAdapter = new BrandCartAdapter();
+        mAdapter = new BrandOrderAdapter();
         mAdapter.setData(brandCartList);
         lvProduct.setAdapter(mAdapter);
         for(int i=0;i<brandCartList.size();i++) {
@@ -236,13 +203,13 @@ public class CartCheckActivity extends CheckActivity {
     }
 
     public void makeBrandCart() {
-        brandCartList = new ArrayList<BrandCart>();
+        brandCartList = new ArrayList<BrandOrder>();
         int currentBrand = 0;
 //        BrandCart currentBrandCart = new BrandCart();
         int j = 0;
         for(int i=0;i<productList.size();i++) {
             if(currentBrand == 0) {
-                BrandCart currentBrandCart = new BrandCart();
+                BrandOrder currentBrandCart = new BrandOrder();
                 j = brandCartList.size();
                 currentBrand = productList.get(i).getBrand();
                 currentBrandCart.setBrand(currentBrand);
@@ -260,7 +227,7 @@ public class CartCheckActivity extends CheckActivity {
                 //ProductCart의 BrandKey가 바뀌었을 때
                 //현재까지 만든 BrandCart를 리스트에 Add하고
                 //currentBrandCart의 Brand값을 현재 productCart의 Brand로, CartList초기화
-                BrandCart currentBrandCart = new BrandCart();
+                BrandOrder currentBrandCart = new BrandOrder();
 
                 currentBrand = productList.get(i).getBrand();
                 currentBrandCart.setBrand(currentBrand);
@@ -276,18 +243,18 @@ public class CartCheckActivity extends CheckActivity {
     }
 
 
-    private class BrandCartAdapter extends BaseExpandableListAdapter {
+    private class BrandOrderAdapter extends BaseExpandableListAdapter {
 
-        private List<BrandCart> data;
+        private List<BrandOrder> data;
 
         //
 
-        public BrandCartAdapter() {
-            data = new ArrayList<BrandCart>();
+        public BrandOrderAdapter() {
+            data = new ArrayList<BrandOrder>();
         }
 
         //
-        public void setData(ArrayList<BrandCart> data) {
+        public void setData(List<BrandOrder> data) {
             this.data = data;
         }
 
@@ -298,7 +265,7 @@ public class CartCheckActivity extends CheckActivity {
 
         @Override
         public int getChildrenCount(int groupPosition) {
-            List<ProductCart> list = data.get(groupPosition).getCartList();
+            List<OrderProduct> list = data.get(groupPosition).getCartList();
 
             return list != null ? data.get(groupPosition).getCartList().size() : 0;
         }
@@ -332,7 +299,7 @@ public class CartCheckActivity extends CheckActivity {
                 view = LayoutInflater.from(getActivity()).inflate(R.layout.listrow_order_brand, parent, false);
 
             TextView text = (TextView) view.findViewById(R.id.tv_brand);
-            BrandCart item = (BrandCart)getGroup(groupPosition);
+            BrandOrder item = (BrandOrder)getGroup(groupPosition);
             text.setText(item.getBrandName());
 
             return view;
@@ -345,7 +312,7 @@ public class CartCheckActivity extends CheckActivity {
             if (view == null)
                 view = LayoutInflater.from(getActivity()).inflate(R.layout.listrow_order_item, parent, false);
 
-            ProductCart mItem = (ProductCart) getChild(groupPosition,childPosition);
+            OrderProduct mItem = (OrderProduct) getChild(groupPosition,childPosition);
             int currentPrice = 0;
             int count = 0;
 
@@ -386,13 +353,13 @@ public class CartCheckActivity extends CheckActivity {
         return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
 
-    class BrandCart {
+    class BrandOrder {
         private int brand;
         private String brandName;
-        private ArrayList<ProductCart> cartList;
+        private ArrayList<OrderProduct> cartList;
 
-        public BrandCart() {
-            cartList = new ArrayList<ProductCart>();
+        public BrandOrder() {
+            cartList = new ArrayList<OrderProduct>();
         }
 
         public void setBrandName(String brandName) {
@@ -411,11 +378,11 @@ public class CartCheckActivity extends CheckActivity {
             return brand;
         }
 
-        public ArrayList<ProductCart> getCartList() {
+        public ArrayList<OrderProduct> getCartList() {
             return cartList;
         }
 
-        public ProductCart getCart(int position) {
+        public OrderProduct getCart(int position) {
             return cartList.get(position);
         }
 
@@ -424,7 +391,7 @@ public class CartCheckActivity extends CheckActivity {
             cartList.clear();
         }
 
-        public void addCart(ProductCart productCart) {
+        public void addCart(OrderProduct productCart) {
             cartList.add(productCart);
         }
     }
