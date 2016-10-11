@@ -1,11 +1,13 @@
 package kr.wearit.android.view.check;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -132,6 +134,10 @@ public class CartCheckActivity extends CheckBaseActivity {
         tvReceiverEmail.setText(user.getId());
         tvReceiverAddr1.setText(user.getAddress1());
         tvReceiverAddr2.setText(user.getAddress2());
+
+        etRequire = (EditText) footer.findViewById(R.id.et_require);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(etRequire, InputMethodManager.SHOW_IMPLICIT);
 
         ((TextView) footer.findViewById(R.id.tv_modify_receiver)).setOnClickListener(new View.OnClickListener() {
             @Override

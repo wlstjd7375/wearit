@@ -273,6 +273,8 @@ public class ProductCheckActivity extends CheckBaseActivity {
         tvReceiverAddr1.setText(user.getAddress1());
         tvReceiverAddr2.setText(user.getAddress2());
 
+        etRequire = (EditText) findViewById(R.id.et_require);
+
         ((TextView) findViewById(R.id.tv_modify_receiver)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

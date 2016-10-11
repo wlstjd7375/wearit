@@ -116,20 +116,32 @@ public class MainFragment extends Fragment {
             }
         });
 
+        lvMainNews.addFooterView(footer);
 
         screenWidth = App.getInstance().getScreenWidth();
 
-
-        lvMainNews.addFooterView(footer);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        System.out.println("MainFragment OnResume");
+        initView();
         getData();
         addNewsView();
     }
+
+    public void initView() {
+//        lvMainNews.removeHeaderView(header);
+//        lvMainNews.removeFooterView(footer);
+        if(LOG) {
+            Log.d(TAG, "initView()");
+        }
+        lvMainNews.removeHeaderView(header);
+        lvMainNews.removeFooterView(header);
+    }
+
 
     private void addNewsView() {
         if(LOG) {

@@ -171,5 +171,6 @@ public class NewsActivity extends BaseActivity {
     @Override
     public void onBackPressed(){
         super.onBackPressed();
+        System.out.println("NewsActivity OnBackPressed");
     }
 }
