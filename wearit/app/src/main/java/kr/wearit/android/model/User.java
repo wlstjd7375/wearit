@@ -50,9 +50,7 @@ public class User implements Parcelable {
 	private int account = Account.ID.value;
 	private String id;
 	private String password;
-	private Integer image;
 	private String name;
-	private String nickname;
 	private String facebookid;
 	private String kakaoid;
 	private String phone;
@@ -71,8 +69,6 @@ public class User implements Parcelable {
 	private String postcode;
 	private String address1;
 	private String address2;
-
-	private Resource imageObject;
 
 	//
 
@@ -121,25 +117,10 @@ public class User implements Parcelable {
 		this.password = password;
 	}
 
-	public Integer getImage() {
-		return image;
-	}
-
-	public void setImage(Integer image) {
-		this.image = image;
-	}
 
 	public String getName() { return this.name; }
 
 	public void setName(String name) { this.name = name; }
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
 
 	public Integer getTotal_mileage_add() {
 		return total_mileage_add;
@@ -211,15 +192,6 @@ public class User implements Parcelable {
 
 	//
 
-	public Resource getImageObject() {
-		return imageObject;
-	}
-
-	public void setImageObject(Resource imageObject) {
-		this.imageObject = imageObject;
-	}
-
-
 	public Integer getCouponcount() {
 		return couponcount;
 	}
@@ -265,9 +237,7 @@ public class User implements Parcelable {
 		dest.writeInt(key);
 		dest.writeString(id);
 		dest.writeString(password);
-		dest.writeInt(Util.writeInteger(image));
 		dest.writeString(name);
-		dest.writeString(nickname);
 		dest.writeString(facebookid);
 		dest.writeString(kakaoid);
 		dest.writeString(email);
@@ -280,16 +250,13 @@ public class User implements Parcelable {
 		dest.writeInt(total_mileage_sub);
 		dest.writeInt(couponcount);
 
-		dest.writeParcelable(imageObject, flags);
 	}
 
 	private User(Parcel in) {
 		key = in.readInt();
 		id = in.readString();
 		password = in.readString();
-		image = Util.readInteger(in.readInt());
 		name = in.readString();
-		nickname = in.readString();
 		facebookid = in.readString();
 		kakaoid = in.readString();
 		email = in.readString();
@@ -303,7 +270,6 @@ public class User implements Parcelable {
 		total_mileage_sub = in.readInt();
 		couponcount = in.readInt();
 
-		imageObject = in.readParcelable(Resource.class.getClassLoader());
 	}
 
 	public static final Creator<User> CREATOR = new Creator<User>() {

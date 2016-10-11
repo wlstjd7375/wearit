@@ -39,6 +39,8 @@ public class Brand implements Parcelable, Images {
 
 	private String phone;
 
+	private int addproduct;
+
 	private boolean checked;
 
 	//
@@ -261,6 +263,14 @@ public class Brand implements Parcelable, Images {
 	}
 	//
 
+	public int getAddproduct() {
+		return addproduct;
+	}
+
+	public void setAddproduct(int addproduct) {
+		this.addproduct = addproduct;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -293,6 +303,7 @@ public class Brand implements Parcelable, Images {
 		dest.writeString(end_time);
 		dest.writeStringList(holidays);
 		dest.writeString(phone);
+		dest.writeInt(addproduct);
 	}
 
 	private Brand(Parcel in) {
@@ -323,6 +334,7 @@ public class Brand implements Parcelable, Images {
 		holidays = new ArrayList<String>();
 		in.readStringList(holidays);
 		phone = in.readString();
+		addproduct = in.readInt();
 	}
 
 	public static final Creator<Brand> CREATOR = new Creator<Brand>() {

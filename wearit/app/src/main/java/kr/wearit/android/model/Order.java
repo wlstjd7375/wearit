@@ -42,8 +42,6 @@ public class Order implements Parcelable {
     private String orderphone;
     private String ordermail;
 
-    private String receivername;
-    private String receiverphone;
     private String postcode;
     private String address1;
     private String address2;
@@ -61,6 +59,9 @@ public class Order implements Parcelable {
     private String billnumber;
 
     private OrderAddProduct addProducts;
+
+
+    private String reservationtime;
 
     //private String productThumbnailImagePath;
 
@@ -197,14 +198,6 @@ public class Order implements Parcelable {
         return ordermail;
     }
 
-    public String getReceivername() {
-        return receivername;
-    }
-
-    public String getReceiverphone() {
-        return receiverphone;
-    }
-
     public String getPostcode() {
         return postcode;
     }
@@ -243,14 +236,6 @@ public class Order implements Parcelable {
 
     public void setOrdermail(String ordermail) {
         this.ordermail = ordermail;
-    }
-
-    public void setReceivername(String receivername) {
-        this.receivername = receivername;
-    }
-
-    public void setReceiverphone(String receiverphone) {
-        this.receiverphone = receiverphone;
     }
 
     public void setPostcode(String postcode) {
@@ -317,6 +302,14 @@ public class Order implements Parcelable {
         this.addProducts = addProducts;
     }
 
+    public String getReservationtime() {
+        return reservationtime;
+    }
+
+    public void setReservationtime(String reservationtime) {
+        this.reservationtime = reservationtime;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -342,8 +335,6 @@ public class Order implements Parcelable {
         dest.writeString(ordername);
         dest.writeString(ordermail);
         dest.writeString(orderphone);
-        dest.writeString(receiverphone);
-        dest.writeString(receivername);
         dest.writeString(request);
         dest.writeString(address1);
         dest.writeString(address2);
@@ -355,6 +346,7 @@ public class Order implements Parcelable {
         dest.writeString(size);
         dest.writeString(brand);
         dest.writeParcelable(addProducts,flags);
+        dest.writeString(reservationtime);
     }
 
     private Order(Parcel in) {
@@ -376,8 +368,6 @@ public class Order implements Parcelable {
         ordername = in.readString();
         ordermail = in.readString();
         orderphone = in.readString();
-        receiverphone = in.readString();
-        receivername = in.readString();
         request = in.readString();
         address1 = in.readString();
         address2 = in.readString();
@@ -389,6 +379,7 @@ public class Order implements Parcelable {
         size = in.readString();
         brand = in.readString();
         addProducts = in.readParcelable(OrderAddProduct.class.getClassLoader());
+        reservationtime = in.readString();
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {
