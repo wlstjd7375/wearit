@@ -53,7 +53,7 @@ public class MyPageGuestFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 //LoginActivity 에서 Login 성공시 MainActivity 의 onActivityResult 를 통해 MainFragment 로 감
-                getActivity().startActivityForResult(intent, Const.FROM_LOGIN_SUCCESS);
+                getActivity().startActivityForResult(intent, Const.GO_TO_MAIN_FRAGMENT);
             }
         });
 

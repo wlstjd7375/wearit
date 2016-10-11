@@ -38,7 +38,8 @@ public class Const {
     public static final int NEW_ITEM = 2;
     public static final int SALE_ITEM = 3;
 
-    public static final int FROM_LOGIN_SUCCESS = 1;
+    public static final int GO_TO_MAIN_FRAGMENT = 11;
+    public static final int NO_ACTION = 0;
 
     public static final int FRAGMENT_MAIN = 1;
     public static final int FRAGMENT_ITEMLIST = 2;

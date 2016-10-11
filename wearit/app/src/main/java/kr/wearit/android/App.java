@@ -92,6 +92,9 @@ public class App extends Application {
     //스크린 넓이
     private int mScreenWidth;
 
+    //메인프레그먼트로 보내기
+    private int activityNextAction;
+
     private static ArrayList<ShopPlace> placeList;
     private static ArrayList<Home> homeList;
     private static HashMap<Integer, ProductCategory> productCategoryList;
@@ -229,6 +232,12 @@ public class App extends Application {
         mUser = user;
     }
 
+    public void setNextActivityAction(int action) {
+        activityNextAction = action;
+    }
+    public int getNextActivityAction() {
+        return activityNextAction;
+    }
 
     //
     public String getApp() {

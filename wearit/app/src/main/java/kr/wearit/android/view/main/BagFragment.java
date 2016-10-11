@@ -27,7 +27,6 @@ import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.view.MainActivity;
 import kr.wearit.android.view.account.LoginActivity;
 import kr.wearit.android.view.check.CartCheckActivity;
-import kr.wearit.android.view.check.CheckActivity;
 
 
 /**
@@ -73,7 +72,7 @@ public class BagFragment extends Fragment {
         lvBagList = (ListView)view.findViewById(R.id.lvBagList);
 
         //TODO check out
-        tvCheckOut = (TextView)view.findViewById(R.id.tvCheckOut);
+        tvCheckOut = (TextView)view.findViewById(R.id.tvRightButton);
         tvCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

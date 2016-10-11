@@ -71,7 +71,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, FindPasswordActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, Const.GO_TO_MAIN_FRAGMENT);
                 finish();
             }
         });
@@ -105,8 +105,7 @@ public class LoginActivity extends BaseActivity {
                             App.getInstance().setCouponList();
                             //Activity를 종료하고 MainActivity 에 Login 이 성공했다는 것을 알려줌
                             //MainFragment로 가기위해
-                            Intent intent = getIntent();
-                            setResult(Const.FROM_LOGIN_SUCCESS, intent);
+                            setResult(Const.GO_TO_MAIN_FRAGMENT);
                             finish();
                         }
 
@@ -119,4 +118,6 @@ public class LoginActivity extends BaseActivity {
             }
         });
     }
+
+
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="kr.wearit.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -59,7 +58,8 @@
         <activity android:name=".view.check.ProductCheckActivity" />
         <activity android:name=".view.check.CartCheckActivity" />
         <activity android:name=".view.OrderListActivity" />
-        <activity android:name=".view.OrderInfoActivity"></activity>
+        <activity android:name=".view.OrderInfoActivity" />
+        <activity android:name=".view.check.AddOptionActivity"></activity>
     </application>
 
 </manifest>

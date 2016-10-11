@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import kr.wearit.android.App;
+import kr.wearit.android.Const;
 import kr.wearit.android.R;
 import kr.wearit.android.view.BaseActivity;
 
@@ -89,8 +91,9 @@ public class FindPasswordActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                finish();
                 //TODO go to main fragment,
+                App.getInstance().setNextActivityAction(Const.GO_TO_MAIN_FRAGMENT);
+                finish();
             }
         });
         dialog.show();

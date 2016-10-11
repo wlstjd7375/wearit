@@ -88,6 +88,9 @@ public class ProductCheckActivity extends CheckBaseActivity {
     private Button btSelectTime;
     private String selectedDateTiem;
 
+    //추가상품 구성하기
+    private Button btAddProduct;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +114,7 @@ public class ProductCheckActivity extends CheckBaseActivity {
         initTotal();
 
         initDateTime();
-
+        initAddOption();
 
         btOrder = (Button) findViewById(R.id.bt_payment);
         btOrder.setOnClickListener(new View.OnClickListener() {
@@ -349,5 +352,26 @@ public class ProductCheckActivity extends CheckBaseActivity {
                 showDialog();
             }
         });
+    }
+
+    private void initAddOption() {
+        final ArrayList<Integer> brandList = getBrandList();
+
+        btAddProduct = (Button)findViewById(R.id.bt_add_product);
+        btAddProduct.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductCheckActivity.this, AddOptionActivity.class);
+                intent.putIntegerArrayListExtra("brand_name", brandList);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private ArrayList<Integer> getBrandList() {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(mItem.getBrandObject().getKey());
+
+        return list;
     }
 }

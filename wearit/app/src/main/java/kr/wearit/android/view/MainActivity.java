@@ -240,7 +240,18 @@ public class MainActivity extends BaseActivity {
         if(LOG) {
             Log.d(TAG, "onActivityResult, " + requestCode);
         }
-        if(resultCode == Const.FROM_LOGIN_SUCCESS) {
+        if(resultCode == Const.GO_TO_MAIN_FRAGMENT) {
+            changeFragment(FRAGMENT_MAIN);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int action = App.getInstance().getNextActivityAction();
+        Log.d(TAG, "onResume(), action = " + action);
+        if(action == Const.GO_TO_MAIN_FRAGMENT) {
+            App.getInstance().setNextActivityAction(Const.NO_ACTION);
             changeFragment(FRAGMENT_MAIN);
         }
     }
