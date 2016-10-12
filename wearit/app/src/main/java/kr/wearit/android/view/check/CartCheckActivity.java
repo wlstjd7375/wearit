@@ -23,12 +23,16 @@ import java.util.List;
 
 import kr.wearit.android.App;
 import kr.wearit.android.R;
+import kr.wearit.android.controller.Api;
+import kr.wearit.android.controller.OrderApi;
 import kr.wearit.android.model.Coupon;
 import kr.wearit.android.model.DeliverInfo;
 import kr.wearit.android.model.Order;
+import kr.wearit.android.model.OrderProduct;
 import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.model.User;
 import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.util.TextUtil;
 import kr.wearit.android.util.Util;
 
 public class CartCheckActivity extends CheckBaseActivity {
@@ -36,7 +40,7 @@ public class CartCheckActivity extends CheckBaseActivity {
     private final String TAG = "CartCheckActivity##";
     private ArrayList<ProductCart> productList;
     private ArrayList<DeliverInfo> deliverList;
-
+    private ArrayList<OrderProduct> orderProducts;
     private ArrayList<BrandCart> brandCartList;
 
     private ExpandableListView lvProduct;
@@ -94,6 +98,7 @@ public class CartCheckActivity extends CheckBaseActivity {
         useCoupon = null;
         user = App.getInstance().getUser();
         couponList = App.getInstance().getCouponList();
+        coupon = -1;
 
         makeBrandCart();
         makeHeaderView();
@@ -180,8 +185,134 @@ public class CartCheckActivity extends CheckBaseActivity {
         //set DateTime Picker
         initDateTime();
 
+        ((Button) footer.findViewById(R.id.bt_payment)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!validate()) {
+                    return;
+                }
+                order = new Order();
+                if(selectedDateTiem != null && selectedDateTiem.length() != 0) {
+                    order.setOrdertype("reservation");
+                    order.setReservationtime(selectedDateTiem);
+                }
+                else {
+                    order.setOrdertype("normal");
+                }
+                order.setOrdername(tvReceiverName.getText().toString());
+                order.setOrdermail(tvReceiverEmail.getText().toString());
+                order.setOrderphone(tvReceiverPhone.getText().toString());
+                order.setAddress1(tvReceiverAddr1.getText().toString());
+                order.setAddress2(tvReceiverAddr2.getText().toString());
+                order.setProducts(orderProducts);
+                order.setPaytype(paytype);
+                order.setRequest(etRequire.getText().toString());
+                String totalPrice = ((TextView) footer.findViewById(R.id.tv_total_price)).getText().toString();
+                order.setPrice(getPrice(totalPrice.substring(0,totalPrice.length()-2)));
+                if(coupon != -1) {
+                    order.setCouponprice(couponPrice);
+                    order.setCoupon(coupon);
+                }
+                else {
+                    order.setCouponprice(0);
+                    order.setCoupon(null);
+                }
+                order.setPaytype(paytype);
+
+                OrderApi.add(order, new Api.OnAuthListener<Integer>() {
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onSuccess(Integer data) {
+
+                    }
+
+                    @Override
+                    public void onFail() {
+
+                    }
+                });
+            }
+        });
+
+        ((RelativeLayout) footer.findViewById(R.id.rl_select_paytype)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((LinearLayout) footer.findViewById(R.id.ll_possible_paytype)).setVisibility(View.VISIBLE);
+            }
+        });
+
+        ((RelativeLayout) footer.findViewById(R.id.rl_account_payment)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paytype = "account";
+                ((TextView) footer.findViewById(R.id.tv_select_paytype)).setText(TextUtil.getPaytype(paytype));
+                ((LinearLayout) footer.findViewById(R.id.ll_possible_paytype)).setVisibility(View.GONE);
+            }
+        });
+
+        ((RelativeLayout) footer.findViewById(R.id.rl_card_payment)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paytype = "card";
+                ((TextView) footer.findViewById(R.id.tv_select_paytype)).setText(TextUtil.getPaytype(paytype));
+                ((LinearLayout) footer.findViewById(R.id.ll_possible_paytype)).setVisibility(View.GONE);
+            }
+        });
+
+        ((RelativeLayout) footer.findViewById(R.id.rl_phone_payment)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paytype = "phone";
+                ((TextView) footer.findViewById(R.id.tv_select_paytype)).setText(TextUtil.getPaytype(paytype));
+                ((LinearLayout) footer.findViewById(R.id.ll_possible_paytype)).setVisibility(View.GONE);
+            }
+        });
+
+        ((RelativeLayout) footer.findViewById(R.id.rl_later_payment)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paytype = "later";
+                ((TextView) footer.findViewById(R.id.tv_select_paytype)).setText(TextUtil.getPaytype(paytype));
+                ((LinearLayout) footer.findViewById(R.id.ll_possible_paytype)).setVisibility(View.GONE);
+            }
+        });
         lvProduct.addFooterView(footer);
     }
+
+
+    public boolean validate(){
+        if(tvReceiverName.getText().length() == 0){
+            Toast.makeText(getActivity(),"이름을 입력해주세요.",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(tvReceiverPhone.getText().length() == 0){
+            Toast.makeText(getActivity(),"핸드폰 번호를 입력해주세요.",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(tvReceiverEmail.getText().length() == 0){
+            Toast.makeText(getActivity(),"이메일을 입력해주세요.",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(tvReceiverAddr1.getText().length() == 0){
+            Toast.makeText(getActivity(),"주소를 입력해주세요.",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(tvReceiverAddr2.getText().length() == 0){
+            Toast.makeText(getActivity(),"상세 주소를 입력해주세요.",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(paytype == null || paytype.length() == 0) {
+            Toast.makeText(getActivity(),"결제 수단을 선택해주세요.",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
 
     private void initDateTime() {
         //TODO 배송 불가능한 날짜, 시간 가져오기
@@ -233,6 +364,11 @@ public class CartCheckActivity extends CheckBaseActivity {
                     if(brandProductPrice >= deliverList.get(j).getBasis()) {
                         calculTipPrice += (Util.formatWon(deliverList.get(j).getDeliverPrice())+"원+");
                         tipPrice += deliverList.get(j).getDeliverPrice();
+                        for(int k=0;k<orderProducts.size();k++) {
+                            if(orderProducts.get(k).getBrand() == brandCart.getBrand()) {
+                                orderProducts.get(k).setDeliverprice(deliverList.get(j).getDeliverPrice());
+                            }
+                        }
                         break;
                     }
                 }
@@ -279,10 +415,13 @@ public class CartCheckActivity extends CheckBaseActivity {
 
     public void makeBrandCart() {
         brandCartList = new ArrayList<BrandCart>();
+        orderProducts = new ArrayList<OrderProduct>();
+
         int currentBrand = 0;
 //        BrandCart currentBrandCart = new BrandCart();
         int j = 0;
         for(int i=0;i<productList.size();i++) {
+            OrderProduct orderProduct = new OrderProduct();
             if(currentBrand == 0) {
                 BrandCart currentBrandCart = new BrandCart();
                 j = brandCartList.size();
@@ -291,6 +430,9 @@ public class CartCheckActivity extends CheckBaseActivity {
                 currentBrandCart.setBrandName(productList.get(i).getBrandname());
                 currentBrandCart.addCart(productList.get(i));
                 brandCartList.add(currentBrandCart);
+                orderProduct.setCart(productList.get(i).getKey());
+                orderProduct.setBrand(currentBrand);
+                orderProducts.add(orderProduct);
                 continue;
             }
             if(currentBrand == productList.get(i).getBrand()) {
@@ -312,6 +454,9 @@ public class CartCheckActivity extends CheckBaseActivity {
                 j = brandCartList.size();
                 brandCartList.add(currentBrandCart);
             }
+            orderProduct.setBrand(productList.get(i).getBrand());
+            orderProduct.setCart(productList.get(i).getKey());
+            orderProducts.add(orderProduct);
         }
         //for문이 끝난후 마지막 BrandCart Add
         System.out.println("Brand Cart Size : " + brandCartList.size());
@@ -469,5 +614,15 @@ public class CartCheckActivity extends CheckBaseActivity {
         public void addCart(ProductCart productCart) {
             cartList.add(productCart);
         }
+    }
+
+    public int getPrice(String price) {
+        String[] data = price.split("\\,");
+        String num = "";
+        for(int i=0;i<data.length;i++){
+            num += data[i];
+        }
+
+        return Integer.valueOf(num);
     }
 }
