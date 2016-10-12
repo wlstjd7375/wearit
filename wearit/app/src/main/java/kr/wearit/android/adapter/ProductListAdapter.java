@@ -66,18 +66,43 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        int idx = position * 2;
+        final int idx = position * 2;
         Log.d(TAG, "idx = " + idx + ", size = " + mDataList.size());
         //TODO NullPoint 왜뜸 시발
         viewHolder.llProductLeft.removeAllViews();
         viewHolder.llProductLeft.addView(getProductLayout(idx));
+        viewHolder.llProductLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "sibal = " + (idx));
+                Intent intent = new Intent(getContext(), ProductActivity.class);
+                intent.putExtra("key",getItem(idx).getKey());
+                getContext().startActivity(intent);
+            }
+        });
 
         if((idx+1) < mDataList.size() ) {
             viewHolder.llProductRight.removeAllViews();
             viewHolder.llProductRight.addView(getProductLayout(idx+1));
+            viewHolder.llProductLeft.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "sibal = " + (idx+1));
+                    Intent intent = new Intent(getContext(), ProductActivity.class);
+                    intent.putExtra("key",getItem(idx+1).getKey());
+                    getContext().startActivity(intent);
+                }
+            });
         }
         else {
             viewHolder.llProductRight.removeAllViews();
+            viewHolder.llProductRight.setClickable(false);
+            viewHolder.llProductRight.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //
+                }
+            });
         }
 
         return view;
@@ -90,7 +115,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         return (size / 2) + (size % 2);
     }
 
-    private View getProductLayout(int idx) {
+    private View getProductLayout(final int idx) {
         //Layout inflate
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View itemLayout = inflater.inflate(R.layout.layout_item_big, null);
@@ -113,14 +138,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         tvProductPriceFinal.setText(productLeft.getPrice() + "");
 
         //TODO sale price
-        itemLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ProductActivity.class);
-                intent.putExtra("key",productLeft.getKey());
-                getContext().startActivity(intent);
-            }
-        });
+
         return itemLayout;
     }
 }

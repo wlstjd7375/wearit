@@ -1,7 +1,6 @@
 package kr.wearit.android.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,6 @@ import java.util.HashSet;
 import kr.wearit.android.R;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.util.ImageUtil;
-import kr.wearit.android.view.product.ProductActivity;
 
 /**
  * Created by KimJS on 2016-10-10.
@@ -142,6 +140,8 @@ public class AddOptionAdapter extends ArrayAdapter<Product> {
         int idxRight = idx + 1;
         if(idxRight < mDataList.size() ) {
             final Product itemRight = getItem(idxRight);
+            viewHolder.itemLayoutRight.setVisibility(View.VISIBLE);
+
             ImageUtil.display(viewHolder.ivProductRight, itemRight.getImagePath());
 
             if(addProductList.contains(itemRight)) {
@@ -167,7 +167,7 @@ public class AddOptionAdapter extends ArrayAdapter<Product> {
                 }
             });
         } else {
-            viewHolder.itemLayoutRight.removeAllViews();
+            viewHolder.itemLayoutRight.setVisibility(View.INVISIBLE);
             viewHolder.itemLayoutRight.setClickable(false);
             viewHolder.itemLayoutRight.setFocusable(false);
         }
@@ -183,7 +183,7 @@ public class AddOptionAdapter extends ArrayAdapter<Product> {
     }
 
     //TODO idx 대신 product key 넣어서 해시맵 만들기
-    public HashSet<Product> getCheckList() {
+    public HashSet<Product> getSelectedOptionItems() {
         return addProductList;
     }
 

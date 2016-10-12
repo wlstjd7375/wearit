@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import kr.wearit.android.App;
@@ -66,10 +67,20 @@ public class BagPagerAdapter extends PagerAdapter {
 
             tvBrand.setText(mProductCart.getBrandname());
             tvProductName.setText(mProductCart.getName());
+            //tvSalePrice : 세일하기 전 가격
+            //tvPrice : 판매가격
             if(mProductCart.isSale()) {
-                tvSalePrice.setText(mProductCart.getSale_price() + "원");
+                tvSalePrice.setText(mProductCart.getPrice() + "원");
+                tvPrice.setText(mProductCart.getSale_price() + "원");
+                //오른쪽 정렬
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tvPrice.getLayoutParams();
+                params.addRule(RelativeLayout.ALIGN_RIGHT, R.id.tvSalePrice);
+                tvPrice.setLayoutParams(params);
             }
-            tvPrice.setText(mProductCart.getPrice() + "원");
+            else {
+                tvPrice.setText(mProductCart.getPrice() + "원");
+            }
+
             tvSize.setText("SIZE: " + mProductCart.getSize());
             tvItemCount.setText("개수: " + mProductCart.getCount());
         }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import kr.wearit.android.App;
@@ -60,10 +61,19 @@ public class KeepPagerAdapter extends PagerAdapter {
 
             tvBrand.setText(mProduct.getBrandName());
             tvProductName.setText(mProduct.getName());
+
+            //tvSalePrice : 세일하기 전 가격
+            //tvPrice : 판매가격
             if(mProduct.isSale()) {
-                tvSalePrice.setText(mProduct.getSalePrice() + "원");
+                tvSalePrice.setText(mProduct.getPrice() + "원");
+                tvPrice.setText(mProduct.getSalePrice() + "원");
+                //오른쪽 정렬
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tvPrice.getLayoutParams();
+                params.addRule(RelativeLayout.ALIGN_RIGHT, R.id.tvSalePrice);
+                tvPrice.setLayoutParams(params);
+            } else {
+                tvPrice.setText(mProduct.getPrice() + "원");
             }
-            tvPrice.setText(mProduct.getPrice() + "원");
         }
         else {
             view = mInflater.inflate(R.layout.layout_right_add, null);
