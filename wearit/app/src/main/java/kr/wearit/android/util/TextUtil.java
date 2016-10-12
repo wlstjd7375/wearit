@@ -75,8 +75,8 @@ public class TextUtil {
         else if (paytype.equals("phone")){
             result = "핸드폰결제";
         }
-        else if (paytype.equals("kakao")){
-            result = "카카오페이";
+        else if (paytype.equals("later")){
+            result = "현장 후 결제";
         }
 
         return result;

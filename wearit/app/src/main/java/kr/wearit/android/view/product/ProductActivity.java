@@ -82,6 +82,7 @@ public class ProductActivity extends BaseActivity {
             });
         }
         selSizeKey = 0;
+        count = 1;
 
         llSelector = (LinearLayout) findViewById(R.id.ll_selector);
         rlWating = (RelativeLayout) findViewById(R.id.rl_waiting);
