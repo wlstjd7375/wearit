@@ -29,7 +29,7 @@ public class AddOptionAdapter extends ArrayAdapter<Product> {
     private ArrayList<Product> mDataList;
     private int mScreenWidth;
 
-    private HashSet<Integer> checkList;
+    private HashSet<Product> addProductList;
 
     // View lookup cache
     private class ViewHolder {
@@ -64,7 +64,7 @@ public class AddOptionAdapter extends ArrayAdapter<Product> {
         mContext = context;
         mDataList = arrayList;
         mScreenWidth = screenWidth;
-        checkList = new HashSet<>();
+        addProductList = new HashSet<>();
     }
 
     @Override
@@ -106,14 +106,14 @@ public class AddOptionAdapter extends ArrayAdapter<Product> {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        final int idx = position * 2;
+        int idx = position * 2;
         Log.d(TAG, "idx = " + idx);
 
         //Add Left
-        Product itemLeft = getItem(idx);
+        final Product itemLeft = getItem(idx);
         ImageUtil.display(viewHolder.ivProductLeft, itemLeft.getImagePath());
 
-        if(checkList.contains(idx)) {
+        if(addProductList.contains(itemLeft)) {
             viewHolder.ivCheckLeft.setImageResource(R.drawable.check_green);
         } else {
             viewHolder.ivCheckLeft.setImageResource(R.drawable.check_gray);
@@ -127,12 +127,11 @@ public class AddOptionAdapter extends ArrayAdapter<Product> {
         viewHolder.itemLayoutLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, idx + "");
-                if(checkList.contains(idx)) {
-                    checkList.remove(idx);
+                if(addProductList.contains(itemLeft)) {
+                    addProductList.remove(itemLeft);
                     viewHolder.ivCheckLeft.setImageResource(R.drawable.check_gray);
                 } else {
-                    checkList.add(idx);
+                    addProductList.add(itemLeft);
                     viewHolder.ivCheckLeft.setImageResource(R.drawable.check_green);
                 }
             }
@@ -140,12 +139,12 @@ public class AddOptionAdapter extends ArrayAdapter<Product> {
 
 
         //Add Right
-        final int idxRight = idx + 1;
+        int idxRight = idx + 1;
         if(idxRight < mDataList.size() ) {
-            Product itemRight = getItem(idxRight);
+            final Product itemRight = getItem(idxRight);
             ImageUtil.display(viewHolder.ivProductRight, itemRight.getImagePath());
 
-            if(checkList.contains(idxRight)) {
+            if(addProductList.contains(itemRight)) {
                 viewHolder.ivCheckRight.setImageResource(R.drawable.check_green);
             } else {
                 viewHolder.ivCheckRight.setImageResource(R.drawable.check_gray);
@@ -158,11 +157,11 @@ public class AddOptionAdapter extends ArrayAdapter<Product> {
             viewHolder.itemLayoutRight.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(checkList.contains(idxRight)) {
-                        checkList.remove(idxRight);
+                    if(addProductList.contains(itemRight)) {
+                        addProductList.remove(itemRight);
                         viewHolder.ivCheckRight.setImageResource(R.drawable.check_gray);
                     } else {
-                        checkList.add(idxRight);
+                        addProductList.add(itemRight);
                         viewHolder.ivCheckRight.setImageResource(R.drawable.check_green);
                     }
                 }
@@ -184,8 +183,8 @@ public class AddOptionAdapter extends ArrayAdapter<Product> {
     }
 
     //TODO idx 대신 product key 넣어서 해시맵 만들기
-    public HashSet<Integer> getCheckList() {
-        return checkList;
+    public HashSet<Product> getCheckList() {
+        return addProductList;
     }
 
 }

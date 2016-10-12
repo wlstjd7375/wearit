@@ -138,8 +138,6 @@ public class ProductCheckActivity extends CheckBaseActivity {
                 order.setOrdername((tvReceiverName).getText().toString());
                 order.setOrderphone((tvReceiverPhone).getText().toString());
                 order.setOrdermail((tvReceiverEmail).getText().toString());
-                order.setReceivername((tvReceiverName).getText().toString());
-                order.setReceiverphone((tvReceiverPhone).getText().toString());
 
                 order.setAddress1((tvReceiverAddr1).getText().toString());
                 order.setAddress2((tvReceiverAddr2).getText().toString());

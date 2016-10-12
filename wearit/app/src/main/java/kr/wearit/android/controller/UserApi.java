@@ -89,7 +89,6 @@ public class UserApi extends Api {
 
 	public static void modifyNickname(String nickname, OnAuthListener<User> handler) {
 		User user = new User();
-		user.setNickname(nickname);
 
 		put("/account/nickname", user, handler, new TypeToken<Response<User>>() {
 		}.getType());
