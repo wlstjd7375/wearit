@@ -13,10 +13,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tvTotalItemInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/tvTotalItemPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"

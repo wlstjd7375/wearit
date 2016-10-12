@@ -23,6 +23,7 @@ import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.CartApi;
 import kr.wearit.android.model.CartDeliver;
 import kr.wearit.android.model.DeliverInfo;
+import kr.wearit.android.model.Product;
 import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.view.MainActivity;
 import kr.wearit.android.view.account.LoginActivity;
@@ -37,6 +38,7 @@ public class BagFragment extends Fragment {
     private final String TAG = "BagFragment##";
     private TextView tvToolbarTitle;
     private TextView tvTotalItemInfo;
+    private TextView tvTotalItemPrice;
 
     private View view;
 
@@ -66,6 +68,7 @@ public class BagFragment extends Fragment {
         tvToolbarTitle.setText("BAG");
 
         tvTotalItemInfo = (TextView)view.findViewById(R.id.tvTotalItemInfo);
+        tvTotalItemPrice = (TextView)view.findViewById(R.id.tvTotalItemPrice);
 
         rlGoLogin = (RelativeLayout)view.findViewById(R.id.rlGoLogin);
         rlGoShopping = (RelativeLayout)view.findViewById(R.id.rlGoShopping);
@@ -157,6 +160,7 @@ public class BagFragment extends Fragment {
         //set Total item in bag information
         int cnt = mProductList.size();
         tvTotalItemInfo.setText(cnt + " items: ");
+        tvTotalItemPrice.setText(getTotalItemPrice() + "원");
 
         //Set Bag List
 
@@ -171,5 +175,18 @@ public class BagFragment extends Fragment {
         setListView();
         //mAdapter.remove(item);
         //mAdapter.notifyDataSetChanged();
+    }
+
+    private int getTotalItemPrice() {
+        int price = 0;
+        for(ProductCart p : mProductList) {
+            if(p.isSale()) {
+                price += p.getSale_price();
+            } else {
+                price += p.getPrice();
+            }
+        }
+
+        return price;
     }
 }

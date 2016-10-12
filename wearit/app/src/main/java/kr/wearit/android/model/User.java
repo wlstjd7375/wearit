@@ -66,9 +66,37 @@ public class User implements Parcelable {
 	private Integer total_mileage_add;
 	private Integer total_mileage_sub;
 
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getHeight() {
+		return height;
+	}
+
+	public void setHeight(String height) {
+		this.height = height;
+	}
+
+	public String getWeight() {
+		return weight;
+	}
+
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+
 	private String postcode;
 	private String address1;
 	private String address2;
+
+	private String birthday;
+	private String height;
+	private String weight;
 
 	//
 
