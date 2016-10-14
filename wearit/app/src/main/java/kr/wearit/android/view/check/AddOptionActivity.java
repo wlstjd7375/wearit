@@ -3,6 +3,7 @@ package kr.wearit.android.view.check;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import kr.wearit.android.App;
+import kr.wearit.android.Const;
 import kr.wearit.android.R;
 import kr.wearit.android.adapter.AddOptionAdapter;
 import kr.wearit.android.controller.Api;
@@ -29,6 +31,7 @@ import kr.wearit.android.controller.ProductApi;
 import kr.wearit.android.model.Brand;
 import kr.wearit.android.model.Pagination;
 import kr.wearit.android.model.Product;
+import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.ui.ScrollListener;
 import kr.wearit.android.util.ImageUtil;
 import kr.wearit.android.view.BaseActivity;
@@ -98,14 +101,11 @@ public class AddOptionActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //확인버튼
-                String result = "";
-                for(Product p : optionItemList) {
-                    result += p.getBrandName() + " ";
-                }
                 //TODO
-                //setResult();
-                //finish();
-                Log.d(TAG, result);
+                Intent intent = new Intent();
+                intent.putParcelableArrayListExtra("option_item_list", new ArrayList<Product>(optionItemList));
+                setResult(Const.GET_OPTION_ITEMS, intent);
+                finish();
             }
         });
     }

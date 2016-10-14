@@ -38,6 +38,7 @@ public class Const {
     public static final int NEW_ITEM = 2;
     public static final int SALE_ITEM = 3;
 
+    public static final int GET_OPTION_ITEMS = 12;
     public static final int GO_TO_MAIN_FRAGMENT = 11;
     public static final int NO_ACTION = 0;
 
