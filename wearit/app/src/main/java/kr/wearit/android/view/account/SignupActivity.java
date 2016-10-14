@@ -114,6 +114,7 @@ public class SignupActivity extends BaseActivity {
         user = new User();
 
         user.setId(etEmail.getText().toString());
+        user.setAccount(1);
         user.setPassword(EncryptPassword.encryptSHA256(etPassword.getText().toString()));
         user.setName(etName.getText().toString());
         user.setBirthday(etBirthday.getText().toString());

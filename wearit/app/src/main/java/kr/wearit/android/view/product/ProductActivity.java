@@ -372,7 +372,7 @@ public class ProductActivity extends BaseActivity {
                         intent.putExtra("size", selSize);
                         intent.putExtra("count", count);
                         intent.putExtra("deliver", calculDeliverPrice());
-                        intent.putExtra("ordertype", "now");
+                        intent.putExtra("ordertype", "normal");
                         startActivity(intent);
                         dismiss();
                     }
@@ -387,6 +387,13 @@ public class ProductActivity extends BaseActivity {
             ((TextView) findViewById(R.id.tv_later_order)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Intent intent = new Intent(ProductActivity.this, ProductCheckActivity.class);
+                    intent.putExtra("product", mItem);
+                    intent.putExtra("size", selSize);
+                    intent.putExtra("count", count);
+                    intent.putExtra("deliver", calculDeliverPrice());
+                    intent.putExtra("ordertype", "reservation");
+                    startActivity(intent);
                     dismiss();
                 }
             });

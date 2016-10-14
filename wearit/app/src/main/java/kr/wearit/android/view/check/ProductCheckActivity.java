@@ -33,6 +33,7 @@ import kr.wearit.android.model.Product;
 import kr.wearit.android.model.ProductSize;
 import kr.wearit.android.model.User;
 import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.util.TextUtil;
 import kr.wearit.android.util.Util;
 
 public class ProductCheckActivity extends CheckBaseActivity {
@@ -116,6 +117,7 @@ public class ProductCheckActivity extends CheckBaseActivity {
         deliverPrice = getIntent().getIntExtra(ARG_DELI, 0);
         orderType = getIntent().getStringExtra(ARG_TYPE);
 
+        coupon = -1;
         useCoupon = null;
         user = App.getInstance().getUser();
         couponList = App.getInstance().getCouponList();
@@ -136,11 +138,6 @@ public class ProductCheckActivity extends CheckBaseActivity {
         btOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(!orderFlag){
-                    return;
-                }
-
                 if(!validate()){
                     return;
                 }
@@ -171,18 +168,20 @@ public class ProductCheckActivity extends CheckBaseActivity {
                     order.setCouponprice(0);
                 }
 
-                OrderApi.addDIrect(order, new Api.OnAuthListener<Integer>() {
+                OrderApi.addDIrect(order, new Api.OnAuthListener<Order>() {
                     @Override
                     public void onStart() {
 
                     }
                     @Override
-                    public void onSuccess(Integer data) {
+                    public void onSuccess(Order data) {
                         if(data != null) {
-//                            if(paytype.equals("account")){
-//                                OrderCompleteActivity.launch(getActivity(), paytype, data);
-//                                finish();
-//                            }
+                            if(paytype.equals("account") || paytype.equals("later")){
+                                Intent intent = new Intent(ProductCheckActivity.this, OrderCompleteActivity.class);
+                                intent.putExtra("order",data);
+                                startActivity(intent);
+                                finish();
+                            }
 //                            else if(paytype.equals("card")){
 //                                CardPay cardPay = new CardPay();
 //                                cardPay.setOrdernum(data);
@@ -251,6 +250,10 @@ public class ProductCheckActivity extends CheckBaseActivity {
         }
         if(tvReceiverAddr2.getText().length() == 0){
             Toast.makeText(getActivity(),"상세 주소를 입력해주세요.",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(paytype == null || paytype.length() == 0) {
+            Toast.makeText(getActivity(),"결제 수단을 선택해주세요.",Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -325,6 +328,57 @@ public class ProductCheckActivity extends CheckBaseActivity {
                 }
             }
         });
+
+
+        ((RelativeLayout) findViewById(R.id.rl_select_paytype)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((LinearLayout) findViewById(R.id.ll_possible_paytype)).setVisibility(View.VISIBLE);
+            }
+        });
+
+        ((RelativeLayout) findViewById(R.id.rl_account_payment)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paytype = "account";
+                ((TextView) findViewById(R.id.tv_select_paytype)).setText(TextUtil.getPaytype(paytype));
+                ((LinearLayout) findViewById(R.id.ll_possible_paytype)).setVisibility(View.GONE);
+            }
+        });
+
+        ((RelativeLayout) findViewById(R.id.rl_card_payment)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paytype = "card";
+                ((TextView) findViewById(R.id.tv_select_paytype)).setText(TextUtil.getPaytype(paytype));
+                ((LinearLayout) findViewById(R.id.ll_possible_paytype)).setVisibility(View.GONE);
+            }
+        });
+
+        ((RelativeLayout) findViewById(R.id.rl_phone_payment)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paytype = "phone";
+                ((TextView) findViewById(R.id.tv_select_paytype)).setText(TextUtil.getPaytype(paytype));
+                ((LinearLayout) findViewById(R.id.ll_possible_paytype)).setVisibility(View.GONE);
+            }
+        });
+
+        ((RelativeLayout) findViewById(R.id.rl_later_payment)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paytype = "later";
+                ((TextView) findViewById(R.id.tv_select_paytype)).setText(TextUtil.getPaytype(paytype));
+                ((LinearLayout) findViewById(R.id.ll_possible_paytype)).setVisibility(View.GONE);
+            }
+        });
+
+        if(orderType.equals("reservation")) {
+            ((LinearLayout) findViewById(R.id.ll_reservation)).setVisibility(View.VISIBLE);
+        }
+        else {
+            ((LinearLayout) findViewById(R.id.ll_reservation)).setVisibility(View.GONE);
+        }
     }
 
     public void initProduct(){

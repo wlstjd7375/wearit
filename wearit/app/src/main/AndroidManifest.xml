@@ -55,13 +55,16 @@
         <activity android:name=".view.CustomerServiceActivity" />
         <activity android:name=".view.SettingActivity" />
         <activity android:name=".view.CouponActivity" />
-        <activity android:name=".view.check.ProductCheckActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
-        <activity android:name=".view.check.CartCheckActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity
+            android:name=".view.check.ProductCheckActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".view.check.CartCheckActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".view.OrderListActivity" />
         <activity android:name=".view.OrderInfoActivity" />
-        <activity android:name=".view.check.AddOptionActivity"></activity>
+        <activity android:name=".view.check.AddOptionActivity" />
+        <activity android:name=".view.check.OrderCompleteActivity"></activity>
     </application>
 
 </manifest>

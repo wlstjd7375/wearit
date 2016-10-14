@@ -39,8 +39,8 @@ public class OrderApi extends Api{
         }.getType());
     }
 
-    public static void add(Order order,  OnAuthListener<Integer> handler) {
-        post("/order", order, handler, new TypeToken<Response<Integer>>() {
+    public static void add(Order order,  OnAuthListener<Order> handler) {
+        post("/order", order, handler, new TypeToken<Response<Order>>() {
         }.getType());
     }
 
@@ -49,9 +49,9 @@ public class OrderApi extends Api{
         }.getType());
     }
 
-    public static void addDIrect(Order order,  OnAuthListener<Integer> handler) {
+    public static void addDIrect(Order order,  OnAuthListener<Order> handler) {
 
-        post("/order/direct", order, handler, new TypeToken<Response<Integer>>() {
+        post("/order/direct", order, handler, new TypeToken<Response<Order>>() {
         }.getType());
     }
 

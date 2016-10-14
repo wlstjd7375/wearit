@@ -1,6 +1,7 @@
 package kr.wearit.android.view.check;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -219,15 +220,22 @@ public class CartCheckActivity extends CheckBaseActivity {
                 }
                 order.setPaytype(paytype);
 
-                OrderApi.add(order, new Api.OnAuthListener<Integer>() {
+                OrderApi.add(order, new Api.OnAuthListener<Order>() {
                     @Override
                     public void onStart() {
 
                     }
 
                     @Override
-                    public void onSuccess(Integer data) {
-
+                    public void onSuccess(Order data) {
+                        if(data != null) {
+                            if (paytype.equals("account") || paytype.equals("later")) {
+                                Intent intent = new Intent(CartCheckActivity.this, OrderCompleteActivity.class);
+                                intent.putExtra("order", data);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
                     }
 
                     @Override
