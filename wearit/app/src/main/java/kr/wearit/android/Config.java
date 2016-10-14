@@ -20,7 +20,7 @@ public class Config {
     //
 
     private static final String SITE_PRD = "http://api.stylemap.kr:8080";//"http://192.168.25.28:8080";//"http://api.stylemap.kr:8080";//"http://api.stylemap.kr:8080";//"http://121.130.206.3:8080";//"http://121.130.206.3:8080";/"http://api.stylemap.kr:8080";
-    //private static final String SITE_PRD = "http://192.168.123.101:8080";
+    //private static final String SITE_PRD = "http://211.49.139.155:8080";
 
     @Deprecated
     private static final String SITE_STG = "http://stylemap.preduct.biz:9000";//"http://192.168.0.15:8080";"http://stylemap.preduct.biz:9000";

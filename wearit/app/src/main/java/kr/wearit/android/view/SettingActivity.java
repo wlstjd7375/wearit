@@ -1,6 +1,8 @@
 package kr.wearit.android.view;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +25,8 @@ public class SettingActivity extends BaseActivity {
 
     private Switch swOnOff;
 
+    private static final String PREF_SETTING = "_app_setting_";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,9 @@ public class SettingActivity extends BaseActivity {
         });
 
         swOnOff = (Switch)findViewById(R.id.swOnOff);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean setting = pref.getBoolean(PREF_SETTING, false); // Default : false
+        swOnOff.setChecked(setting);
         swOnOff.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -54,6 +61,16 @@ public class SettingActivity extends BaseActivity {
                 }
             }
         });
-
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //save setting status
+        boolean isChecked = swOnOff.isChecked();
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+        editor.putBoolean(PREF_SETTING, isChecked);
+        editor.commit();
+    }
+
 }

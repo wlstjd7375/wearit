@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.wearit.android.App;
+import kr.wearit.android.Const;
 import kr.wearit.android.R;
 import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.OrderApi;
@@ -30,6 +32,7 @@ import kr.wearit.android.model.Coupon;
 import kr.wearit.android.model.DeliverInfo;
 import kr.wearit.android.model.Order;
 import kr.wearit.android.model.OrderProduct;
+import kr.wearit.android.model.Product;
 import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.model.User;
 import kr.wearit.android.util.ImageUtil;
@@ -39,6 +42,7 @@ import kr.wearit.android.util.Util;
 public class CartCheckActivity extends CheckBaseActivity {
 
     private final String TAG = "CartCheckActivity##";
+    private Context mContext;
     private ArrayList<ProductCart> productList;
     private ArrayList<DeliverInfo> deliverList;
     private ArrayList<OrderProduct> orderProducts;
@@ -86,10 +90,18 @@ public class CartCheckActivity extends CheckBaseActivity {
     private Button btSelectTime;
     private String selectedDateTiem;
 
+    //추가상품 구성하기
+    private Button btAddProduct;
+    private TextView tvAddProduct;
+    private TextView tvResetOption;
+    private ArrayList<Product> optionItemList;
+    private LinearLayout llOptionItems;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_check);
+        mContext = this;
 
         productList = getIntent().getParcelableArrayListExtra("cart");
         deliverList = getIntent().getParcelableArrayListExtra("deliver");
@@ -185,6 +197,30 @@ public class CartCheckActivity extends CheckBaseActivity {
 
         //set DateTime Picker
         initDateTime();
+
+        //추가상품 구성하기
+
+
+        //추가상품 구성하기
+        //초기화
+        btAddProduct = (Button)footer.findViewById(R.id.bt_add_product);
+        tvAddProduct = (TextView)footer.findViewById(R.id.tv_add_product);
+        tvResetOption = (TextView)footer.findViewById(R.id.tvResetOption);
+        optionItemList = new ArrayList<>();
+        llOptionItems = (LinearLayout)footer.findViewById(R.id.llOptionItems);
+
+        final ArrayList<Integer> brandList = getBrandList();
+        btAddProduct.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartCheckActivity.this, AddOptionActivity.class);
+                intent.putIntegerArrayListExtra("brand_name", brandList);
+                startActivityForResult(intent, Const.GET_OPTION_ITEMS);
+            }
+        });
+
+
+        //!추가상품 구성하기
 
         ((Button) footer.findViewById(R.id.bt_payment)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -633,4 +669,104 @@ public class CartCheckActivity extends CheckBaseActivity {
 
         return Integer.valueOf(num);
     }
+
+    //추가상품 구성하기
+    private ArrayList<Integer> getBrandList() {
+        ArrayList<Integer> list = new ArrayList<>();
+        for(ProductCart productCart : productList) {
+            list.add(productCart.getBrand());
+        }
+
+        return list;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Const.GET_OPTION_ITEMS) {
+            optionItemList = data.getParcelableArrayListExtra("option_item_list");
+            if(optionItemList.size() != 0) {
+                //옵션 아이템 레이아웃 인플레이트
+                llOptionItems = (LinearLayout)findViewById(R.id.llOptionItems);
+
+                //기존에 있던 버튼과 안내문구 안보이게 하고
+                tvAddProduct.setVisibility(View.GONE);
+                btAddProduct.setVisibility(View.GONE);
+
+                //리스트 추가
+                llOptionItems.setVisibility(View.VISIBLE);
+                //회색 구분선
+                llOptionItems.addView(getDivider());
+                for(Product product : optionItemList) {
+                    //아이템 레이아웃 추가
+                    llOptionItems.addView(getItemLayout(product));
+                    llOptionItems.addView(getDivider());
+                }
+
+                //다시 설정하기 버튼 보이기
+                tvResetOption = (TextView)findViewById(R.id.tvResetOption);
+                tvResetOption.setVisibility(View.VISIBLE);
+                tvResetOption.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //다시 설정했을때 옵션 초기화, 리스트 삭제, 버튼과 안내문구 보여주기
+                        optionItemList.clear();
+                        llOptionItems.removeAllViews();
+                        llOptionItems.setVisibility(View.GONE);
+                        tvAddProduct.setVisibility(View.VISIBLE);
+                        btAddProduct.setVisibility(View.VISIBLE);
+                        tvResetOption.setVisibility(View.INVISIBLE);
+                    }
+                });
+            }
+        }
+    }
+
+    private View getItemLayout(Product mProduct) {
+        LayoutInflater mInflater = LayoutInflater.from(mContext);
+        View view = mInflater.inflate(R.layout.layout_listrow_keep, null);
+
+        //set Bag List
+        ImageView ivProduct = (ImageView)view.findViewById(R.id.ivProduct);
+        TextView tvBrand = (TextView)view.findViewById(R.id.tvBrand);
+        TextView tvProductName = (TextView)view.findViewById(R.id.tvProductName);
+        TextView tvSalePrice = (TextView)view.findViewById(R.id.tvSalePrice);
+        TextView tvPrice = (TextView)view.findViewById(R.id.tvPrice);
+
+        //image
+        int mScreenWidth = App.getInstance().getScreenWidth();
+        ivProduct.getLayoutParams().height = mScreenWidth/2;
+        ivProduct.getLayoutParams().width = mScreenWidth/3;
+        ImageUtil.display(ivProduct, mProduct.getImagePath());
+
+        tvBrand.setText(mProduct.getBrandName());
+        tvProductName.setText(mProduct.getName());
+
+        //tvSalePrice : 세일하기 전 가격
+        //tvPrice : 판매가격
+        if(mProduct.isSale()) {
+            tvSalePrice.setText(mProduct.getPrice() + "원");
+            tvPrice.setText(mProduct.getSalePrice() + "원");
+            //오른쪽 정렬
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tvPrice.getLayoutParams();
+            params.addRule(RelativeLayout.ALIGN_RIGHT, R.id.tvSalePrice);
+            tvPrice.setLayoutParams(params);
+        } else {
+            tvPrice.setText(mProduct.getPrice() + "원");
+        }
+
+        return view;
+    }
+
+    //회색 구분선
+    private View getDivider() {
+        View view = new View(this);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.height = 1;
+        view.setLayoutParams(params);
+        view.setBackgroundColor(ContextCompat.getColor(mContext, R.color.white_gray));
+
+        return view;
+    }
+
+    //!추가상품 구성하기
 }
