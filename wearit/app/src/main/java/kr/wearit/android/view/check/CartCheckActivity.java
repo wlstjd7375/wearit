@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ import kr.wearit.android.Const;
 import kr.wearit.android.R;
 import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.OrderApi;
+import kr.wearit.android.model.CardPay;
 import kr.wearit.android.model.Coupon;
 import kr.wearit.android.model.DeliverInfo;
 import kr.wearit.android.model.Order;
@@ -270,6 +272,34 @@ public class CartCheckActivity extends CheckBaseActivity {
                                 intent.putExtra("order", data);
                                 startActivity(intent);
                                 finish();
+                            }
+
+                            if (paytype.equals("card") || paytype.equals("phone")) {
+                                CardPay cardPay = new CardPay();
+                                cardPay.setOrdernum(data.getKey());
+                                cardPay.setPaytype(paytype);
+                                if(data.getProductCount() == 1) {
+                                    try{
+                                        cardPay.setProductname(new String(data.getProducts().get(0).getName().getBytes(),"euc-kr"));
+                                    }
+                                    catch (UnsupportedEncodingException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                else {
+                                    try {
+                                        byte[] name = (data.getProducts().get(0).getName() + " 외 " + String.valueOf(data.getProducts().size() - 1) + "개").getBytes("EUC-KR");
+                                        String productsName = new String(name,"EUC-KR");
+//                                        String productsName = new String((mItemlist.get(0).getName() + " 외 " + String.valueOf(mItemlist.size() - 1) + "개").getBytes(), "euc-kr");
+                                        cardPay.setProductname(productsName);
+                                    }
+                                    catch (UnsupportedEncodingException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                cardPay.setUser(App.getInstance().getUser().getKey());
+
+                                CardPaymentActivity.launch(getActivity(), cardPay, cardPay.getOrdernum(), order.getOrdertype());
                             }
                         }
                     }

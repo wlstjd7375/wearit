@@ -1,5 +1,7 @@
 package kr.wearit.android.view.check;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import java.util.List;
 import kr.wearit.android.R;
 import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.OrderApi;
+import kr.wearit.android.model.CardPay;
 import kr.wearit.android.model.Coupon;
 import kr.wearit.android.model.DeliverInfo;
 import kr.wearit.android.model.Order;
@@ -33,6 +36,17 @@ import kr.wearit.android.view.OrderInfoActivity;
 
 public class OrderCompleteActivity extends BaseActivity {
 
+    public static void launch(final Activity activity, final int order) {
+        OrderApi.get(order, new Api.OnAuthDefaultListener<Order>() {
+            @Override
+            public void onSuccess(Order data) {
+                Intent intent = new Intent(activity, CardPaymentActivity.class);
+                intent.putExtra("order", order);
+
+                activity.startActivity(intent);
+            }
+        });
+    }
     private ArrayList<OrderProduct> productList;
     private ArrayList<DeliverInfo> deliverList;
 

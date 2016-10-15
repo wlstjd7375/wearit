@@ -19,7 +19,7 @@ public class Config {
     public static final String YOUTUBE = "AIzaSyChYYXGJGd001Is5sR-mBnnyfwma8wefmo";//"AIzaSyCiMYN9NfPJnSoC1xQP-ldP-xxniymiDuk";
     //
 
-    private static final String SITE_PRD = "http://api.stylemap.kr:8080";//"http://192.168.25.28:8080";//"http://api.stylemap.kr:8080";//"http://api.stylemap.kr:8080";//"http://121.130.206.3:8080";//"http://121.130.206.3:8080";/"http://api.stylemap.kr:8080";
+    private static final String SITE_PRD = "http://211.49.139.155:8080";//"http://192.168.25.28:8080";//"http://api.stylemap.kr:8080";//"http://api.stylemap.kr:8080";//"http://121.130.206.3:8080";//"http://121.130.206.3:8080";/"http://api.stylemap.kr:8080";
     //private static final String SITE_PRD = "http://211.49.139.155:8080";
 
     @Deprecated

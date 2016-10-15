@@ -9,7 +9,9 @@ import android.os.Parcelable;
 
 public class CardPay implements Parcelable {
 
-    private String userid;
+    private int userid;
+
+    private String paytype;
     private String price;
     private int ordernum;
     private String productname;
@@ -21,11 +23,19 @@ public class CardPay implements Parcelable {
 
     public void setOrdernum(int ordernum) { this.ordernum = ordernum; }
 
-    public String getUser() {
+    public String getPaytype() {
+        return paytype;
+    }
+
+    public void setPaytype(String paytype) {
+        this.paytype = paytype;
+    }
+
+    public int getUser() {
         return userid;
     }
 
-    public void setUser(String userid) {
+    public void setUser(int userid) {
         this.userid = userid;
     }
 
@@ -56,14 +66,16 @@ public class CardPay implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(ordernum);
-        dest.writeString(userid);
+        dest.writeInt(userid);
+        dest.writeString(paytype);
         dest.writeString(price);
         dest.writeString(productname);
     }
 
     private CardPay(Parcel in) {
         ordernum = in.readInt();
-        userid = in.readString();
+        userid = in.readInt();
+        paytype = in.readString();
         price = in.readString();
         productname = in.readString();
     }
