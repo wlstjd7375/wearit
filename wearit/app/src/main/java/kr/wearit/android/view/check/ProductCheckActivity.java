@@ -159,7 +159,7 @@ public class ProductCheckActivity extends CheckBaseActivity {
                 order.setRequest(etRequire.getText().toString());
 
                 String orderPrice = ((TextView) findViewById(R.id.tv_total_price)).getText().toString();
-                order.setPrice(getPrice(orderPrice.substring(0, orderPrice.length() - 2)));
+                order.setPrice(getPrice(orderPrice.substring(0, orderPrice.length() - 1)));
 
                 if(coupon != -1) {
                     order.setCoupon(new Integer(coupon));
@@ -180,7 +180,7 @@ public class ProductCheckActivity extends CheckBaseActivity {
                         if(data != null) {
                             if(paytype.equals("account") || paytype.equals("later")){
                                 Intent intent = new Intent(ProductCheckActivity.this, OrderCompleteActivity.class);
-                                intent.putExtra("order",data);
+                                intent.putExtra("order",data.getKey());
                                 startActivity(intent);
                                 finish();
                             }

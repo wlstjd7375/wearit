@@ -264,7 +264,7 @@ public class CartCheckActivity extends CheckBaseActivity {
                         if(data != null) {
                             if (paytype.equals("account") || paytype.equals("later")) {
                                 Intent intent = new Intent(CartCheckActivity.this, OrderCompleteActivity.class);
-                                intent.putExtra("order", data);
+                                intent.putExtra("order", data.getKey());
                                 startActivity(intent);
                                 finish();
                             }

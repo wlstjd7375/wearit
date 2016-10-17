@@ -81,7 +81,7 @@ public class CardPaymentActivity extends BaseActivity {
         orderType = getIntent().getStringExtra(ARG_TYPE);
 
         String url = Config.getBase() + "/payment/card";
-        String data = "order=" + cardPay.getOrdernum() + "&paytype=" + cardPay.getPaytype() + "&price=" + cardPay.getPrice() + "&productname=" + cardPay    .getProductname() + "&userid=" + cardPay.getUser();
+        String data = "order=" + cardPay.getOrdernum() + "&paytype=" + cardPay.getPaytype() + "&price=" + cardPay.getPrice() + "&productname=" + cardPay.getProductname() + "&userid=" + cardPay.getUser();
 
         System.out.println(url);
         System.out.println(data);
@@ -114,14 +114,14 @@ public class CardPaymentActivity extends BaseActivity {
                     });
                     return true;
                 }
-                if(url.contains("https://service.iamport.kr/payments/success?success=true")){
-                    Intent intent = new Intent(getActivity(),OrderCompleteActivity.class);
-                    intent.putExtra("order",cardPay.getOrdernum());
-                    startActivity(intent);
-                    backActivity.finish();
-                    finish();
-                    return true;
-                }
+//                if(url.contains("https://service.iamport.kr/payments/success?success=true")){
+//                    Intent intent = new Intent(getActivity(),OrderCompleteActivity.class);
+//                    intent.putExtra("order",cardPay.getOrdernum());
+//                    startActivity(intent);
+//                    backActivity.finish();
+//                    finish();
+//                    return true;
+//                }
                 if (!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript:")) {
                     Intent intent = null;
 
@@ -261,14 +261,17 @@ public class CardPaymentActivity extends BaseActivity {
             @Override
             public void onStart() {
             }
+
             @Override
             public void onSuccess(Void data) {
                 finish();
             }
+
             @Override
             public void onFail() {
             }
         });
+        super.onBackPressed();
     }
 
     private class AndroidBridge {
