@@ -30,6 +30,8 @@ public class CardPaymentActivity extends BaseActivity {
     public static final String ARG_ORDER = "order";
     public static final String ARG_TYPE = "ordertype";
 
+    private static final String APP_SCHEME = "wearit";
+
     private static Activity backActivity;
 
     public static void launch(Activity activity, CardPay cardPay, int order, String orderType) {
@@ -146,7 +148,16 @@ public class CardPaymentActivity extends BaseActivity {
             super.onBackPressed();
         }
     }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        String url = intent.toString();
 
+        if ( url.startsWith(APP_SCHEME) ) {
+            // "iamportapp://https://pgcompany.com/foo/bar"와 같은 형태로 들어옴
+            String redirectURL = url.substring(APP_SCHEME.length() + "://".length());
+            wvCard.loadUrl(redirectURL);
+        }
+    }
     public void success(){
         OrderCompleteActivity.launch(getActivity(), order);
         backActivity.finish();

@@ -247,7 +247,7 @@ public class CartCheckActivity extends CheckBaseActivity {
                 order.setPaytype(paytype);
                 order.setRequest(etRequire.getText().toString());
                 String totalPrice = ((TextView) footer.findViewById(R.id.tv_total_price)).getText().toString();
-                order.setPrice(getPrice(totalPrice.substring(0,totalPrice.length()-2)));
+                order.setPrice(getPrice(totalPrice.substring(0,totalPrice.length()-1)));
                 if(coupon != -1) {
                     order.setCouponprice(couponPrice);
                     order.setCoupon(coupon);
@@ -278,7 +278,7 @@ public class CartCheckActivity extends CheckBaseActivity {
                                 CardPay cardPay = new CardPay();
                                 cardPay.setOrdernum(data.getKey());
                                 cardPay.setPaytype(paytype);
-                                if(data.getProductCount() == 1) {
+                                if(data.getProducts().size() < 2) {
                                     try{
                                         cardPay.setProductname(new String(data.getProducts().get(0).getName().getBytes(),"euc-kr"));
                                     }

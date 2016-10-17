@@ -45,7 +45,6 @@
         <activity android:name=".view.MoreActivity" />
         <activity android:name=".view.product.ProductActivity" />
         <activity android:name=".view.news.NewsActivity" />
-        <activity android:name=".view.check.CheckActivity" />
         <activity
             android:name=".view.account.MyInfoActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -65,7 +64,14 @@
         <activity android:name=".view.OrderInfoActivity" />
         <activity android:name=".view.check.AddOptionActivity" />
         <activity android:name=".view.check.OrderCompleteActivity" />
-        <activity android:name=".view.check.CardPaymentActivity"></activity>
+        <activity android:name=".view.check.CardPaymentActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="wearit" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
