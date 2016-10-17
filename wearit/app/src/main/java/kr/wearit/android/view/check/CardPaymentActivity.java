@@ -2,14 +2,19 @@ package kr.wearit.android.view.check;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.JavascriptInterface;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -33,6 +38,15 @@ public class CardPaymentActivity extends BaseActivity {
     private static final String APP_SCHEME = "wearit";
 
     private static Activity backActivity;
+
+    public final static String ISP = "ispmobile";
+    public final static String BANKPAY = "kftc-bankpay";
+    public final static String HYUNDAI_APPCARD = "hdcardappcardansimclick"; //intent:hdcardappcardansimclick://appcard?acctid=201605092050048514902797477441#Intent;package=com.hyundaicard.appcard;end;
+    public final static String KB_APPCARD = "kb-acp"; //intent://pay?srCode=5681318&kb-acp://#Intent;scheme=kb-acp;package=com.kbcard.cxh.appcard;end;
+
+
+    public final static String PACKAGE_ISP = "kvp.jjy.MispAndroid320";
+    public final static String PACKAGE_BANKPAY = "com.kftc.bankpay.android";
 
     public static void launch(Activity activity, CardPay cardPay, int order, String orderType) {
         backActivity = activity;
@@ -81,6 +95,33 @@ public class CardPaymentActivity extends BaseActivity {
         wvCard.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                System.out.println("Current Url : " + url);
+                if(url.contains("https://service.iamport.kr/payments/fail?success=false")){
+                    Toast.makeText(getActivity(), "결제가 취소되었습니다.", Toast.LENGTH_SHORT).show();
+                    OrderApi.remove(order, new Api.OnAuthListener<Void>() {
+                        @Override
+                        public void onStart() {
+                        }
+
+                        @Override
+                        public void onSuccess(Void data) {
+                            finish();
+                        }
+
+                        @Override
+                        public void onFail() {
+                        }
+                    });
+                    return true;
+                }
+                if(url.contains("https://service.iamport.kr/payments/success?success=true")){
+                    Intent intent = new Intent(getActivity(),OrderCompleteActivity.class);
+                    intent.putExtra("order",cardPay.getOrdernum());
+                    startActivity(intent);
+                    backActivity.finish();
+                    finish();
+                    return true;
+                }
                 if (!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("javascript:")) {
                     Intent intent = null;
 
@@ -107,8 +148,55 @@ public class CardPaymentActivity extends BaseActivity {
 
                 return false;
             }
-        });
 
+            @Override
+            public void onPageFinished(WebView view, String url){
+                super.onPageFinished(view,url);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error){
+                System.out.println("Webview error : " + error.toString());
+                super.onReceivedError(view, request, error);
+                Toast.makeText(getActivity(), "결제가 취소되었습니다.", Toast.LENGTH_SHORT).show();
+                OrderApi.remove(order, new Api.OnAuthListener<Void>() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSuccess(Void data) {
+                        finish();
+                    }
+
+                    @Override
+                    public void onFail() {
+                    }
+                });
+            }
+
+            /**
+             * @param scheme
+             * @return 해당 scheme에 대해 처리를 직접 하는지 여부
+             *
+             * 결제를 위한 3rd-party 앱이 아직 설치되어있지 않아 ActivityNotFoundException이 발생하는 경우 처리합니다.
+             * 여기서 handler되지않은 scheme에 대해서는 intent로부터 Package정보 추출이 가능하다면 다음에서 packageName으로 market이동합니다.
+             *
+             */
+            protected boolean handleNotFoundPaymentScheme(String scheme) {
+                //PG사에서 호출하는 url에 package정보가 없어 ActivityNotFoundException이 난 후 market 실행이 안되는 경우
+                if ( ISP.equalsIgnoreCase(scheme) ) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + PACKAGE_ISP)));
+                    return true;
+                } else if ( BANKPAY.equalsIgnoreCase(scheme) ) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + PACKAGE_BANKPAY)));
+                    return true;
+                }
+
+                return false;
+            }
+
+        });
 //    @Override
 //    public boolean onKeyDown(int keyCode, KeyEvent event){
 //        if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
@@ -158,8 +246,11 @@ public class CardPaymentActivity extends BaseActivity {
             wvCard.loadUrl(redirectURL);
         }
     }
+
     public void success(){
-        OrderCompleteActivity.launch(getActivity(), order);
+        Intent intent = new Intent(getActivity(),OrderCompleteActivity.class);
+        intent.putExtra("order",cardPay.getOrdernum());
+        startActivity(intent);
         backActivity.finish();
         finish();
     }

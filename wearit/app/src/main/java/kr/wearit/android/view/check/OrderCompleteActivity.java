@@ -36,17 +36,6 @@ import kr.wearit.android.view.OrderInfoActivity;
 
 public class OrderCompleteActivity extends BaseActivity {
 
-    public static void launch(final Activity activity, final int order) {
-        OrderApi.get(order, new Api.OnAuthDefaultListener<Order>() {
-            @Override
-            public void onSuccess(Order data) {
-                Intent intent = new Intent(activity, CardPaymentActivity.class);
-                intent.putExtra("order", order);
-
-                activity.startActivity(intent);
-            }
-        });
-    }
     private ArrayList<OrderProduct> productList;
     private ArrayList<DeliverInfo> deliverList;
 
@@ -61,7 +50,7 @@ public class OrderCompleteActivity extends BaseActivity {
     private String orderType;
 
     private Order order;
-
+    private int orderKey;
 
     private int totalCheck;
     private int totalDeliverPrice;
@@ -80,13 +69,20 @@ public class OrderCompleteActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        order = getIntent().getParcelableExtra("order");
+        orderKey = getIntent().getIntExtra("order",-1);
 
         setContentView(R.layout.activity_order_complete);
-        if(order != null ) {
-            productList = order.getProducts();
-            makeBrandCart();
-            initialize();
+        if(orderKey != -1 ) {
+            OrderApi.get(orderKey, new Api.OnAuthDefaultListener<Order>(){
+                @Override
+                public void onSuccess(Order data){
+                    order = data;
+                    productList = order.getProducts();
+                    makeBrandCart();
+                    initialize();
+                }
+            });
+
         }
     }
 
