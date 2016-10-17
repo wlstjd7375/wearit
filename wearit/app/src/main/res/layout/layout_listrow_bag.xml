@@ -35,7 +35,7 @@
             android:text="브랜드 당 20만원 이상 무료 배달"
             android:textSize="10sp"
             android:textColor="@color/gray"
-            android:includeFontPadding="false"/>
+            android:includeFontPadding="false" />
 
         <TextView
             android:id="@+id/tvBrand"
@@ -47,7 +47,8 @@
             android:textSize="13sp"
             android:maxLines="1"
             android:ellipsize="end"
-            android:includeFontPadding="false" />
+            android:includeFontPadding="false"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvProductName"
@@ -69,7 +70,8 @@
             android:layout_marginTop="43dp"
             android:textColor="@color/red"
             android:textSize="13sp"
-            android:includeFontPadding="false" />
+            android:includeFontPadding="false"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
@@ -78,7 +80,8 @@
             android:layout_marginTop="3dp"
             android:textColor="@color/black"
             android:textSize="13sp"
-            android:includeFontPadding="false" />
+            android:includeFontPadding="false"
+            android:textStyle="bold"/>
 
         <!-- size, item count -->
         <LinearLayout
@@ -100,7 +103,8 @@
                     android:gravity="left"
                     android:textColor="@color/black"
                     android:textSize="13sp"
-                    android:includeFontPadding="false"/>
+                    android:includeFontPadding="false"
+                    android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/tvItemCount"
                     android:layout_width="match_parent"
@@ -109,7 +113,8 @@
                     android:gravity="center"
                     android:textColor="@color/black"
                     android:textSize="13sp"
-                    android:includeFontPadding="false"/>
+                    android:includeFontPadding="false"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <TextView

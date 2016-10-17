@@ -23,18 +23,20 @@
             android:id="@+id/btSignUp"
             android:layout_width="255dp"
             android:layout_height="56dp"
-            android:background="@color/white_gray"
+            android:background="@drawable/round_angle_e4e4e4"
             android:textColor="@color/black"
-            android:text="SIGN UP"/>
+            android:text="SIGN UP"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/btLogin"
             android:layout_width="255dp"
             android:layout_height="56dp"
             android:layout_marginTop="10dp"
-            android:background="@color/white_gray"
+            android:background="@drawable/round_angle_e4e4e4"
             android:textColor="@color/black"
-            android:text="LOGIN"/>
+            android:text="LOGIN"
+            android:textStyle="bold"/>
         
     </LinearLayout>
 
@@ -53,7 +55,8 @@
             android:paddingBottom="22dp"
             android:text="SETTING"
             android:textColor="@color/black"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <LinearLayout
@@ -70,7 +73,8 @@
             android:paddingBottom="22dp"
             android:text="CUSTOMER SERVICE"
             android:textColor="@color/black"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </LinearLayout>

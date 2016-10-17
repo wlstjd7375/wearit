@@ -41,6 +41,10 @@
         <item name="android:colorForeground">#42221f1f</item>
     </style>
 
+    <!-- Check box -->
+    <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/green</item>
+    </style>
 
     <!-- -->
     <style name="WaitTheme" parent="android:Theme.Holo.Dialog">

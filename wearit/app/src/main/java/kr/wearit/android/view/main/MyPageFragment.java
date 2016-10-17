@@ -62,13 +62,6 @@ public class MyPageFragment extends Fragment {
         for(int i=0; i < mypagetList.length; i++) {
             itemList.add(mypagetList[i]);
         }
-        /*
-        itemList.add(mypagetList[0]);
-        itemList.add(mypagetList[1]);
-        itemList.add(mypagetList[2]);
-        itemList.add(mypagetList[3]);
-        itemList.add(mypagetList[4]);
-        itemList.add(mypagetList[5]);*/
 
         mAdapter = new MyPageAdapter(mContext, itemList);
         lvMyPage.setAdapter(mAdapter);

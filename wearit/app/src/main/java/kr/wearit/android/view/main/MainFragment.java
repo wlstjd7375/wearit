@@ -5,9 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.text.SpannableString;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +36,7 @@ import kr.wearit.android.model.NewsPair;
 import kr.wearit.android.model.Pagination;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.util.TextUtil;
 import kr.wearit.android.view.MainActivity;
 import kr.wearit.android.view.MoreActivity;
 import kr.wearit.android.view.news.NewsActivity;
@@ -67,6 +72,8 @@ public class MainFragment extends Fragment {
     private TextView tvMoreBest;
     private TextView tvMoreNew;
     private TextView tvMoreSale;
+
+    private int HORIZONTAL_MAX_COUNT = 6;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -196,9 +203,16 @@ public class MainFragment extends Fragment {
                 break;
         }
 
+        int cnt = llHorizontalView.getChildCount();
+        if(cnt >= HORIZONTAL_MAX_COUNT) {
+            return;
+        } else if(cnt != 0 && cnt < HORIZONTAL_MAX_COUNT) {
+            llHorizontalView.removeAllViews();
+        }
+
         int i = 0;
         for(final Product product : mProductList) {
-            if(i++ > 5) {
+            if(i++ > HORIZONTAL_MAX_COUNT-1) {
                 break;
             }
             try {
@@ -215,11 +229,16 @@ public class MainFragment extends Fragment {
                 tvBrand.setText(product.getBrandName());
                 tvName.setText(product.getName());
 
-                tvPrice1.setText(product.getPrice() + "");
+                tvPrice1.setText(TextUtil.formatPriceSymbol(product.getPrice()));
                 if(product.isSale()) {
-                    //TODO 빨간줄
-                    tvPrice1.setTextColor(Color.parseColor("#e33131"));
-                    tvPrice2.setText(product.getSalePrice() + "");
+                    //빨간줄
+                    tvPrice1.setTextColor(ContextCompat.getColor(mContext, R.color.red));
+                    //tvPrice1.setPaintFlags(tvPrice1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    SpannableString content = new SpannableString(TextUtil.formatPriceSymbol(product.getPrice()));
+                    content.setSpan(new StrikethroughSpan(), 0, content.length(), 0);
+                    tvPrice1.setText(content);
+
+                    tvPrice2.setText(TextUtil.formatPriceSymbol(product.getSalePrice()));
                 }
                 llProductItem.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -92,6 +92,7 @@ public class OrderListAdapter extends ArrayAdapter<Order> {
         ImageUtil.display(viewHolder.ivProduct, item.getImagePath());
 
         //date
+        /*
         if(item.getProductCount() > 1 ){
             String date = new SimpleDateFormat("yyyy.M.d").format(item.getDate());
             date += " 외 " + String.valueOf(item.getProductCount()-1) + "건";
@@ -99,11 +100,23 @@ public class OrderListAdapter extends ArrayAdapter<Order> {
         } else{
             String date = new SimpleDateFormat("yyyy.M.d").format(item.getDate());
             viewHolder.tvOrderDate.setText(date);
-        }
+        }*/
+        String date = new SimpleDateFormat("yyyy.M.d").format(item.getDate());
+        viewHolder.tvOrderDate.setText(date);
 
         //brand, name TODO 브랜드 이름
         viewHolder.tvBrand.setText(item.getBrand());
-        viewHolder.tvProductName.setText(item.getName());
+
+        //외 몇건
+        if(item.getProductCount() > 1 ){
+            String name = item.getName();
+            name += " 외 " + String.valueOf(item.getProductCount()-1) + "개";
+            viewHolder.tvProductName.setText(name);
+        } else{
+            String name = item.getName();
+            viewHolder.tvProductName.setText(name);
+        }
+        //viewHolder.tvProductName.setText(item.getName());
 
         viewHolder.tvPrice.setText(Util.formatWon(item.getPrice()) + "원");
         viewHolder.tvOrderStatus.setText(OrderStatusUtil.getStatus(item.getStatus()));

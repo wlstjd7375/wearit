@@ -31,7 +31,8 @@
                 android:textColorHint="@color/edittext_hint_color"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/edittext_color"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress"
+                android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/etPassword"
@@ -45,7 +46,8 @@
                 android:textColorHint="@color/edittext_hint_color"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/edittext_color"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:textStyle="bold"/>
 
             <EditText
                 android:id="@+id/etPasswordConfirm"
@@ -59,7 +61,8 @@
                 android:textColorHint="@color/edittext_hint_color"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/edittext_color"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,7 +81,8 @@
                     android:textColorHint="@color/edittext_hint_color"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/edittext_color"
-                    android:inputType="textNoSuggestions"/>
+                    android:inputType="textNoSuggestions"
+                    android:textStyle="bold"/>
 
                 <EditText
                     android:id="@+id/etBirthday"
@@ -91,7 +95,8 @@
                     android:textColorHint="@color/edittext_hint_color"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/edittext_color"
-                    android:inputType="number"/>
+                    android:inputType="number"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <LinearLayout
@@ -111,7 +116,8 @@
                     android:textColorHint="@color/edittext_hint_color"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/edittext_color"
-                    android:inputType="phone"/>
+                    android:inputType="phone"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:id="@+id/btSendSMS"
@@ -119,9 +125,10 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="2"
-                    android:background="@color/signup_button_color"
+                    android:background="@drawable/round_angle_c2c2c2"
                     android:text="문자인증"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <LinearLayout
@@ -141,7 +148,8 @@
                     android:textColorHint="@color/edittext_hint_color"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/edittext_color"
-                    android:inputType="textNoSuggestions"/>
+                    android:inputType="number"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:id="@+id/btCertification"
@@ -149,9 +157,10 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="2"
-                    android:background="@color/signup_button_color"
+                    android:background="@drawable/round_angle_c2c2c2"
                     android:text="인증확인"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <LinearLayout
@@ -171,7 +180,8 @@
                     android:textColorHint="@color/edittext_hint_color"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/edittext_color"
-                    android:inputType="textNoSuggestions"/>
+                    android:inputType="textNoSuggestions"
+                    android:textStyle="bold"/>
 
                 <Button
                     android:id="@+id/btFindAddress"
@@ -179,9 +189,10 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="2"
-                    android:background="@color/signup_button_color"
+                    android:background="@drawable/round_angle_c2c2c2"
                     android:text="주소찾기"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <EditText
@@ -196,7 +207,8 @@
                 android:textColorHint="@color/edittext_hint_color"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/edittext_color"
-                android:inputType="textNoSuggestions"/>
+                android:inputType="textNoSuggestions"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -205,7 +217,8 @@
                 android:layout_marginLeft="40dp"
                 android:text="선택사항"
                 android:textSize="13sp"
-                android:textColor="@color/edittext_hint_color"/>
+                android:textColor="@color/edittext_hint_color"
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -225,7 +238,8 @@
                     android:textColorHint="@color/edittext_hint_color"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/edittext_color"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal"
+                    android:textStyle="bold"/>
 
                 <EditText
                     android:id="@+id/etWeight"
@@ -238,7 +252,8 @@
                     android:textColorHint="@color/edittext_hint_color"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/edittext_color"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <TextView
@@ -259,10 +274,11 @@
                 android:layout_marginLeft="52dp"
                 android:layout_marginRight="52dp"
                 android:layout_marginBottom="54dp"
-                android:background="@color/white_gray"
+                android:background="@drawable/round_angle_e4e4e4"
                 android:text="SIGN UP"
                 android:textColor="@color/black"
-                android:textSize="13sp"/>
+                android:textSize="13sp"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 

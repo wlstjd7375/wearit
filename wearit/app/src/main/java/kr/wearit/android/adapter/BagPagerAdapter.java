@@ -2,7 +2,11 @@ package kr.wearit.android.adapter;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
+import android.text.SpannableString;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +19,7 @@ import kr.wearit.android.App;
 import kr.wearit.android.R;
 import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.util.TextUtil;
 import kr.wearit.android.view.main.BagFragment;
 
 /**
@@ -67,18 +72,25 @@ public class BagPagerAdapter extends PagerAdapter {
 
             tvBrand.setText(mProductCart.getBrandname());
             tvProductName.setText(mProductCart.getName());
-            //tvSalePrice : 세일하기 전 가격
-            //tvPrice : 판매가격
-            if(mProductCart.isSale()) {
-                tvSalePrice.setText(mProductCart.getPrice() + "원");
-                tvPrice.setText(mProductCart.getSale_price() + "원");
-                //오른쪽 정렬
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tvPrice.getLayoutParams();
-                params.addRule(RelativeLayout.ALIGN_RIGHT, R.id.tvSalePrice);
-                tvPrice.setLayoutParams(params);
-            }
-            else {
-                tvPrice.setText(mProductCart.getPrice() + "원");
+
+            if(!mProductCart.isStock()) {
+                if(mProductCart.isSale()) {
+                    SpannableString content = new SpannableString(TextUtil.formatPriceWon(mProductCart.getPrice()));
+                    content.setSpan(new StrikethroughSpan(), 0, content.length(), 0);
+                    tvSalePrice.setText(content);
+                    tvPrice.setText(TextUtil.formatPriceWon(mProductCart.getSale_price()));
+                    //오른쪽 정렬
+                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tvPrice.getLayoutParams();
+                    params.addRule(RelativeLayout.ALIGN_RIGHT, R.id.tvSalePrice);
+                    tvPrice.setLayoutParams(params);
+                }
+                else {
+                    tvPrice.setText(TextUtil.formatPriceWon(mProductCart.getPrice()));
+                }
+            } else {
+                //재고 없으면
+                tvPrice.setText("OUT OF STOCK");
+                tvPrice.setTextColor(Color.parseColor("#e33131"));
             }
 
             tvSize.setText("SIZE: " + mProductCart.getSize());
