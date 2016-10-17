@@ -13,14 +13,16 @@
         android:gravity="center"
         android:text="상품이 없습니다."
         android:textColor="@color/gray"
-        android:textSize="13sp" />
+        android:textSize="13sp"
+        android:textStyle="bold"/>
     <Button
         android:id="@+id/btGoShopping"
         android:layout_width="150dp"
         android:layout_height="56dp"
         android:layout_centerInParent="true"
-        android:background="@color/green"
+        android:background="@drawable/round_angle_009688"
         android:text="쇼핑하러가기"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
 
 </RelativeLayout>

@@ -4,7 +4,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.text.SpannableString;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -32,6 +36,7 @@ import kr.wearit.android.controller.ProductApi;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.model.ProductSize;
 import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.util.TextUtil;
 import kr.wearit.android.util.Util;
 
 import kr.wearit.android.view.BaseActivity;
@@ -171,17 +176,30 @@ public class ProductActivity extends BaseActivity {
             }
         });
 
-        if (mItem.isSale()) {
-            salePrice.setVisibility(View.VISIBLE);
-            salePrice.setText(Util.formatWon(mItem.getSalePrice()));
+        if(mItem.hasStock()) {
+            if (mItem.isSale()) {
+                salePrice.setVisibility(View.VISIBLE);
+                //salePrice.setText(TextUtil.formatPriceWon(mItem.getSalePrice()));
+                //salePrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                SpannableString content = new SpannableString(TextUtil.formatPriceWon(mItem.getPrice()));
+                content.setSpan(new StrikethroughSpan(), 0, content.length(), 0);
+                salePrice.setText(content);
 
-            price.setVisibility(View.VISIBLE);
-            price.setText(Util.formatWon(mItem.getPrice()) + "원");
+                price.setVisibility(View.VISIBLE);
+                price.setText(TextUtil.formatPriceWon(mItem.getSalePrice()));
+            } else {
+                price.setVisibility(View.GONE);
+
+                salePrice.setVisibility(View.VISIBLE);
+                salePrice.setText(TextUtil.formatPriceWon(mItem.getPrice()));
+                salePrice.setTextColor(ContextCompat.getColor(this, R.color.black));
+            }
         } else {
             price.setVisibility(View.GONE);
 
             salePrice.setVisibility(View.VISIBLE);
-            salePrice.setText(Util.formatWon(mItem.getPrice()) + "원");
+            salePrice.setText("SOLD OUT");
+            salePrice.setTextColor(ContextCompat.getColor(this, R.color.gray));
         }
 
 
@@ -377,7 +395,6 @@ public class ProductActivity extends BaseActivity {
                         dismiss();
                     }
                     else {
-                        //TODO 로그인 해주세요.
                         Intent intent = new Intent(ProductActivity.this, LoginActivity.class);
                         startActivity(intent);
                     }
@@ -387,14 +404,21 @@ public class ProductActivity extends BaseActivity {
             ((TextView) findViewById(R.id.tv_later_order)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(ProductActivity.this, ProductCheckActivity.class);
-                    intent.putExtra("product", mItem);
-                    intent.putExtra("size", selSize);
-                    intent.putExtra("count", count);
-                    intent.putExtra("deliver", calculDeliverPrice());
-                    intent.putExtra("ordertype", "reservation");
-                    startActivity(intent);
-                    dismiss();
+                    if(App.getInstance().isLogin()) {
+                        Intent intent = new Intent(ProductActivity.this, ProductCheckActivity.class);
+                        intent.putExtra("product", mItem);
+                        intent.putExtra("size", selSize);
+                        intent.putExtra("count", count);
+                        intent.putExtra("deliver", calculDeliverPrice());
+                        intent.putExtra("ordertype", "reservation");
+                        startActivity(intent);
+                        dismiss();
+                    }
+                    else {
+                        Intent intent = new Intent(ProductActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
+
                 }
             });
         }

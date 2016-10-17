@@ -37,7 +37,8 @@
                 android:textSize="13sp"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:includeFontPadding="false" />
+                android:includeFontPadding="false"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvBrand"
@@ -49,7 +50,8 @@
                 android:textSize="13sp"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:includeFontPadding="false" />
+                android:includeFontPadding="false"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvProductName"
@@ -71,7 +73,8 @@
                 android:layout_marginTop="19dp"
                 android:textColor="@color/black"
                 android:textSize="13sp"
-                android:includeFontPadding="false" />
+                android:includeFontPadding="false"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvOrderStatus"
@@ -82,7 +85,8 @@
                 android:text=""
                 android:textSize="13sp"
                 android:textColor="@color/red"
-                android:includeFontPadding="false"/>
+                android:includeFontPadding="false"
+                android:textStyle="bold"/>
         </RelativeLayout>
     </RelativeLayout>
 

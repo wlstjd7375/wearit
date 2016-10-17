@@ -3,6 +3,9 @@ package kr.wearit.android.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.text.SpannableString;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import kr.wearit.android.R;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.util.TextUtil;
 import kr.wearit.android.view.product.ProductActivity;
 
 /**
@@ -84,10 +88,9 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         if((idx+1) < mDataList.size() ) {
             viewHolder.llProductRight.removeAllViews();
             viewHolder.llProductRight.addView(getProductLayout(idx+1));
-            viewHolder.llProductLeft.setOnClickListener(new View.OnClickListener() {
+            viewHolder.llProductRight.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(TAG, "sibal = " + (idx+1));
                     Intent intent = new Intent(getContext(), ProductActivity.class);
                     intent.putExtra("key",getItem(idx+1).getKey());
                     getContext().startActivity(intent);
@@ -100,7 +103,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
             viewHolder.llProductRight.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //
+
                 }
             });
         }
@@ -124,21 +127,39 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         TextView tvProductBrand = (TextView) itemLayout.findViewById(R.id.tvProductBrand);
         TextView tvProductName = (TextView) itemLayout.findViewById(R.id.tvProductName);
         TextView tvProductPriceFinal = (TextView) itemLayout.findViewById(R.id.tvProductPriceFinal);
+        TextView tvProductSalePrice = (TextView) itemLayout.findViewById(R.id.tvProductSalePrice);
+        TextView tvArrow = (TextView) itemLayout.findViewById(R.id.tvArrow);
 
         // 1 x 1
         llProduct.getLayoutParams().height = mScreenWidth/2;
         llProduct.requestLayout();
 
         // set values
-        final Product productLeft = getItem(idx);
-        ImageUtil.display(ivProduct, productLeft.getImagePath());
+        final Product product = getItem(idx);
+        ImageUtil.display(ivProduct, product.getImagePath());
 
-        tvProductBrand.setText(productLeft.getBrandName());
-        tvProductName.setText(productLeft.getName());
-        tvProductPriceFinal.setText(productLeft.getPrice() + "");
+        tvProductBrand.setText(product.getBrandName());
+        tvProductName.setText(product.getName());
 
-        //TODO sale price
+        if(product.hasStock()) {
+            //TODO sale price
+            if(product.isSale()) {
+                //tvProductSalePrice.setText(TextUtil.formatPriceWon(product.getSalePrice()));
+                //tvProductSalePrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                tvProductSalePrice.setVisibility(View.VISIBLE);
+                SpannableString content = new SpannableString(TextUtil.formatPriceWon(product.getPrice()));
+                content.setSpan(new StrikethroughSpan(), 0, content.length(), 0);
+                tvProductSalePrice.setText(content);
 
+                tvArrow.setVisibility(View.VISIBLE);
+
+                tvProductPriceFinal.setText(TextUtil.formatPriceWon(product.getSalePrice()));
+            } else {
+                tvProductPriceFinal.setText(TextUtil.formatPriceWon(product.getPrice()));
+            }
+        } else {
+            tvProductPriceFinal.setText("SOLD OUT");
+        }
         return itemLayout;
     }
 }

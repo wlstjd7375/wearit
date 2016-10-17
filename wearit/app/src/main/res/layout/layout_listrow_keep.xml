@@ -35,7 +35,8 @@
             android:textSize="13sp"
             android:maxLines="1"
             android:ellipsize="end"
-            android:includeFontPadding="false" />
+            android:includeFontPadding="false"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvProductName"
@@ -57,7 +58,8 @@
             android:layout_marginTop="46dp"
             android:textColor="@color/red"
             android:textSize="13sp"
-            android:includeFontPadding="false" />
+            android:includeFontPadding="false"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
@@ -66,7 +68,8 @@
             android:layout_marginTop="3dp"
             android:textColor="@color/black"
             android:textSize="13sp"
-            android:includeFontPadding="false" />
+            android:includeFontPadding="false"
+            android:textStyle="bold"/>
 
         <!-- size, item count -->
         <TextView

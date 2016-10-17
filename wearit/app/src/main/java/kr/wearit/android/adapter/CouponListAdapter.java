@@ -19,6 +19,7 @@ import kr.wearit.android.controller.Api;
 import kr.wearit.android.controller.ProductApi;
 import kr.wearit.android.model.Coupon;
 import kr.wearit.android.model.Product;
+import kr.wearit.android.util.TextUtil;
 import kr.wearit.android.view.main.KeepFragment;
 
 /**
@@ -94,7 +95,7 @@ public class CouponListAdapter extends ArrayAdapter<Coupon> {
         int saleCost, saleRate;
         if(coupon.getSale_cost() != null) {
             saleCost = coupon.getSale_cost();
-            viewHolder.tvCouponSale.setText(saleCost + "원");
+            viewHolder.tvCouponSale.setText(TextUtil.formatPriceWon(saleCost));
             viewHolder.tvCouponSale.setTextColor(ContextCompat.getColor(mContext, R.color.red));
         }
         if(coupon.getSale_rate() != null) {

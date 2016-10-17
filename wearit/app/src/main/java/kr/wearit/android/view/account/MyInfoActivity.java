@@ -142,8 +142,7 @@ public class MyInfoActivity extends BaseActivity {
         etAddress.setText(user.getAddress1());
         etAddress.setEnabled(true);
 
-        btFindAddress.setBackgroundColor(ContextCompat.getColor(mContext, R.color.green));
-        btFindAddress.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+        btFindAddress.setVisibility(View.VISIBLE);
         btFindAddress.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,7 +162,7 @@ public class MyInfoActivity extends BaseActivity {
         etWeight.setText("");
         etWeight.setEnabled(true);
 
-        btModify.setBackgroundColor(ContextCompat.getColor(mContext, R.color.green));
+        btModify.setBackground(ContextCompat.getDrawable(mContext, R.drawable.round_angle_009688));
         btModify.setText("수정완료");
         btModify.setTextColor(ContextCompat.getColor(mContext, R.color.white));
     }

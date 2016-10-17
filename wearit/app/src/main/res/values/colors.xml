@@ -19,6 +19,7 @@
     <color name="red">#de2b2b</color>
     <color name="edittext_hint_color">#bfbfbf</color>
     <color name="edittext_color">#d8d8d8</color>
+    <color name="button_color">#e4e4e4</color>
     <color name="signup_button_color">#c2c2c2</color>
 
     <color name="setting_background">#fafafa</color>

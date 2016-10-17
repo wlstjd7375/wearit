@@ -2,6 +2,8 @@ package kr.wearit.android.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.text.SpannableString;
+import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import kr.wearit.android.App;
 import kr.wearit.android.R;
 import kr.wearit.android.model.Product;
 import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.util.TextUtil;
 
 /**
  * Created by KimJS on 2016-09-28.
@@ -62,17 +65,20 @@ public class KeepPagerAdapter extends PagerAdapter {
             tvBrand.setText(mProduct.getBrandName());
             tvProductName.setText(mProduct.getName());
 
-            //tvSalePrice : 세일하기 전 가격
-            //tvPrice : 판매가격
+
             if(mProduct.isSale()) {
-                tvSalePrice.setText(mProduct.getPrice() + "원");
-                tvPrice.setText(mProduct.getSalePrice() + "원");
+                SpannableString content = new SpannableString(TextUtil.formatPriceWon(mProduct.getPrice()));
+                content.setSpan(new StrikethroughSpan(), 0, content.length(), 0);
+                tvSalePrice.setText(content);
+
+                tvPrice.setText(TextUtil.formatPriceWon(mProduct.getSalePrice()));
+
                 //오른쪽 정렬
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tvPrice.getLayoutParams();
                 params.addRule(RelativeLayout.ALIGN_RIGHT, R.id.tvSalePrice);
                 tvPrice.setLayoutParams(params);
             } else {
-                tvPrice.setText(mProduct.getPrice() + "원");
+                tvPrice.setText(TextUtil.formatPriceWon(mProduct.getPrice()));
             }
         }
         else {

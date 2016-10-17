@@ -56,11 +56,12 @@
                 android:layout_width="255dp"
                 android:layout_height="56dp"
                 android:layout_marginTop="63dp"
-                android:background="@color/white_gray"
+                android:background="@drawable/round_angle_e4e4e4"
                 android:gravity="center"
                 android:text="LOGIN"
                 android:textColor="@color/black"
-                android:textSize="13sp"/>
+                android:textSize="13sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvFindPassword"
@@ -69,7 +70,8 @@
                 android:layout_marginTop="15dp"
                 android:text="FIND PASSWORD?"
                 android:textColor="@color/black"
-                android:textSize="13sp"/>
+                android:textSize="13sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvSignupToday"
@@ -79,7 +81,8 @@
                 android:layout_marginBottom="37dp"
                 android:text="SIGN UP TODAY."
                 android:textColor="@color/black"
-                android:textSize="13sp"/>
+                android:textSize="13sp"
+                android:textStyle="bold"/>
         </LinearLayout>
     </ScrollView>
 

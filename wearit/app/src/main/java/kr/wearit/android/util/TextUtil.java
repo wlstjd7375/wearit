@@ -6,7 +6,9 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Currency;
 import java.util.Date;
+import java.util.Locale;
 
 public class TextUtil {
 
@@ -14,8 +16,11 @@ public class TextUtil {
 		return new DecimalFormat("#,##0");
 	}
 
-	public static CharSequence formatPrice(int price) {
-		return createPriceFormat().format(price);
+	public static CharSequence formatPriceSymbol(int price) {
+		return createPriceFormat().format(price) + Currency.getInstance(Locale.KOREA).getSymbol();
+	}
+	public static CharSequence formatPriceWon(int price) {
+		return createPriceFormat().format(price) + "원";
 	}
 
 	@SuppressLint("SimpleDateFormat")

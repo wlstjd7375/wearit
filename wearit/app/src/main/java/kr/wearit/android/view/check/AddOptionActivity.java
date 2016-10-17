@@ -3,14 +3,13 @@ package kr.wearit.android.view.check;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.text.SpannableString;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -24,16 +23,13 @@ import java.util.HashSet;
 import kr.wearit.android.App;
 import kr.wearit.android.Const;
 import kr.wearit.android.R;
-import kr.wearit.android.adapter.AddOptionAdapter;
 import kr.wearit.android.controller.Api;
-import kr.wearit.android.controller.BrandApi;
 import kr.wearit.android.controller.ProductApi;
-import kr.wearit.android.model.Brand;
 import kr.wearit.android.model.Pagination;
 import kr.wearit.android.model.Product;
-import kr.wearit.android.model.ProductCart;
 import kr.wearit.android.ui.ScrollListener;
 import kr.wearit.android.util.ImageUtil;
+import kr.wearit.android.util.TextUtil;
 import kr.wearit.android.view.BaseActivity;
 
 public class AddOptionActivity extends BaseActivity {
@@ -167,6 +163,8 @@ public class AddOptionActivity extends BaseActivity {
             TextView tvProductBrandLeft;
             TextView tvProductNameLeft;
             TextView tvProductPriceFinalLeft;
+            TextView tvProductSalePriceLeft;
+            TextView tvArrowLeft;
 
             //Right
             LinearLayout itemLayoutRight;
@@ -176,6 +174,8 @@ public class AddOptionActivity extends BaseActivity {
             TextView tvProductBrandRight;
             TextView tvProductNameRight;
             TextView tvProductPriceFinalRight;
+            TextView tvProductSalePriceRight;
+            TextView tvArrowRight;
 
         }
 
@@ -209,6 +209,8 @@ public class AddOptionActivity extends BaseActivity {
                 viewHolder.tvProductBrandLeft = (TextView)view.findViewById(R.id.tvProductBrandLeft);
                 viewHolder.tvProductNameLeft = (TextView)view.findViewById(R.id.tvProductNameLeft);
                 viewHolder.tvProductPriceFinalLeft = (TextView)view.findViewById(R.id.tvProductPriceFinalLeft);
+                viewHolder.tvProductSalePriceLeft = (TextView)view.findViewById(R.id.tvProductSalePriceLeft);
+                viewHolder.tvArrowLeft = (TextView)view.findViewById(R.id.tvArrowLeft);
 
                 viewHolder.rlProductLeft.getLayoutParams().height = mScreenWidth/2;
                 viewHolder.rlProductLeft.requestLayout();
@@ -221,6 +223,8 @@ public class AddOptionActivity extends BaseActivity {
                 viewHolder.tvProductBrandRight = (TextView)view.findViewById(R.id.tvProductBrandRight);
                 viewHolder.tvProductNameRight = (TextView)view.findViewById(R.id.tvProductNameRight);
                 viewHolder.tvProductPriceFinalRight = (TextView)view.findViewById(R.id.tvProductPriceFinalRight);
+                viewHolder.tvProductSalePriceRight = (TextView)view.findViewById(R.id.tvProductSalePriceRight);
+                viewHolder.tvArrowRight = (TextView)view.findViewById(R.id.tvArrowRight);
 
                 viewHolder.rlProductRight.getLayoutParams().height = mScreenWidth/2;
                 viewHolder.rlProductRight.requestLayout();
@@ -246,8 +250,23 @@ public class AddOptionActivity extends BaseActivity {
 
             viewHolder.tvProductBrandLeft.setText(itemLeft.getBrandName());
             viewHolder.tvProductNameLeft.setText(itemLeft.getName());
-            viewHolder.tvProductPriceFinalLeft.setText(itemLeft.getPrice() + "");
 
+            //가격
+            if(itemLeft.hasStock()) {
+                viewHolder.tvProductPriceFinalLeft.setText(TextUtil.formatPriceWon(itemLeft.getPrice()));
+                //TODO sale price
+                if(itemLeft.isSale()) {
+                    viewHolder.tvProductSalePriceLeft.setVisibility(View.VISIBLE);
+                    SpannableString content = new SpannableString(TextUtil.formatPriceWon(itemLeft.getSalePrice()));
+                    content.setSpan(new StrikethroughSpan(), 0, content.length(), 0);
+                    viewHolder.tvProductSalePriceLeft.setText(content);
+
+                    viewHolder.tvArrowLeft.setVisibility(View.VISIBLE);
+                }
+            } else {
+                viewHolder.tvProductPriceFinalLeft.setText("SOLD OUT");
+            }
+            //!가격
 
             viewHolder.itemLayoutLeft.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -282,7 +301,23 @@ public class AddOptionActivity extends BaseActivity {
 
                 viewHolder.tvProductBrandRight.setText(itemRight.getBrandName());
                 viewHolder.tvProductNameRight.setText(itemRight.getName());
-                viewHolder.tvProductPriceFinalRight.setText(itemRight.getPrice() + "");
+
+                //가격
+                if(itemRight.hasStock()) {
+                    viewHolder.tvProductPriceFinalRight.setText(TextUtil.formatPriceWon(itemRight.getPrice()));
+                    //TODO sale price
+                    if(itemRight.isSale()) {
+                        viewHolder.tvProductSalePriceRight.setVisibility(View.VISIBLE);
+                        SpannableString content = new SpannableString(TextUtil.formatPriceWon(itemRight.getSalePrice()));
+                        content.setSpan(new StrikethroughSpan(), 0, content.length(), 0);
+                        viewHolder.tvProductSalePriceRight.setText(content);
+
+                        viewHolder.tvArrowRight.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    viewHolder.tvProductPriceFinalRight.setText("SOLD OUT");
+                }
+                //!가격
 
                 viewHolder.itemLayoutRight.setOnClickListener(new View.OnClickListener() {
                     @Override

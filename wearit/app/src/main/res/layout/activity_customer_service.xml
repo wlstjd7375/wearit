@@ -51,7 +51,8 @@
             android:layout_marginBottom="76dp"
             android:text="@string/customer_service"
             android:textColor="@color/gray"
-            android:textSize="13sp"/>
+            android:textSize="13sp"
+            android:textStyle="bold"/>
         <Button
             android:id="@+id/btSendQuestion"
             android:layout_width="match_parent"
@@ -60,7 +61,8 @@
             android:background="@color/green"
             android:text="교환, 환불 기타 문의"
             android:textSize="16sp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
 

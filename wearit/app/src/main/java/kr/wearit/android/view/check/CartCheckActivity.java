@@ -201,9 +201,6 @@ public class CartCheckActivity extends CheckBaseActivity {
         initDateTime();
 
         //추가상품 구성하기
-
-
-        //추가상품 구성하기
         //초기화
         btAddProduct = (Button)footer.findViewById(R.id.bt_add_product);
         tvAddProduct = (TextView)footer.findViewById(R.id.tv_add_product);
@@ -220,8 +217,6 @@ public class CartCheckActivity extends CheckBaseActivity {
                 startActivityForResult(intent, Const.GET_OPTION_ITEMS);
             }
         });
-
-
         //!추가상품 구성하기
 
         ((Button) footer.findViewById(R.id.bt_payment)).setOnClickListener(new View.OnClickListener() {
@@ -774,14 +769,14 @@ public class CartCheckActivity extends CheckBaseActivity {
         //tvSalePrice : 세일하기 전 가격
         //tvPrice : 판매가격
         if(mProduct.isSale()) {
-            tvSalePrice.setText(mProduct.getPrice() + "원");
-            tvPrice.setText(mProduct.getSalePrice() + "원");
+            tvSalePrice.setText(TextUtil.formatPriceWon(mProduct.getPrice()));
+            tvPrice.setText(TextUtil.formatPriceWon(mProduct.getSalePrice()));
             //오른쪽 정렬
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tvPrice.getLayoutParams();
             params.addRule(RelativeLayout.ALIGN_RIGHT, R.id.tvSalePrice);
             tvPrice.setLayoutParams(params);
         } else {
-            tvPrice.setText(mProduct.getPrice() + "원");
+            tvPrice.setText(TextUtil.formatPriceWon(mProduct.getPrice()));
         }
 
         return view;
