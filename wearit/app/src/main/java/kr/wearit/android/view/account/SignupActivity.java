@@ -2,6 +2,7 @@ package kr.wearit.android.view.account;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -97,6 +98,7 @@ public class SignupActivity extends BaseActivity {
                                 makeToast("이미 가입된 휴대폰 번호 입니다.");
                                 return;
                             }
+                            makeToast("인증 번호가 발송 되었습니다.");
                             System.out.println("인증 번호 : " + data);
                             confirmCode = data;
                         }
@@ -110,9 +112,14 @@ public class SignupActivity extends BaseActivity {
             public void onClick(View view) {
                 String input = etCertification.getText().toString();
                 if(input.equals(confirmCode)){
+                    makeToast("인증이 완료 되었습니다.");
                     isConfirm = true;
+                    etCertification.setTextColor(Color.parseColor("#d8d8d8"));
+                    etPhone.setTextColor(Color.parseColor("#d8d8d8"));
                     etPhone.setFocusable(false);
                     etPhone.setClickable(false);
+                    etCertification.setFocusable(false);
+                    etCertification.setClickable(false);
                 }
                 else{
                     makeToast("인증 번호를 다시 입력 해주세요.");

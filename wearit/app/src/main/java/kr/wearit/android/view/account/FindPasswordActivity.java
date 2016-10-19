@@ -3,6 +3,7 @@ package kr.wearit.android.view.account;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -99,6 +100,9 @@ public class FindPasswordActivity extends BaseActivity {
                                 return;
                             }
                             else {
+                                makeToast("인증번호가 발송 되었습니다.");
+                                etEmail.setTextColor(Color.parseColor("#d8d8d8"));
+                                etPhone.setTextColor(Color.parseColor("#d8d8d8"));
                                 etEmail.setFocusable(false);
                                 etEmail.setClickable(false);
                                 etPhone.setFocusable(false);
