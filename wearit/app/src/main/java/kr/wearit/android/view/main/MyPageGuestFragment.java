@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import kr.wearit.android.App;
 import kr.wearit.android.Const;
 import kr.wearit.android.R;
 import kr.wearit.android.view.CustomerServiceActivity;
@@ -66,13 +68,17 @@ public class MyPageGuestFragment extends Fragment {
             }
         });
 
-
         tvCustomService = (TextView)view.findViewById(R.id.tvCustomService);
         tvCustomService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CustomerServiceActivity.class);
-                startActivity(intent);
+                if(App.getInstance().isLogin()) {
+                    Intent intent = new Intent(getActivity(), CustomerServiceActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getActivity(),"로그인 후 이용해주세요.",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

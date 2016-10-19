@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textColor="@color/red"
                 android:layout_alignParentLeft="true"
                 android:visibility="invisible"/>
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:text="\u2192"
                 android:textColor="@color/black"
                 android:layout_centerHorizontal="true"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:includeFontPadding="false"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textColor="@color/black"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>

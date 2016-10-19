@@ -8,8 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import kr.wearit.android.R;
+import kr.wearit.android.controller.Api;
+import kr.wearit.android.controller.MessageApi;
+import kr.wearit.android.model.Message;
 
 public class CustomerServiceActivity extends BaseActivity {
 
@@ -45,6 +49,23 @@ public class CustomerServiceActivity extends BaseActivity {
         //TODO
         etCustomerService = (EditText)findViewById(R.id.etCustomerService);
         btSendQuestion = (Button)findViewById(R.id.btSendQuestion);
+
+        btSendQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Message item = new Message();
+                item.setContent(etCustomerService.getText().toString());
+
+                MessageApi.addForQuestion(item, new Api.OnAuthWaitListener<Integer>(getActivity()) {
+                    @Override
+                    public void onSuccess(Integer data) {
+                        Toast.makeText(getActivity(),"문의가 접수 되었습니다.",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+        });
 
     }
 }

@@ -127,15 +127,23 @@ public class UserApi extends Api {
 
 	}
 
-	public static void passwordFindRequest(String userid, String userphone,  OnAuthListener<PasswordRequest> handler){
+	public static void passwordFindRequest(String userid, String userphone,  OnAuthListener<String> handler){
 
 		PasswordRequest passwordRequest = new PasswordRequest();
 		passwordRequest.setUserid(userid);
 		passwordRequest.setUserphone(userphone);
 
-		post("/account/find/password", passwordRequest, handler, new TypeToken<Response<PasswordRequest>>() {
+		post("/account/find/password", passwordRequest, handler, new TypeToken<Response<String>>() {
 		}.getType());
 
+	}
+	public static void confirmPhone(String userphone,  OnAuthListener<String> handler){
+
+		PasswordRequest passwordRequest = new PasswordRequest();
+		passwordRequest.setUserphone(userphone);
+
+		post("/account/confirm", passwordRequest, handler, new TypeToken<Response<String>>() {
+		}.getType());
 	}
 
 
@@ -161,11 +169,10 @@ public class UserApi extends Api {
 
 	}
 
-	public static void changePassword(String userid, String phoneNum, String code, String password, OnAuthListener<Boolean> handler){
+	public static void changePassword(String userid, String phoneNum, String password, OnAuthListener<Boolean> handler){
 		PasswordRequest passwordRequest = new PasswordRequest();
 		passwordRequest.setUserid(userid);
 		passwordRequest.setUserphone(phoneNum);
-		passwordRequest.setCode(code);
 		passwordRequest.setPassword(password);
 
 		put("/account/change/password", passwordRequest, handler, new TypeToken<Response<Boolean>>() {

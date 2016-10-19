@@ -46,6 +46,9 @@ public class SignupActivity extends BaseActivity {
 
     private User user;
 
+    private String confirmCode;
+    private boolean isConfirm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,7 @@ public class SignupActivity extends BaseActivity {
 
     private void init() {
         mContext = this;
+        isConfirm = false;
 
         tvToolbarTitle = (TextView)findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("SIGN UP");
@@ -81,6 +85,40 @@ public class SignupActivity extends BaseActivity {
         etExtraAddress = (EditText)findViewById(R.id.etExtraAddress);
         etHeight = (EditText)findViewById(R.id.etHeight);
         etWeight = (EditText)findViewById(R.id.etWeight);
+
+        btSendSMS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isConfirm) {
+                    UserApi.confirmPhone(etPhone.getText().toString(), new Api.OnAuthDefaultListener<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            if(data == null){
+                                makeToast("이미 가입된 휴대폰 번호 입니다.");
+                                return;
+                            }
+                            System.out.println("인증 번호 : " + data);
+                            confirmCode = data;
+                        }
+                    });
+                }
+            }
+        });
+
+        btCertification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String input = etCertification.getText().toString();
+                if(input.equals(confirmCode)){
+                    isConfirm = true;
+                    etPhone.setFocusable(false);
+                    etPhone.setClickable(false);
+                }
+                else{
+                    makeToast("인증 번호를 다시 입력 해주세요.");
+                }
+            }
+        });
 
         btSignUp = (Button)findViewById(R.id.btSignUp);
         btSignUp.setOnClickListener(new Button.OnClickListener() {
@@ -128,6 +166,11 @@ public class SignupActivity extends BaseActivity {
     private boolean isFormIsValid() {
 
         String email = etEmail.getText().toString();
+
+        if(!isConfirm) {
+            makeToast("휴대폰 인증을 해주세요.");
+            return false;
+        }
         if(email.equals("")) {
             makeToast("Email을 입력해 주세요.");
             return false;

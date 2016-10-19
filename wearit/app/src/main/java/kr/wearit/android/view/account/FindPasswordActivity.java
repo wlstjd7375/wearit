@@ -11,10 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import kr.wearit.android.App;
 import kr.wearit.android.Const;
 import kr.wearit.android.R;
+import kr.wearit.android.controller.Api;
+import kr.wearit.android.controller.UserApi;
+import kr.wearit.android.model.PasswordRequest;
+import kr.wearit.android.util.EncryptPassword;
 import kr.wearit.android.view.BaseActivity;
 
 public class FindPasswordActivity extends BaseActivity {
@@ -32,6 +37,14 @@ public class FindPasswordActivity extends BaseActivity {
     private EditText etNewPassword;
     private EditText etNewPasswordConfirm;
     private Button btDone;
+
+    private String confirmCode;
+    private boolean isConfirm;
+
+
+    private String email;
+    private String phone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +54,7 @@ public class FindPasswordActivity extends BaseActivity {
     }
 
     private void init() {
+        isConfirm = false;
         mContext = this;
         tvToolbarTitle = (TextView)findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("FIND PASSWORD");
@@ -62,9 +76,82 @@ public class FindPasswordActivity extends BaseActivity {
         btDone.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog();
+                if(isFormIsValid()) {
+                    UserApi.changePassword(etEmail.getText().toString(), etPhone.getText().toString(), EncryptPassword.encryptSHA256(etNewPassword.getText().toString()), new Api.OnAuthDefaultListener<Boolean>() {
+                        @Override
+                        public void onSuccess(Boolean data) {
+                            showDialog();
+                        }
+                    });
+                }
             }
         });
+
+        btSendSMS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isConfirm){
+                    UserApi.passwordFindRequest(etEmail.getText().toString(), etPhone.getText().toString(), new Api.OnAuthDefaultListener<String>(){
+                        @Override
+                        public void onSuccess(String data){
+                            if(data == null) {
+                                makeToast("일치하는 회원 정보가 없습니다.");
+                                return;
+                            }
+                            else {
+                                etEmail.setFocusable(false);
+                                etEmail.setClickable(false);
+                                etPhone.setFocusable(false);
+                                etPhone.setClickable(false);
+                                confirmCode = data;
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+    }
+
+    private boolean isFormIsValid() {
+
+        String email = etEmail.getText().toString();
+
+        if(confirmCode != null && confirmCode.length() != 0 && etCertification.getText().toString().equals(confirmCode)){
+            isConfirm = true;
+        }
+
+        if(!isConfirm) {
+            makeToast("휴대폰 인증을 해주세요.");
+            return false;
+        }
+        if(email.equals("")) {
+            makeToast("Email을 입력해 주세요.");
+            return false;
+        }
+        if(!email.contains("@") || !email.contains(".")) {
+            makeToast("Email 형식이 잘못되었습니다.");
+            return false;
+        }
+
+        String password = etNewPassword.getText().toString();
+        String password2 = etNewPasswordConfirm.getText().toString();
+        if(password.equals("")) {
+            makeToast("비밀번호를 입력해주세요.");
+            return false;
+        }
+        if(!password.equals(password2)) {
+            makeToast("비밀번호를 확인해주세요.");
+            return false;
+        }
+
+        String authenNumber = etCertification.getText().toString();
+        if(authenNumber.equals("")) {
+            makeToast("휴대폰 인증을 해주세요.");
+            return false;
+        }
+
+        return true;
     }
 
     //move
@@ -98,4 +185,9 @@ public class FindPasswordActivity extends BaseActivity {
         });
         dialog.show();
     }
+
+    private void makeToast(String msg) {
+        Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+    }
+
 }

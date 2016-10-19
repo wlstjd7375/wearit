@@ -107,7 +107,8 @@ public class MyInfoActivity extends BaseActivity {
 
     private void setUserDefaultInfo() {
         User user = App.getInstance().getUser();
-        etEmail.setHint(user.getEmail());
+        System.out.println("User Id : " + user.getId());
+        etEmail.setHint(user.getId());
         etName.setHint(user.getName());
         etPassword.setText("000000");
         etPassword.setTextColor(ContextCompat.getColor(mContext, R.color.edittext_hint_color));
