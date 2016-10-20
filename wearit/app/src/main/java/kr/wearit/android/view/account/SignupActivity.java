@@ -50,6 +50,11 @@ public class SignupActivity extends BaseActivity {
     private String confirmCode;
     private boolean isConfirm;
 
+    private static String address;
+    private static String postcd;
+
+    private Wait wait;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +66,7 @@ public class SignupActivity extends BaseActivity {
     private void init() {
         mContext = this;
         isConfirm = false;
-
+        wait = new Wait();
         tvToolbarTitle = (TextView)findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("SIGN UP");
         ivToolbarBack = (ImageView)findViewById(R.id.ivToolbarBack);
@@ -153,6 +158,13 @@ public class SignupActivity extends BaseActivity {
                 }
             }
         });
+
+        btFindAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FindAddressActivity.launch(getActivity());
+            }
+        });
     }
 
     private void makeUserInfo() {
@@ -164,6 +176,7 @@ public class SignupActivity extends BaseActivity {
         user.setName(etName.getText().toString());
         user.setBirthday(etBirthday.getText().toString());
         user.setPhone(etPhone.getText().toString());
+        user.setPostcode(postcd);
         user.setAddress1(etAddress.getText().toString());
         user.setAddress2(etExtraAddress.getText().toString());
         user.setHeight(etHeight.getText().toString());
@@ -229,4 +242,19 @@ public class SignupActivity extends BaseActivity {
         Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
     }
 
+    public void setAddress(String postcd, String address) {
+        this.postcd = postcd;
+        this.address = address;
+
+        wait.run();
+    }
+
+    private class Wait implements Runnable{
+
+        @Override
+        public void run() {
+            etAddress.setText(address);
+
+        }
+    }
 }

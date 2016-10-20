@@ -40,20 +40,24 @@
             android:name=".view.ItemListActivity"
             android:label="@string/title_activity_item_list"
             android:theme="@style/AppTheme" />
-        <activity android:name=".view.account.LoginActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
-        <activity android:name=".view.account.SignupActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity
+            android:name=".view.account.LoginActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".view.account.SignupActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".view.MoreActivity" />
         <activity android:name=".view.product.ProductActivity" />
         <activity android:name=".view.news.NewsActivity" />
         <activity
             android:name=".view.account.MyInfoActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".view.account.FindPasswordActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
-        <activity android:name=".view.search.SearchActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity
+            android:name=".view.account.FindPasswordActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".view.search.SearchActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".view.search.SearchResultActivity" />
         <activity android:name=".view.CustomerServiceActivity" />
         <activity android:name=".view.SettingActivity" />
@@ -71,11 +75,14 @@
         <activity android:name=".view.check.CardPaymentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="wearit" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.account.FindAddressActivity"></activity>
     </application>
 
 </manifest>

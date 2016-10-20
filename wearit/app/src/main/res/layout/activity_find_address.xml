@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_find_address"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="kr.wearit.android.view.account.FindAddressActivity">
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height_border"
+        layout="@layout/toolbar_with_back" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="19dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:paddingBottom="24dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/round_angle_009688"
+            android:padding="2dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/et_search"
+                    android:textColor="#000000"
+                    android:textColorHint="#808080"
+                    android:hint="도로명/지번 통합검색"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:includeFontPadding="false"
+                    android:layout_marginLeft="14dp"
+                    android:layout_toLeftOf="@+id/bt_search"
+                    android:layout_toStartOf="@+id/bt_search" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bt_search"
+                    android:background="@drawable/bt_address_search"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_tip"
+            android:orientation="vertical"
+            android:paddingTop="13dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TIP"
+                android:textColor="#808080"
+                android:textSize='15sp'
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="- 동/읍/면은 지번까지 입력해주세요.\n예) 역삼동˘89-10, 삼평동˘681"
+                android:textColor="#1b1b1b"
+                android:textSize="11sp"
+                android:layout_marginTop="4dp"
+                android:textStyle="bold"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="- 도로명은 뒤 숫자까지 입력해주세요.\n예) 판교역로˘235, 첨단로˘242"
+                android:textColor="#1b1b1b"
+                android:textSize="11sp"
+                android:layout_marginTop="4dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ll_result"
+        android:background="#f2f2f2"
+        android:paddingTop="30dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingBottom="30dp"
+        android:visibility="gone">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_result"
+            android:divider="#FFFFFF"
+            android:dividerHeight="0dp"
+            android:listSelector="@android:color/transparent">
+
+        </ListView>
+    </LinearLayout>
+</LinearLayout>
