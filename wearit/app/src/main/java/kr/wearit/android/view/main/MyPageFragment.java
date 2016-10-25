@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gcm.GCMRegistrar;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -23,6 +24,7 @@ import kr.wearit.android.App;
 import kr.wearit.android.R;
 import kr.wearit.android.adapter.MyPageAdapter;
 import kr.wearit.android.controller.Api;
+import kr.wearit.android.controller.DeviceApi;
 import kr.wearit.android.controller.UserApi;
 import kr.wearit.android.view.CouponActivity;
 import kr.wearit.android.view.CustomerServiceActivity;
@@ -89,6 +91,13 @@ public class MyPageFragment extends Fragment {
                         mStartActivity(CustomerServiceActivity.class);
                         break;
                     case 5: //LOG OUT api 필요한지
+                        DeviceApi.unregister(GCMRegistrar.getRegistrationId(getActivity()),new Api.OnWaitListener<Void>(getActivity()) {
+
+                            @Override
+                            public void onSuccess(Void data) {
+                                GCMRegistrar.unregister(getActivity());
+                            }
+                        });
                         UserApi.logout(new Api.OnWaitListener<Void>(getActivity()) {
                             @Override
                             public void onSuccess(Void data) {

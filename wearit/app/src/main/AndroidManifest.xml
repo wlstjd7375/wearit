@@ -14,7 +14,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="kr.stylemap.android.permission.C2D_MESSAGE" />
+    <uses-permission android:name="kr.wearit.android.permission.C2D_MESSAGE" />
+
+    <permission
+        android:name="kr.wearit.android.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
     <application
         android:name=".App"
@@ -23,6 +27,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="kr.wearit.android" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".GCMIntentService" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <activity
             android:name=".view.SplashActivity"
             android:screenOrientation="portrait"

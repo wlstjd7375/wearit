@@ -115,9 +115,13 @@ public class App extends Application {
         if (LOG)
             Log.d(TAG, "onCreate // 2014-12-29");
 
+        instance = this;
+
         Typekit.getInstance()
                 .addNormal(Typekit.createFromAsset(this, "NotoSansCJKkr-Regular.otf"))
                 .addBold(Typekit.createFromAsset(this, "NotoSansCJKkr-Medium.otf"));
+
+        GcmUtil.check();
 
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 
@@ -230,7 +234,43 @@ public class App extends Application {
 
         editor.commit();
         mUser = user;
+
+        final String regId = GCMRegistrar.getRegistrationId(this);
+
+        if (LOG)
+            Log.d(TAG, "register // regId = " + regId);
+
+        if (TextUtils.isEmpty(regId)) {
+            // Automatically registers application on startup.
+            GCMRegistrar.register(this, Const.GCM_SENDER_ID);
+            return;
+        }
+
+        // Device is already registered on GCM, check server.
+        if (GCMRegistrar.isRegisteredOnServer(this)) {
+            // Skips registration.
+            return;
+        }
+
+        DeviceApi.register(regId, new Api.OnAuthDefaultListener<Void>() {
+
+            @Override
+            public void onSuccess(Void data) {
+                if (LOG)
+                    Log.d(TAG, "register.onSuccess");
+
+                GCMRegistrar.setRegisteredOnServer(App.getInstance(), true);
+            }
+
+            @Override
+            public void onFail() {
+                if (LOG)
+                    Log.d(TAG, "register.onFail");
+                GcmUtil.unregister();
+            }
+        });
     }
+
 
     public void setNextActivityAction(int action) {
         activityNextAction = action;

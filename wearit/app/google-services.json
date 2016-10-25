@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "314410350705",
+    "firebase_url": "https://wearit-d5e96.firebaseio.com",
+    "project_id": "wearit-d5e96",
+    "storage_bucket": "wearit-d5e96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314410350705:android:463d2f99b79924e3",
+        "android_client_info": {
+          "package_name": "kr.wearit.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314410350705-spptra1b3aaljna0hgsg99c8lv9munuu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [{ "current_key": "" }],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

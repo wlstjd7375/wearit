@@ -9,7 +9,7 @@ public class Const {
 
     public static final String POST_KEY = "d81522b639b497ff31452607481149";
 
-    public static final String GCM_SENDER_ID = "138367656446";
+    public static final String GCM_SENDER_ID = "314410350705";
     public static final String GCM_TYPE = "t";
     public static final String GCM_TYPE_BROADCAST_NOTIFICATION = "tbn";
     public static final String GCM_TYPE_BROADCAST_MESSAGE = "tbm";
@@ -23,7 +23,7 @@ public class Const {
     public static final String GCM_UNREAD = "ur";
     public static final String GCM_IMAGE = "i";
 
-    public static final String SHOP_STYLEMAP = "STYLE MAP";
+    public static final String SHOP_STYLEMAP = "WearIt";
 
     //public static final int DRAWABLE_AVATAR = R.drawable.profileimage_big;
 
